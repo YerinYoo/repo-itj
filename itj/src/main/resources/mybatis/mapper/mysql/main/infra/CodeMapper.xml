@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ERR.infra.code.CodeDao">
+<mapper namespace="com.itjfw.infra.code.CodeDao">
 
-	<resultMap id="resultMapObj"
-		type="com.ERR.infra.code.CodeDto"></resultMap>
+	<resultMap id="resultMapObj" type="com.itjfw.infra.code.CodeDto"></resultMap>
 
 	<sql id="commonSelectCode">
 		FROM code a
