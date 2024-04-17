@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 public class CodeGroupController {
 	
 	@Autowired
-	CodeGroupService service;
+	CodeGroupService codeGroupService;
 
 	
 

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 public class CodeGroupService {
 
 	@Autowired
-	CodeGroupDao dao;
+	CodeGroupDao codeGroupDao;
 
 }
