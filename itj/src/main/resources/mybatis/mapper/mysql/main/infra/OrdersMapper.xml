@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itjfw.infra.orders.OrdersDao">
+
+<resultMap id="resultMapObj" type="com.itjfw.infra.orders.OrdersDto"></resultMap>
+
+<!-- Orders Mapper 공통 구문 -->
+<!-- select 공통 구문 SQL -->
+	<sql id ="selectCommon">
+		from
+			orders
+		where 1=1
+			and ordersDelNy = 0
+			<if test="shDelNy != null and !shDelNy.equals('')">AND ordersDelNy = #{shDelNy}</if>
+			
+ 			<choose>
+				<when test="shOptionDate == 1">AND ordersRegDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				<when test="shOptionDate == 2">AND ordersModDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			</choose>
+			
+ 			<choose> 
+	            <when test="shOption == 1">AND ordersSeq = #{shValue}</when>
+	            <when test="shOption == 2">AND ordererName = #{shValue}</when>	       
+       		</choose>
+	</sql>
+	
+<select id="ordersList" resultMap="resultMapObj">
+<include refid="base.selectListUpperForMysql" />
+	select
+		ordersSeq,
+		ordererName,
+		ordersDelNy,
+		ordersRegDate,
+		ordersModDate,
+		memberSeqF
+		
+<include refid="selectCommon" />
+order by ordersSeq
+limit 99999999999
+<include refid="base.selectListLowerForMysql" />
+</select>
+
+
+<select id="getTotalOrdersCount" resultType="Integer">
+select count(*)
+<include refid="selectCommon"></include>
+</select>
+
+<!-- 멤버 정보 셀렉문 -->
+<select id="selectOrders" resultMap="resultMapObj">
+select
+	ordersSeq,
+	ordererName,
+	ordersDelNy,
+	ordersRegDate,
+	ordersModDate,
+	memberSeqF
+	
+from
+	orders
+	
+where 1=1
+and
+	ordersSeq=#{ordersSeq}
+</select>
+
+<!--  주문 정보 추가 -->
+<insert id="ordersInst">
+insert into orders (
+	ordererName,
+	ordersDelNy,
+	ordersRegDate,
+	ordersModDate,
+	memberSeqF
+) values (
+	#{ordererName},
+	#{ordersDelNy},
+	now(),
+	now(),
+	#{memberSeqF}
+);
+</insert>
+
+<!-- 주문 정보 수정 -->
+<update id="ordersUpdt">
+update orders
+set
+	ordererName=#{ordererName},
+	ordersDelNy=#{ordersDelNy},
+	ordersRegDate=now(),
+	ordersModDate=now(),
+
+where 1=1
+	and ordersSeq=#{ordersSeq}
+</update>
+
+<!-- 주문 정보 삭제 / Uelete -->
+<update id="ordersUlt">
+update orders
+set
+	ordersDelNy=1
+where 1=1
+and
+	ordersSeq=#{ordersSeq}
+</update>
+
+<!-- 주문 정보 삭제 / 아예 삭제 -->
+<delete id="ordersDel">
+delete from orders
+where 1=1
+and
+	ordersSeq=#{ordersSeq}
+</delete>
+	
+
+
+</mapper>

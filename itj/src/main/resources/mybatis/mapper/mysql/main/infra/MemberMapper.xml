@@ -5,7 +5,30 @@
 
 <resultMap id="resultMapObj" type="com.itjfw.infra.member.MemberDto"></resultMap>
 
+<!-- member Mapper 공통 구문 -->
+<!-- select 공통 구문 SQL -->
+	<sql id ="selectCommon">
+		from
+			member
+		where 1=1
+			and memberDelNy = 0
+			<if test="shDelNy != null and !shDelNy.equals('')">AND memberDelNy = #{shDelNy}</if>
+			
+ 			<choose>
+				<when test="shOptionDate == 1">AND memberRegDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				<when test="shOptionDate == 2">AND memberModDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			</choose>
+			
+ 			<choose> 
+	            <when test="shOption == 1">AND memberSeq = #{shValue}</when>
+	            <when test="shOption == 2">AND memberName = #{shValue}</when>	       
+	            <when test="shOption == 3">AND memberID = #{shValue}</when>     
+	           <when test="shOption == 4">AND memberTypeCd = #{shValue}</when>
+       		</choose>
+	</sql>
+	
 <select id="memberList" resultMap="resultMapObj">
+<include refid="base.selectListUpperForMysql" />
 	select
 		memberSeq,
 		memberID,
@@ -18,13 +41,19 @@
 		memberRegDate,
 		memberModDate
 		
-	from
-		member
-		
-	where
-		1=1
+<include refid="selectCommon" />
+order by memberSeq
+limit 99999999999
+<include refid="base.selectListLowerForMysql" />
 </select>
 
+
+<select id="getTotalMemberCount" resultType="Integer">
+select count(*)
+<include refid="selectCommon"></include>
+</select>
+
+<!-- 멤버 정보 셀렉문 -->
 <select id="selectMember" resultMap="resultMapObj">
 select
 	memberSeq,
@@ -46,7 +75,8 @@ and
 	memberSeq=#{memberSeq}
 </select>
 
-<insert id="insertMember">
+<!--  Add Member -->
+<insert id="memberInst">
 insert into member (
 	memberID,
 	memberPwd,
@@ -70,6 +100,7 @@ insert into member (
 );
 </insert>
 
+<!-- 멤버 정보 수정 -->
 <update id="memberUpdt">
 update member
 set
@@ -87,6 +118,7 @@ where 1=1
 	and memberSeq=#{memberSeq}
 </update>
 
+<!-- 멤버 삭제 / Uelete -->
 <update id="memberUlt">
 update member
 set
@@ -96,6 +128,7 @@ and
 	memberSeq=#{memberSeq}
 </update>
 
+<!-- 멤버 삭제 / 아예 삭제 -->
 <delete id="memberDel">
 delete from member
 where 1=1
