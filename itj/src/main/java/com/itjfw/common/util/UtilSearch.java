@@ -1,7 +1,7 @@
 package com.itjfw.common.util;
 
-import com.babify.common.constants.Constants;
-import com.babify.infra.BaseVo;
+import com.itjfw.common.base.BaseVo;
+import com.itjfw.common.constants.Constants;
 
 public class UtilSearch {
 
