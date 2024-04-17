@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itjfw.infra.product.ProductDao">
+
+	<resultMap id="resultMapObj" type="com.itjfw.infra.product.ProductDto"></resultMap>
+
+
+<!-- 	select 공통 구문 -->
+		<sql id ="selectCommonProduct">
+			FROM product a
+			where 1=1
+			<if test="shDelNy != null and !shDelNy.equals('')">AND a.productDelNy = #{shDelNy}</if>
+				  
+			<choose>
+				<when test="shOptionDate == 1">AND a.productRegDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				<when test="shOptionDate == 2">AND a.productModDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			</choose>
+				
+			<choose> 
+	            <when test="shOption == 1">AND a.productSeq = #{shValue}</when>
+	            <when test="shOption == 2">AND a.productName LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 3">AND a.productMemo LIKE CONCAT('%',#{shValue},'%')</when>
+	   		</choose>
+		</sql>
+
+<!-- 	프로덕트 셀렉 리스트 -->
+	<select id="selectList" resultMap="resultMapObj">
+		<include refid="base.selectListUpperForMysql" />
+		select
+			a.productSeq
+			,a.productName
+			,a.productPrice
+			,a.productMemo
+			,a.productStock
+			,a.productDelNy
+			,a.productRegDate
+			,a.productModDate
+			,a.memberSeqF
+		<include refid="selectCommonProduct" />
+		ORDER BY a.productSeq desc
+		limit 99999999999
+		<include refid="base.selectListLowerForMysql" />
+	</select>
+	
+<!-- 	프로덕트 셀렉 카운트	 -->
+	<select id="selectOneCount" resultType="Integer">
+		select COUNT(*)
+		<include refid="selectCommonProduct"></include>
+	</select>
+	
+		<!-- 프로덕트 셀렉원 -->
+	<select id="selectOne" resultMap="resultMapObj">
+		select
+			a.productSeq
+			,a.productName
+			,a.productPrice
+			,a.productMemo
+			,a.productStock
+			,a.productDelNy
+			,a.productRegDate
+			,a.productModDate
+			,a.memberSeqF
+		from
+			product a
+		where 1=1
+			and a.productDelNy = 0
+		    and a.productSeq = #{productSeq}
+	</select>
+	
+	<insert id="insert">
+		insert into product(
+			productName
+			,productPrice
+			,productMemo
+			,productStock
+			,productDelNy
+			,productRegDate
+			,productModDate
+			,memberSeqF
+		) values (
+			#{productName}
+			,#{productPrice}
+			,#{productMemo}
+			,#{productStock}
+			,0
+			,now()
+			,now()
+			,#{memberSeqF}
+		)
+	</insert>
+	
+	<update id="update">
+		update product
+		set
+			productName = #{productName}
+			,productPrice = #{productPrice}
+			,productMemo = #{productMemo}
+			,productStock = #{productStock}
+			,productModDate = now()
+			,memberSeqF = #{memberSeqF}
+		where 1=1
+			and productSeq = #{productSeq}
+	</update>
+	
+	<update id="updateDelete">
+   	update product
+   	set
+   		productDelNy = 1
+   	WHERE 1=1
+   		and productSeq = #{productSeq}
+  	
+  	</update>
+  	
+  	<delete id="delete">
+  	delete from product
+  	
+  	where 1=1
+  		and productSeq = #{productSeq}
+  	
+  	</delete>
+	
+	
+	
+	
+</mapper>
