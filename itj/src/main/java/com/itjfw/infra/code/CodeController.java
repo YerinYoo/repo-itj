@@ -7,18 +7,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itjfw.common.base.BaseController;
+import com.itjfw.common.util.UtilSearch;
 import com.itjfw.infra.codegroup.CodeGroupService;
 
 @Controller
 public class CodeController extends BaseController {
-
+	private String codeUrl = "xdm/code/";
+	
 	@Autowired
 	CodeService codeService;
 	@Autowired
 	CodeGroupService codeGroupService;
 	@RequestMapping(value = "/codeXdmList")
 	public String codeXdmList(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
-//		util.setSearch(vo);
+		UtilSearch.setSearch(vo);
 
 		vo.setParamsPaging(codeService.selectCount(vo));
 
@@ -26,7 +28,7 @@ public class CodeController extends BaseController {
 			model.addAttribute("list", codeService.selectListWithPaging(vo));
 		}
 
-		return "xdm/code/codeXdmList";
+		return codeUrl+"codeXdmList";
 	}
 
 //	@RequestMapping(value="/codeGroupView")
@@ -48,20 +50,20 @@ public class CodeController extends BaseController {
 
 		model.addAttribute("item", codeService.selectOne(dto));
 
-		return "codeView";
+		return codeUrl+"codeView";
 	}
 
 	@RequestMapping(value = "/codeUpdateForm")
 	public String codeUpdateForm(Model model, CodeDto dto) throws Exception {
 
 		model.addAttribute("item", codeService.selectOne(dto));
-		return "codeUpdateForm";
+		return codeUrl+"codeUpdateForm";
 	}
 
 	@RequestMapping(value = "/codeInsertForm")
 	public String codeInsertForm(Model model) throws Exception {
 		model.addAttribute("codeGroupList", codeGroupService.selectListWithoutPaging());
-		return "codeInsertForm";
+		return codeUrl+"codeInsertForm";
 	}
 
 	@RequestMapping(value = "/codeInsert")

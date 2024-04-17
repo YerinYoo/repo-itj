@@ -4,7 +4,7 @@ import com.itjfw.common.constants.Constants;
 
 public class BaseVo {
 
-//	paging
+	// paging
 	private int thisPage = 1; // 현재 페이지
 	private int rowNumToShow = Constants.ROW_NUM_TO_SHOW; // 화면에 보여줄 데이터 줄 갯수
 	private int pageNumToShow = Constants.PAGE_NUM_TO_SHOW; // 화면에 보여줄 페이징 번호 갯수
@@ -18,66 +18,67 @@ public class BaseVo {
 	private int endRnumForOracle; // 쿼리 끝 row
 	private Integer RNUM;
 
-	private int startRnumForMysql = 0; // 쿼리 시작 row
+	private int startRnumForMysql = 0; // 쿼리 시작 row - startpage의 맨 첫 리스트 지정
 
-	// search 관련
-	private Integer voUseNy = 1; /* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
-	private Integer voDelNy = 0; /* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
-	private Integer voOptionDate = 2; /* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
+	// search
+	private Integer voOptionDate; /* 날짜종류(등록일 등) 검색 옵션 */
+	private Integer voDelNy; /* 삭제여부 검색 옵션 */
+	private Integer voOption; /* 검색종류 옵션 */
+	private String voValue; /* 검색한 내용 */
+
+	/* 검색할 날짜 기간 (시작일, 종료일) */
 	private String voDateStart;
 	private String voDateEnd;
-	private Integer voOption; /* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
-	private String voValue;
 
-	// 페이징 관련 totalRoswParam
-	public void setParamsPaging(int totalRowsParam) {
+	// 페이징 계산 처리 로직
+	public void setParamsPaging(int totalRows) {
+		setTotalRows(totalRows);
 
-		totalRows = totalRowsParam;
-
-		totalPages = totalRows / rowNumToShow;
-
-		if (totalRows % rowNumToShow > 0) {
-			totalPages = totalPages + 1;
+		if (getTotalRows() == 0) {
+			setTotalPages(1);
+		} else {
+			setTotalPages(getTotalRows() / getRowNumToShow());
 		}
 
-		if (totalPages < thisPage) {
-			thisPage = totalPages;
+		if (getTotalRows() % getRowNumToShow() > 0) {
+			setTotalPages(getTotalPages() + 1);
 		}
 
-		startPage = (((thisPage - 1) / pageNumToShow) * pageNumToShow + 1);
-
-		endPage = (startPage + pageNumToShow - 1);
-
-		if (endPage > totalPages) {
-			endPage = (totalPages);
+		if (getTotalPages() < getThisPage()) {
+			setThisPage(getTotalPages());
 		}
 
-		endRnumForOracle = ((rowNumToShow * thisPage));
-		startRnumForOracle = ((endRnumForOracle - rowNumToShow) + 1);
-		if (startRnumForOracle < 1)
-			startRnumForOracle = 1;
+		setStartPage(((getThisPage() - 1) / getPageNumToShow()) * getPageNumToShow() + 1);
+
+		setEndPage(getStartPage() + getPageNumToShow() - 1);
+
+		if (getEndPage() > getTotalPages()) {
+			setEndPage(getTotalPages());
+		}
+
+		setEndRnumForOracle((getRowNumToShow() * getThisPage()));
+		setStartRnumForOracle((getEndRnumForOracle() - getRowNumToShow()) + 1);
+
+		if (getStartRnumForOracle() < 1)
+			setStartRnumForOracle(1);
 
 		if (thisPage == 1) {
-			startRnumForMysql = 0;
+			setStartRnumForMysql(0);
 		} else {
-			startRnumForMysql = ((rowNumToShow * (thisPage - 1)));
+			setStartRnumForMysql((getRowNumToShow() * (getThisPage() - 1)));
 		}
 
-//		System.out.println("최종 결과값--------------------------------------------------");
-//		System.out.println("getThisPage():" + thisPage);
-//		System.out.println("getTotalRows():" + totalRows);
-//		System.out.println("getRowNumToShow():" + rowNumToShow);
-//		System.out.println("getTotalPages():" + totalPages);
-//		System.out.println("getStartPage():" + startPage);
-//		System.out.println("getEndPage():" + endPage);		
-//		System.out.println("getStartRnumForOracle():" + startRnumForOracle);
-//		System.out.println("getEndRnumForOracle():" + endRnumForOracle);
-//		System.out.println("getStartRnumForMysql(): " + startRnumForMysql);
-//		
+//			System.out.println("getThisPage():" + getThisPage());
+//			System.out.println("getTotalRows():" + getTotalRows());
+//			System.out.println("getRowNumToShow():" + getRowNumToShow());
+//			System.out.println("getTotalPages():" + getTotalPages());
+//			System.out.println("getStartPage():" + getStartPage());
+//			System.out.println("getEndPage():" + getEndPage());		
+//			System.out.println("getStartRnumForOracle():" + getStartRnumForOracle());
+//			System.out.println("getEndRnumForOracle():" + getEndRnumForOracle());
+//			System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
 
 	}
-
-	// get/set
 
 	public int getThisPage() {
 		return thisPage;
@@ -167,22 +168,6 @@ public class BaseVo {
 		this.startRnumForMysql = startRnumForMysql;
 	}
 
-	public Integer getVoUseNy() {
-		return voUseNy;
-	}
-
-	public void setVoUseNy(Integer voUseNy) {
-		this.voUseNy = voUseNy;
-	}
-
-	public Integer getVoDelNy() {
-		return voDelNy;
-	}
-
-	public void setVoDelNy(Integer voDelNy) {
-		this.voDelNy = voDelNy;
-	}
-
 	public Integer getVoOptionDate() {
 		return voOptionDate;
 	}
@@ -191,20 +176,12 @@ public class BaseVo {
 		this.voOptionDate = voOptionDate;
 	}
 
-	public String getVoDateStart() {
-		return voDateStart;
+	public Integer getVoDelNy() {
+		return voDelNy;
 	}
 
-	public void setVoDateStart(String voDateStart) {
-		this.voDateStart = voDateStart;
-	}
-
-	public String getVoDateEnd() {
-		return voDateEnd;
-	}
-
-	public void setVoDateEnd(String voDateEnd) {
-		this.voDateEnd = voDateEnd;
+	public void setVoDelNy(Integer voDelNy) {
+		this.voDelNy = voDelNy;
 	}
 
 	public Integer getVoOption() {
@@ -223,5 +200,20 @@ public class BaseVo {
 		this.voValue = voValue;
 	}
 
-	
+	public String getVoDateStart() {
+		return voDateStart;
+	}
+
+	public void setVoDateStart(String voDateStart) {
+		this.voDateStart = voDateStart;
+	}
+
+	public String getVoDateEnd() {
+		return voDateEnd;
+	}
+
+	public void setVoDateEnd(String voDateEnd) {
+		this.voDateEnd = voDateEnd;
+	}
+
 }
