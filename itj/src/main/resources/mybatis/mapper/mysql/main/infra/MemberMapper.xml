@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itjfw.infra.member.MemberDao">
+
+<resultMap id="resultMapObj" type="com.itjfw.infra.member.MemberDto"></resultMap>
+
+<select id="memberList" resultMap="resultMapObj">
+	select
+		memberSeq,
+		memberID,
+		memberPwd,
+		memberName,
+		memberGenderCd,
+		memberTypeCd,
+		memberAddr,
+		memberDelNy,
+		memberRegDate,
+		memberModDate
+		
+	from
+		member
+		
+	where
+		1=1
+</select>
+
+<select id="selectMember" resultMap="resultMapObj">
+select
+	memberSeq,
+	memberID,
+	memberPwd,
+	memberName,
+	memberGenderCd,
+	memberTypeCd,
+	memberAddr,
+	memberDelNy,
+	memberRegDate,
+	memberModDate
+	
+from
+	member
+	
+where 1=1
+and
+	memberSeq=#{memberSeq}
+</select>
+
+<insert id="insertMember">
+insert into member (
+	memberID,
+	memberPwd,
+	memberName,
+	memberGenderCd,
+	memberTypeCd,
+	memberAddr,
+	memberDelNy,
+	memberRegDate,
+	memberModDate
+) values (
+	#{memberID},
+	#{memberPwd}.
+	#{memberName},
+	#{memberGenderCd},
+	#{memberTypeCd},
+	#{memberAddr},
+	#{memberDelNy},
+	now(),
+	now()
+);
+</insert>
+
+<update id="memberUpdt">
+update member
+set
+	memberID=#{memberID},
+	memberPwd=#{memberPwd},
+	memberName=#{memberName},
+	memberGenderCd=#{memberGenderCd},
+	memberTypeCd=#{memberTypeCd},
+	memberAddr=#{memberAddr},
+	memberDelNy=#{memberDelNy},
+	memberRegDate=now(),
+	memberModDate=now()
+	
+where 1=1
+	and memberSeq=#{memberSeq}
+</update>
+
+<update id="memberUlt">
+update member
+set
+	memberDelNy=1
+where 1=1
+and
+	memberSeq=#{memberSeq}
+</update>
+
+<delete id="memberDel">
+delete from member
+where 1=1
+and
+	memberSeq=#{memberSeq}
+</delete>
+	
+
+
+</mapper>
