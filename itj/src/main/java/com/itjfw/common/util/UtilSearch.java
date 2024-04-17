@@ -14,12 +14,12 @@ public class UtilSearch {
 //		vo.setShOptionDate(vo.getShOptionDate() == null ? 2 : vo.getShOptionDate());
 		
 		/* 초기값 세팅이 있는 경우 사용 */
-		vo.setShDateStart(vo.getShDateStart() == null
+		vo.setVoDateStart(vo.getVoDateStart() == null
 		    ? UtilDateTime.calculateDayReplace00TimeString(UtilDateTime.nowLocalDateTime(), Constants.DATE_INTERVAL)
-		    : UtilDateTime.add00TimeString(vo.getShDateStart()));
-		vo.setShDateEnd(vo.getShDateEnd() == null
+		    : UtilDateTime.add00TimeString(vo.getVoDateStart()));
+		vo.setVoDateEnd(vo.getVoDateEnd() == null
 		    ? UtilDateTime.nowString()
-		    : UtilDateTime.add59TimeString(vo.getShDateEnd()));		
+		    : UtilDateTime.add59TimeString(vo.getVoDateEnd()));		
 		
 //		/* 초기값 세팅이 없는 경우 사용 */
 //		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTime.add00TimeString(vo.getShDateStart()));

@@ -4,6 +4,111 @@
 <mapper namespace="com.itjfw.infra.codegroup.CodeGroupDao">
 
     <resultMap id="resultMapObj" type="com.itjfw.infra.codegroup.CodeGroupDto"></resultMap>
+	
+	<sql id="selectCommonCdg">
+		FROM codeGroup a
+		WHERE 1=1
+			<if test="voDelNy != null and !voDelNy.equals('')">AND a.codeGroupDelNy = #{voDelNy}</if>
+			
+		<choose>
+			<when test="voOptionDate == 1">AND a.codeGroupRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+			<when test="voOptionDate == 2">AND a.codeGroupModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+		</choose>
+
+		<choose>
+			<when test="voOption == 1">AND a.codeGroupSeq = #{voValue}</when>
+			<when test="voOption == 2">AND a.codeGroupName LIKE CONCAT('%',#{voValue},'%')</when>
+			<when test="voOption == 3">AND a.codeGroupMemo LIKE CONCAT('%',#{voValue},'%')</when>
+		</choose>
+	</sql>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+		select
+		codeGroupSeq
+		,codeGroupName
+		,codeGroupMemo
+		,codeGroupRegDate
+		,codeGroupModDate
+		,codeGroupDelNy
+		from
+		codeGroup
+		where 1=1
+		and codeGroupSeq = #{codeGroupSeq}
+	</select>
+
+	<insert id="insert">
+		insert into codeGroup(
+		codeGroupName
+		,codeGroupMemo
+		,codeGroupDelNy
+		)values(
+		#{codeGroupName}
+		,#{codeGroupMemo}
+		,0
+		);
+
+<!--  값이 들어가는 순간 해당 시퀀스 값을 반환하여 , 이후에 다시 데이터를 추가한 페이지를 보기위함 -->
+		<selectKey resultType="String" keyProperty="codeGroupSeq"
+			order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
 
 
+	<update id="update">
+		UPDATE codeGroup
+		SET
+		codeGroupName = #{codeGroupName}
+		,codeGroupMemo = #{codeGroupMemo}
+		,codeGroupModDate = now()
+		where
+		1=1
+		and codeGroupSeq = #{codeGroupSeq}
+	</update>
+
+	<update id="uelete">
+		UPDATE codeGroup
+		SET
+		codeGroupDelNy=1
+		where 1=1
+		and codeGroupSeq=#{codeGroupSeq}
+	</update>
+
+	<delete id="delete">
+		Delete from codeGroup
+		where 1=1
+		and codeGroupSeq = #{codeGroupSeq}
+	</delete>
+	
+	<select id="selectListWithoutPaging" resultMap="resultMapObj">
+		select 
+		codeGroupSeq,
+		codeGroupName,
+		codeGroupMemo
+		from codeGroup
+		where 1=1
+			AND codeGroupDelNy=0
+	</select>
+	
+	<select id="selectListWithPaging"  resultMap="resultMapObj">
+			<include refid="base.selectListUpperForMysql" />
+			SELECT
+				  a.codeGroupSeq
+			    , a.codeGroupName
+			    , a.codeGroupMemo
+				, a.codeGroupDelNy
+				, a.codeGroupRegDate
+				, a.codeGroupModDate
+			<include refid="selectCommonCdg" />
+			
+			ORDER BY a.codeGroupSeq asc, a.codeGroupName, a.codeGroupSeq
+			<include refid="base.selectListLowerForMysql" />
+	
+	</select>
+	
+	<select id="selectCount" resultType="Integer">
+		SELECT COUNT(*)
+			<include refid="selectCommonCdg" />
+	</select>
+	
   </mapper>
