@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itjfw.infra.product.ProductDao">
+
+	<resultMap id="resultMapObj" type="com.itjfw.infra.product.ProductDto"></resultMap>
+
+
+<!-- 	select 공통 구문 -->
+		<sql id ="selectCommonProduct">
+			FROM recepit a
+			where 1=1
+			<if test="voDelNy != null and !voDelNy.equals('')">AND a.receiptDelNy = #{voDelNy}</if>
+				  
+			<choose>
+				<when test="voOptionDate == 1">AND a.receiptRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+				<when test="voOptionDate == 2">AND a.receiptModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+			</choose>
+				
+			<choose> 
+	            <when test="voOption == 1">AND a.receiptSeq = #{voValue}</when>
+	   		</choose>
+		</sql>
+
+<!-- 	프로덕트 셀렉 리스트 -->
+	<select id="selectList" resultMap="resultMapObj">
+		<include refid="base.selectListUpperForMysql" />
+		select
+			a.receiptSeq
+			,a.receiptCount
+			,a.receiptInventory
+			,a.receiptDelNy
+			,a.receiptStatusCd
+			,a.receiptRegDate
+			,a.receiptModDate
+			,a.purchaseOrderSeqF
+		<include refid="selectCommonProduct" />
+		ORDER BY a.receiptSeq desc
+		limit 99999999999
+		<include refid="base.selectListLowerForMysql" />
+	</select>
+	
+<!-- 	프로덕트 셀렉 카운트	 -->
+	<select id="selectOneCount" resultType="Integer">
+		select COUNT(*)
+		<include refid="selectCommonProduct"></include>
+	</select>
+	
+		<!-- 프로덕트 셀렉원 -->
+	<select id="selectOne" resultMap="resultMapObj">
+		select
+			a.receiptSeq
+			,a.receiptCount
+			,a.receiptInventory
+			,a.receiptDelNy
+			,a.receiptStatusCd
+			,a.receiptRegDate
+			,a.receiptModDate
+			,a.purchaseOrderSeqF
+		from
+			recepit a
+		where 1=1
+			and a.receiptDelNy = 0
+		    and a.receiptSeq = #{receiptSeq}
+	</select>
+	
+	<insert id="insert">
+		insert into recepit(
+			receiptCount
+			,receiptInventory
+			,receiptStatusCd
+			,receiptDelNy
+			,receiptRegDate
+			,receiptModDate
+			,purchaseOrderSeqF
+		) values (
+			#{receiptCount}
+			,#{receiptInventory}
+			,#{receiptStatusCd}
+			,0
+			,now()
+			,now()
+			,#{purchaseOrderSeqF}
+		)
+	</insert>
+	
+	<update id="update">
+		update recepit
+		set
+			receiptCount = #{receiptCount}
+			,receiptInventory = #{receiptInventory}
+			,receiptStatusCd = #{receiptStatusCd}
+			,receiptModDate = now()
+			,purchaseOrderSeqF = #{purchaseOrderSeqF}
+		where 1=1
+			and receiptSeq = #{receiptSeq}
+	</update>
+	
+	<update id="updateDelete">
+   	update recepit
+   	set
+   		receiptDelNy = 1
+   	WHERE 1=1
+   		and receiptSeq = #{receiptSeq}
+  	
+  	</update>
+  	
+  	<delete id="delete">
+  	delete from recepit
+  	
+  	where 1=1
+  		and receiptSeq = #{receiptSeq}
+  	
+  	</delete>
+	
+	
+	
+	
+</mapper>
