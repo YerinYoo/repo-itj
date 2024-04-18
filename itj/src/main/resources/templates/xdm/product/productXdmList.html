@@ -80,8 +80,9 @@
 								<select class="form-select" aria-label="Default select example" id="voOption"
 									name="voOption">
 									<option value="" th:selected="${vo.voOption == null}">검색구분</option>
-									<option value="1" th:selected="${vo.voOption == 1}">코드</option>
-									<option value="2" th:selected="${vo.voOption == 2}">이름</option>
+									<option value="1" th:selected="${vo.voOption == 1}">상품 코드</option>
+									<option value="2" th:selected="${vo.voOption == 2}">상품 이름</option>
+									<option value="3" th:selected="${vo.voOption == 3}">상품 메모</option>
 								</select>
 							</div>
 
@@ -117,8 +118,8 @@
 								<!-- 총합 및 나열 값-->
 								<div class="container row m-auto">
 									<div class="fw-bold border-bottom col-3 mt-3 ms-5"
-										style="text-align: center; font-size: large;">Total :
-										2222</div>
+										style="text-align: center; font-size: large;" >Total :
+										<span th:text="vo.totalRows"></span></div>
 
 									<div class="col-md-2 offset-md-6 mt-3">
 										<select class="form-select" aria-label="Default select example" id="rowNumToShow" name="rowNumToShow" th:onchange="javascript:goList(1)">
@@ -133,14 +134,15 @@
 										<table class="table align-middle table-hover m-0">
 											<thead>
 												<tr>
-													<th scope="col-2"><input class="form-check-input" type="checkbox"
+													<th scope="col"><input class="form-check-input" type="checkbox"
 															value="" id="flexCheckDefault" /></th>
-													<th scope="col-2">Seq</th>
-													<th scope="col-2">Name</th>
-													<th scope="col-2">delNy</th>
-													<th scope="col-2">codeGroupSeq</th>
-													<th scope="col-2">modDate</th>
-													<th scope="col-2">regDate</th>
+													<th scope="col">Seq</th>
+													<th scope="col">Name</th>
+													<th scope="col">delNy</th>
+													<th scope="col">Price</th>
+													<th scope="col">Stock</th>
+													<th scope="col">modDate</th>
+													<th scope="col">regDate</th>
 													<th scope="col"></th>
 												</tr>
 											</thead>
@@ -149,47 +151,44 @@
 													<td scope="row"><input class="form-check-input" type="checkbox"
 															value="" id="flexCheckDefault" /></td>
 													<td class="col"><a href="#"
-															th:href="@{/codeView(codeSeq=${list.codeSeq},codeName=${list.codeName},codeDelNy=${list.codeDelNy})}"
-															th:text="${list.codeSeq}">#001</a></td>
-													<!-- <th>
-															<img class="rounded-circle img-3x me-2" src="/xdm/assets/images/user.png"
-																alt="Bootstrap Gallery" />
-														</th> -->
-													<td class="col-2" th:text="${list.codeName}">first1</td>
-													<td class="col-2" th:text="${list.codeDelNy}">Last1</td>
-													<td class="col" th:text="${list.codeGroupSeqF}">Last1</td>
-													<td class="col-3"
-														th:text="${#dates.format(list.codeModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
+															th:href="@{/productXdmView(productSeq=${list.productSeq})}"
+															th:text="${list.productSeq}"></a></td>
+													<td class="col" th:text="${list.productName}"></td>
+													<td class="col" th:text="${list.productDelNy}"></td>
+													<td class="col" th:text="${list.productPrice}"></td>
+													<td class="col" th:text="${list.productStock}"></td>
+													<td class="col"
+														th:text="${#dates.format(list.productModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 													</td>
-													<td class="col-3"
-														th:text="${#dates.format(list.codeRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
+													<td class="col"
+														th:text="${#dates.format(list.productRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 													</td>
-													<td class="col-2">
+													<td class="col">
 														<!-- uelete 버튼 시작 -->
 														<button class="btn btn-danger btn-sm mb-1"
 															data-bs-toggle="modal"
-															th:data-bs-target="'#ueleteModal' + ${list['codeSeq']}"
+															th:data-bs-target="'#ueleteModal' + ${list['productSeq']}"
 															data-bs-target="#ueleteModal">
 															<i class="bi bi-trash"></i>
 														</button>
 														<!-- uelete Modal -->
-														<div class="modal fade" th:id="'ueleteModal' + ${list['codeSeq']}"
+														<div class="modal fade" th:id="'ueleteModal' + ${list['productSeq']}"
 															id="ueleteModal" tabindex="-1"
 															aria-labelledby="ueleteModalLabel" aria-hidden="true">
 															<div class="modal-dialog">
 																<div class="modal-content">
 																	<div class="modal-header">
 																		<h5 class="modal-title" id="ueleteModalLabel">
-																			uelete 삭제 테스트</h5>
+																			product uelete</h5>
 																		<button type="button" class="btn-close"
 																			data-bs-dismiss="modal"
 																			aria-label="Close"></button>
 																	</div>
-																	<form action="/codeUelete" method="post">
+																	<form action="/productUelete" method="post">
 																		<div class="modal-body">
-																			<input type="hidden" name="codeSeq"
-																				th:value="${list.codeSeq}">
-																			<span>정말 삭제하시겠습니까 ?</span>
+																			<input type="hidden" name="productSeq"
+																				th:value="${list.productSeq}">
+																			<span>정말 삭제하시겠습니까?</span>
 																		</div>
 																		<div class="modal-footer">
 																			<button type="button"
@@ -197,7 +196,7 @@
 																				data-bs-dismiss="modal">Close</button>
 																			<button type="submit"
 																				class="btn btn-primary">
-																				uelete삭제</button>
+																				삭제</button>
 																		</div>
 																	</form>
 																</div>
@@ -221,7 +220,7 @@
 											<!-- 테이블 아래 쪽 등록 버튼 -->
 											<div class="col-2">
 												<a class="btn btn-info btn-icon btn-sm mb-1" href="#"
-													th:href="@{/codeInsertForm}" id="btnInsert">
+													th:href="@{/productXdmInsertForm}" id="btnInsert">
 													<i class="bi bi-plus-circle"></i></a>
 											</div>
 
@@ -238,12 +237,6 @@
 
 				</div>
 				<!-- App body ends -->
-
-				<!-- App footer start -->
-				<div class="app-footer">
-					<span>© Bootstrap Gallery 2023</span>
-				</div>
-				<!-- App footer end -->
 
 			</div>
 			<!-- App container ends -->
@@ -275,15 +268,15 @@ window.addEventListener('load', function () {
 		});
 
 		let form = document.querySelector("form[name=formList]");
-		let goUrlXdmList = "/codeXdmList";								
-		let goUrlXdmInstForm = "/codeInsertForm";							
-		let goUrlXdmView = "/codeXdmView";								
+		let goUrlXdmList = "/productXdmList";								
+		let goUrlXdmInstForm = "/productXdmInsertForm";							
+		let goUrlXdmView = "/productXdmView";								
 /*
 		let goUrlXdmMultiUele = "/infra/codegroup/codeGroupXdmMultiUele";			
 		let goUrlXdmMultiDele = "/infra/codegroup/codeGroupXdmMultiDele";			
 		*/
 
-		let seq = document.querySelector("input[name=codeSeq]");									/* ### */
+		let seq = document.querySelector("input[name=productSeq]");									/* ### */
 
 		// document.getElementById("btnReset").onclick = function () {
 		// 	location.href = goUrlXdmList;
@@ -302,7 +295,6 @@ window.addEventListener('load', function () {
 		}
 
 		document.getElementById("btnSearch").onclick = function () {
-			alert("222");
 			form.action = goUrlXdmList;
 			form.submit();
 		};

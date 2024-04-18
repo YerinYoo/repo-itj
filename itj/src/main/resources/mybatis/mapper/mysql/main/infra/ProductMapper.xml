@@ -10,17 +10,17 @@
 		<sql id ="selectCommonProduct">
 			FROM product a
 			where 1=1
-			<if test="shDelNy != null and !shDelNy.equals('')">AND a.productDelNy = #{shDelNy}</if>
+			<if test="voDelNy != null and !voDelNy.equals('')">AND a.productDelNy = #{voDelNy}</if>
 				  
 			<choose>
-				<when test="shOptionDate == 1">AND a.productRegDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-				<when test="shOptionDate == 2">AND a.productModDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				<when test="voOptionDate == 1">AND a.productRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+				<when test="voOptionDate == 2">AND a.productModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
 			</choose>
 				
 			<choose> 
-	            <when test="shOption == 1">AND a.productSeq = #{shValue}</when>
-	            <when test="shOption == 2">AND a.productName LIKE CONCAT('%',#{shValue},'%')</when>
-	            <when test="shOption == 3">AND a.productMemo LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="voOption == 1">AND a.productSeq = #{voValue}</when>
+	            <when test="voOption == 2">AND a.productName LIKE CONCAT('%',#{voValue},'%')</when>
+	            <when test="voOption == 3">AND a.productMemo LIKE CONCAT('%',#{voValue},'%')</when>
 	   		</choose>
 		</sql>
 
