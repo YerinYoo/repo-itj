@@ -4,10 +4,13 @@ import java.util.Date;
 
 public class PoDto {
 	private String purchaseOrderSeq;
-	private String purchaseOrderName;
 	private Integer purchaseOrderDelNy;
 	private Date purchaseOrderRegDate;
 	private Date purchaseOrderModDate;
+	private String purchaseOrderMemo;
+	private String memberSeqF;
+	
+	private String xMemberName;
 
 	public String getPurchaseOrderSeq() {
 		return purchaseOrderSeq;
@@ -15,14 +18,6 @@ public class PoDto {
 
 	public void setPurchaseOrderSeq(String purchaseOrderSeq) {
 		this.purchaseOrderSeq = purchaseOrderSeq;
-	}
-
-	public String getPurchaseOrderName() {
-		return purchaseOrderName;
-	}
-
-	public void setPurchaseOrderName(String purchaseOrderName) {
-		this.purchaseOrderName = purchaseOrderName;
 	}
 
 	public Integer getPurchaseOrderDelNy() {
@@ -49,4 +44,30 @@ public class PoDto {
 		this.purchaseOrderModDate = purchaseOrderModDate;
 	}
 
+	public String getPurchaseOrderMemo() {
+		return purchaseOrderMemo;
+	}
+
+	public void setPurchaseOrderMemo(String purchaseOrderMemo) {
+		this.purchaseOrderMemo = purchaseOrderMemo;
+	}
+
+	public String getMemberSeqF() {
+		return memberSeqF;
+	}
+
+	public void setMemberSeqF(String memberSeqF) {
+		this.memberSeqF = memberSeqF;
+	}
+
+	public String getxMemberName() {
+		return xMemberName;
+	}
+
+	public void setxMemberName(String xMemberName) {
+		this.xMemberName = xMemberName;
+	}
+	
+	
+	
 }

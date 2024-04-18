@@ -7,6 +7,7 @@ public class ShipmentVo extends BaseVo {
 	private String shipmentSeq;
 	private Integer shipmentCount;
 	private String shipmentDeliverName;
+	private String orderSeqF;
 
 	public String getShipmentSeq() {
 		return shipmentSeq;
@@ -30,6 +31,14 @@ public class ShipmentVo extends BaseVo {
 
 	public void setShipmentDeliverName(String shipmentDeliverName) {
 		this.shipmentDeliverName = shipmentDeliverName;
+	}
+
+	public String getOrderSeqF() {
+		return orderSeqF;
+	}
+
+	public void setOrderSeqF(String orderSeqF) {
+		this.orderSeqF = orderSeqF;
 	}
 
 }

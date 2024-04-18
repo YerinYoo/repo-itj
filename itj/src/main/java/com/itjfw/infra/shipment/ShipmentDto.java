@@ -10,6 +10,7 @@ public class ShipmentDto {
 	private Integer shipmentDelNy;
 	private Date shipmentRegDate;
 	private Date shipmentModDate;
+	private String ordersSeqF;
 
 	public String getShipmentSeq() {
 		return shipmentSeq;
@@ -66,5 +67,17 @@ public class ShipmentDto {
 	public void setShipmentModDate(Date shipmentModDate) {
 		this.shipmentModDate = shipmentModDate;
 	}
+
+	public String getOrdersSeqF() {
+		return ordersSeqF;
+	}
+
+	public void setOrdersSeqF(String ordersSeqF) {
+		this.ordersSeqF = ordersSeqF;
+	}
+
+	
+	
+	
 
 }

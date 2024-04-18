@@ -135,10 +135,10 @@
 												<tr>
 													<th scope="col-2"><input class="form-check-input" type="checkbox"
 															value="" id="flexCheckDefault" /></th>
-													<th scope="col-2">Seq</th>
-													<th scope="col-2">Name</th>
+													<th scope="col">발주 Seq</th>
+													<th scope="col">발주자 Seq</th>
+													<th scope="col">발주자 이름</th>
 													<th scope="col-2">delNy</th>
-													<th scope="col-2">codeGroupSeq</th>
 													<th scope="col-2">modDate</th>
 													<th scope="col-2">regDate</th>
 													<th scope="col"></th>
@@ -149,31 +149,32 @@
 													<td scope="row"><input class="form-check-input" type="checkbox"
 															value="" id="flexCheckDefault" /></td>
 													<td class="col"><a href="#"
-															th:href="@{/codeView(codeSeq=${list.codeSeq},codeName=${list.codeName},codeDelNy=${list.codeDelNy})}"
-															th:text="${list.codeSeq}">#001</a></td>
+															th:href="@{/poView(purchaseOrderSeq=${list.purchaseOrderSeq},memberSeqF=${list.memberSeqF},purchaseOrderDelNy=${list.purchaseOrderDelNy}
+															,purchaseOrderMemo=${list.purchaseOrderMemo})}"
+															th:text="${list.purchaseOrderSeq}">#001</a></td>
 													<!-- <th>
 															<img class="rounded-circle img-3x me-2" src="/xdm/assets/images/user.png"
 																alt="Bootstrap Gallery" />
 														</th> -->
-													<td class="col-2" th:text="${list.codeName}">first1</td>
-													<td class="col-2" th:text="${list.codeDelNy}">Last1</td>
-													<td class="col" th:text="${list.codeGroupSeqF}">Last1</td>
+													<td class="col" th:text="${list.memberSeqF}">first1</td>
+													<td class="col-2" th:text="${list.xMemberName}">Last1</td>
+													<td class="col" th:text="${list.purchaseOrderDelNy}">Last1</td>
 													<td class="col-3"
-														th:text="${#dates.format(list.codeModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
+														th:text="${#dates.format(list.purchaseOrderModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 													</td>
 													<td class="col-3"
-														th:text="${#dates.format(list.codeRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
+														th:text="${#dates.format(list.purchaseOrderRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 													</td>
 													<td class="col-2">
 														<!-- uelete 버튼 시작 -->
 														<button class="btn btn-danger btn-sm mb-1"
 															data-bs-toggle="modal"
-															th:data-bs-target="'#ueleteModal' + ${list['codeSeq']}"
+															th:data-bs-target="'#ueleteModal' + ${list['purchaseOrderSeq']}"
 															data-bs-target="#ueleteModal">
 															<i class="bi bi-trash"></i>
 														</button>
 														<!-- uelete Modal -->
-														<div class="modal fade" th:id="'ueleteModal' + ${list['codeSeq']}"
+														<div class="modal fade" th:id="'ueleteModal' + ${list['purchaseOrderSeq']}"
 															id="ueleteModal" tabindex="-1"
 															aria-labelledby="ueleteModalLabel" aria-hidden="true">
 															<div class="modal-dialog">
@@ -185,10 +186,10 @@
 																			data-bs-dismiss="modal"
 																			aria-label="Close"></button>
 																	</div>
-																	<form action="/codeUelete" method="post">
+																	<form action="/poUelete" method="post">
 																		<div class="modal-body">
-																			<input type="hidden" name="codeSeq"
-																				th:value="${list.codeSeq}">
+																			<input type="hidden" name="purchaseOrderSeq"
+																				th:value="${list.purchaseOrderSeq}">
 																			<span>정말 삭제하시겠습니까 ?</span>
 																		</div>
 																		<div class="modal-footer">
@@ -221,7 +222,7 @@
 											<!-- 테이블 아래 쪽 등록 버튼 -->
 											<div class="col-2">
 												<a class="btn btn-info btn-icon btn-sm mb-1" href="#"
-													th:href="@{/codeInsertForm}" id="btnInsert">
+													th:href="@{/poInsertForm}" id="btnInsert">
 													<i class="bi bi-plus-circle"></i></a>
 											</div>
 
@@ -275,15 +276,15 @@ window.addEventListener('load', function () {
 		});
 
 		let form = document.querySelector("form[name=formList]");
-		let goUrlXdmList = "/codeXdmList";								
-		let goUrlXdmInstForm = "/codeInsertForm";							
-		let goUrlXdmView = "/codeXdmView";								
+		let goUrlXdmList = "/poXdmList";								
+		let goUrlXdmInstForm = "/poInsertForm";							
+		let goUrlXdmView = "/poXdmView";								
 /*
-		let goUrlXdmMultiUele = "/infra/codegroup/codeGroupXdmMultiUele";			
-		let goUrlXdmMultiDele = "/infra/codegroup/codeGroupXdmMultiDele";			
+		let goUrlXdmMultiUele = "/infra/po/poXdmMultiUele";			
+		let goUrlXdmMultiDele = "/infra/po/poXdmMultiDele";			
 		*/
 
-		let seq = document.querySelector("input[name=codeSeq]");									/* ### */
+		let seq = document.querySelector("input[name=purchaseOrderSeq]");									/* ### */
 
 		// document.getElementById("btnReset").onclick = function () {
 		// 	location.href = goUrlXdmList;
@@ -308,7 +309,7 @@ window.addEventListener('load', function () {
 		};
 		
 		function enterkey() {
-			if (window.event.keyCode == 13) {
+			if (window.event.keypurchaseOrder == 13) {
 			    form.action = goUrlXdmList;
 			    form.submit();
 		    }

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itjfw.infra.po.PoDao">
+
+    <resultMap id="resultMapObj" type="com.itjfw.infra.po.PoDto"></resultMap>
+	
+	<sql id="selectCommonPo">
+		FROM purchaseorder a
+		LEFT JOIN member b on b.memberSeq = a.memberSeqF
+		WHERE 1=1
+			<if test="voDelNy != null and !voDelNy.equals('')">AND a.purchaseorderDelNy = #{voDelNy}</if>
+			
+		<choose>
+			<when test="voOptionDate == 1">AND a.purchaseorderRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+			<when test="voOptionDate == 2">AND a.purchaseorderModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+		</choose>
+
+		<choose>
+			<when test="voOption == 1">AND a.purchaseorderSeq = #{voValue}</when>
+			<when test="voOption == 2">AND a.purchaseorderMemo LIKE CONCAT('%',#{voValue},'%')</when>
+		</choose>
+	</sql>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+		select
+		a.purchaseOrderSeq
+		,a.purchaseOrderRegDate
+		,a.purchaseOrderModDate
+		,a.purchaseOrderDelNy
+		,a.memberSeqF
+		,b.memberName as xMemberName
+		from
+		purchaseOrder a
+		LEFT JOIN member b on b.memberSeq = a.memberSeqF
+		where 1=1
+		and purchaseOrderSeq = #{purchaseOrderSeq}
+	</select>
+
+	<insert id="insert">
+		insert into purchaseOrder(
+		memberSeqF
+		,purchaseOrderMemo
+		,purchaseOrderDelNy
+		)values(
+		#{memberSeqF}
+		,#{purchaseOrderMemo}
+		,0
+		);
+
+<!--  값이 들어가는 순간 해당 시퀀스 값을 반환하여 , 이후에 다시 데이터를 추가한 페이지를 보기위함 -->
+		<selectKey resultType="String" keyProperty="purchaseOrderSeq"
+			order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+
+
+	<update id="update">
+		UPDATE purchaseOrder
+		SET
+		memberSeqF = #{memberSeqF}
+		,purchaseOrderModDate = now()
+		where
+		1=1
+		and purchaseOrderSeq = #{purchaseOrderSeq}
+	</update>
+
+	<update id="uelete">
+		UPDATE purchaseOrder
+		SET
+		purchaseOrderDelNy=1
+		where 1=1
+		and purchaseOrderSeq=#{purchaseOrderSeq}
+	</update>
+
+	<delete id="delete">
+		Delete from purchaseOrder
+		where 1=1
+		and purchaseOrderSeq = #{purchaseOrderSeq}
+	</delete>
+	
+	<select id="selectListWithoutPaging" resultMap="resultMapObj">
+		select 
+		a.purchaseOrderSeq,
+		a.memberSeqF,
+		b.memberName as xMemberName
+		from purchaseOrder a
+		LEFT JOIN member b ON a.memberSeqF = b.memberSeq
+		where 1=1
+			AND purchaseOrderDelNy=0
+	</select>
+	
+	<select id="selectListWithPaging"  resultMap="resultMapObj">
+			<include refid="base.selectListUpperForMysql" />
+			SELECT
+				  a.purchaseOrderSeq
+				, a.purchaseOrderDelNy
+				, a.purchaseOrderRegDate
+				, a.purchaseOrderModDate
+				, a.memberSeqF
+				, b.memberName as xMemberName
+			<include refid="selectCommonPo" />
+			
+			ORDER BY a.purchaseOrderSeq asc, b.memberName, a.purchaseOrderSeq
+			<include refid="base.selectListLowerForMysql" />
+	
+	</select>
+	
+	<select id="selectCount" resultType="Integer">
+		SELECT COUNT(*)
+			<include refid="selectCommonPo" />
+	</select>
+	
+  </mapper>

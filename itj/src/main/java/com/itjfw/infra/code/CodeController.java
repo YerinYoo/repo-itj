@@ -68,7 +68,6 @@ public class CodeController extends BaseController {
 
 	@RequestMapping(value = "/codeInsert")
 	public String codeInsert(CodeDto dto, Model model) throws Exception {
-		System.out.println("==================================================");
 		codeService.insert(dto);
 		return "redirect:/codeXdmList";
 	}
@@ -76,7 +75,6 @@ public class CodeController extends BaseController {
 	@RequestMapping(value = "/codeUpdt")
 	public String codeUpdt(CodeDto dto, Model model) throws Exception {
 
-		System.out.println(dto.toString() + "==========업데이트 전 ==========");
 		codeService.update(dto);
 		return "redirect:/codeXdmList";
 	}
@@ -85,7 +83,6 @@ public class CodeController extends BaseController {
 	public String codeUelete(CodeDto dto, Model model) throws Exception {
 
 		codeService.uelete(dto);
-		System.out.println(dto.toString() + "--------------삭제후-------------------------");
 		return "redirect:/codeXdmList";
 	}
 

@@ -14,6 +14,8 @@
 
 		}
 	</style>
+
+
 </head>
 
 <body>
@@ -23,9 +25,9 @@
 
 		<!-- Main container start -->
 		<div class="main-container">
-			
-			<div th:replace="~{include/xdmAside :: xdmAside}"></div>
 
+			<div th:replace="~{include/xdmAside :: xdmAside}"></div>
+			
 			<div th:replace="~{include/xdmHeader :: xdmHeader}"></div>
 
 				<!-- App hero header starts -->
@@ -72,6 +74,7 @@
 						<!-- 날짜 검색 끝 -->
 						<!-- 검색 select 시작 -->
 						<div class="ms-auto d-flex flex-row justify-content-end pt-2">
+							<!--리셋 버튼-->
 							<!-- <button type="button" id="btnReset" class="btn btn-outline-secondary btn-sm btn_custom">
 								<i class="fa-solid fa-rotate-right fa-lg"></i>
 							</button> -->
@@ -80,8 +83,10 @@
 								<select class="form-select" aria-label="Default select example" id="voOption"
 									name="voOption">
 									<option value="" th:selected="${vo.voOption == null}">검색구분</option>
-									<option value="1" th:selected="${vo.voOption == 1}">코드</option>
-									<option value="2" th:selected="${vo.voOption == 2}">이름</option>
+									<option value="1" th:selected="${vo.voOption == 1}">출고 SEQ</option>
+									<option value="2" th:selected="${vo.voOption == 2}">출고배달부 이름</option>
+									<option value="3" th:selected="${vo.voOption == 3}">출고 상태11~13</option>
+									<option value="4" th:selected="${vo.voOption == 4}">출고 수</option>
 								</select>
 							</div>
 
@@ -97,11 +102,11 @@
 								</div>
 								<!-- 검색 바 끝 -->
 							</div>
-								<!-- 페이징 처리 필요한 검색값 -->
-								<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
-								<input type="hidden" id="rowNumToShowD" name="rowNumToShowD" th:value="${vo.rowNumToShow}"/>
+							<!-- 페이징 처리 필요한 검색값 -->
+							<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+							<input type="hidden" id="rowNumToShowD" name="rowNumToShowD" th:value="${vo.rowNumToShow}"/>
 						</div>
-					</form>
+					
 					<!-- 고정 검색창 끝 -->
 
 				</div>
@@ -117,8 +122,8 @@
 								<!-- 총합 및 나열 값-->
 								<div class="container row m-auto">
 									<div class="fw-bold border-bottom col-3 mt-3 ms-5"
-										style="text-align: center; font-size: large;">Total :
-										2222</div>
+										style="text-align: center; font-size: large;">Total : <span th:text="${vo.totalRows}"></span>
+									</div>
 
 									<div class="col-md-2 offset-md-6 mt-3">
 										<select class="form-select" aria-label="Default select example" id="rowNumToShow" name="rowNumToShow" th:onchange="javascript:goList(1)">
@@ -133,12 +138,13 @@
 										<table class="table align-middle table-hover m-0">
 											<thead>
 												<tr>
-													<th scope="col-2"><input class="form-check-input" type="checkbox"
+													<th scope="col"><input class="form-check-input" type="checkbox"
 															value="" id="flexCheckDefault" /></th>
-													<th scope="col-2">Seq</th>
-													<th scope="col-2">Name</th>
+													<th scope="col">출고Seq</th>
+													<th scope="col">배달부이름</th>
+													<th scope="col">출고 수</th>
+													<th scope="col">출고 상태</th>
 													<th scope="col-2">delNy</th>
-													<th scope="col-2">codeGroupSeq</th>
 													<th scope="col-2">modDate</th>
 													<th scope="col-2">regDate</th>
 													<th scope="col"></th>
@@ -149,31 +155,37 @@
 													<td scope="row"><input class="form-check-input" type="checkbox"
 															value="" id="flexCheckDefault" /></td>
 													<td class="col"><a href="#"
-															th:href="@{/codeView(codeSeq=${list.codeSeq},codeName=${list.codeName},codeDelNy=${list.codeDelNy})}"
-															th:text="${list.codeSeq}">#001</a></td>
+															th:href="@{/shipmentView(shipmentSeq=${list.shipmentSeq},
+															shipmentCount=${list.shipmentCount},
+															shipmentDeliverName=${list.shipmentDeliverName},
+															shipmentStatusCd=${list.shipmentStatusCd},
+															shipmentDelNy=${list.shipmentDelNy},
+															ordersSeqF=${list.ordersSeqF})}"
+															th:text="${list.shipmentSeq}">#001</a></td>
 													<!-- <th>
 															<img class="rounded-circle img-3x me-2" src="/xdm/assets/images/user.png"
 																alt="Bootstrap Gallery" />
 														</th> -->
-													<td class="col-2" th:text="${list.codeName}">first1</td>
-													<td class="col-2" th:text="${list.codeDelNy}">Last1</td>
-													<td class="col" th:text="${list.codeGroupSeqF}">Last1</td>
-													<td class="col-3"
-														th:text="${#dates.format(list.codeModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
+													<td class="col" th:text="${list.shipmentDeliverName}">first1</td>
+													<td class="col" th:text="${list.shipmentCount}">first1</td>
+													<td class="col" th:text="${@codeService.selectOneCachedCode(list.shipmentStatusCd)}">Last1</td>
+													<td class="col" th:text="${list.shipmentDelNy}">Last1</td>
+													<td class="col-2"
+														th:text="${#dates.format(list.shipmentModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 													</td>
-													<td class="col-3"
-														th:text="${#dates.format(list.codeRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
+													<td class="col-2"
+														th:text="${#dates.format(list.shipmentRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 													</td>
 													<td class="col-2">
 														<!-- uelete 버튼 시작 -->
 														<button class="btn btn-danger btn-sm mb-1"
 															data-bs-toggle="modal"
-															th:data-bs-target="'#ueleteModal' + ${list['codeSeq']}"
+															th:data-bs-target="'#ueleteModal' + ${list['shipmentSeq']}"
 															data-bs-target="#ueleteModal">
 															<i class="bi bi-trash"></i>
 														</button>
 														<!-- uelete Modal -->
-														<div class="modal fade" th:id="'ueleteModal' + ${list['codeSeq']}"
+														<div class="modal fade" th:id="'ueleteModal' + ${list['shipmentSeq']}"
 															id="ueleteModal" tabindex="-1"
 															aria-labelledby="ueleteModalLabel" aria-hidden="true">
 															<div class="modal-dialog">
@@ -185,10 +197,10 @@
 																			data-bs-dismiss="modal"
 																			aria-label="Close"></button>
 																	</div>
-																	<form action="/codeUelete" method="post">
+																	<form action="/shipmentUelete" method="post">
 																		<div class="modal-body">
-																			<input type="hidden" name="codeSeq"
-																				th:value="${list.codeSeq}">
+																			<input type="hidden" name="shipmentSeq"
+																				th:value="${list.shipmentSeq}">
 																			<span>정말 삭제하시겠습니까 ?</span>
 																		</div>
 																		<div class="modal-footer">
@@ -208,10 +220,11 @@
 
 											</tbody>
 										</table>
-
-										<!--페이지네이션-->
-										<div th:replace="~{include/pagination :: pagination}"></div>
 										
+										<!--페이지네이션-->
+									<div th:replace="~{include/pagination :: pagination}"></div>
+
+
 										<!-- 테이블 아래 쪽 삭제 -->
 										<div class="d-flex justify-content-between flex-row ms-5">
 											<div class="col-2">
@@ -221,7 +234,7 @@
 											<!-- 테이블 아래 쪽 등록 버튼 -->
 											<div class="col-2">
 												<a class="btn btn-info btn-icon btn-sm mb-1" href="#"
-													th:href="@{/codeInsertForm}" id="btnInsert">
+													th:href="@{/shipmentInsertForm}" id="btnInsert">
 													<i class="bi bi-plus-circle"></i></a>
 											</div>
 
@@ -234,7 +247,6 @@
 							</div>
 						</div>
 						
-					<!-- Row end -->
 
 				</div>
 				<!-- App body ends -->
@@ -256,7 +268,6 @@
 
 	<div th:replace="~{include/commonjs :: commonXdmJs}"></div>
 
-
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
@@ -275,15 +286,15 @@ window.addEventListener('load', function () {
 		});
 
 		let form = document.querySelector("form[name=formList]");
-		let goUrlXdmList = "/codeXdmList";								
-		let goUrlXdmInstForm = "/codeInsertForm";							
-		let goUrlXdmView = "/codeXdmView";								
+		let goUrlXdmList = "/shipmentXdmList";								
+		let goUrlXdmInstForm = "/shipmentInsertForm";							
+		let goUrlXdmView = "/shipmentXdmView";								
 /*
-		let goUrlXdmMultiUele = "/infra/codegroup/codeGroupXdmMultiUele";			
-		let goUrlXdmMultiDele = "/infra/codegroup/codeGroupXdmMultiDele";			
+		let goUrlXdmMultiUele = "/infra/shipment/shipmentXdmMultiUele";			
+		let goUrlXdmMultiDele = "/infra/shipment/shipmentXdmMultiDele";			
 		*/
 
-		let seq = document.querySelector("input[name=codeSeq]");									/* ### */
+		let seq = document.querySelector("input[name=seq]");									/* ### */
 
 		// document.getElementById("btnReset").onclick = function () {
 		// 	location.href = goUrlXdmList;
@@ -313,13 +324,12 @@ window.addEventListener('load', function () {
 			    form.submit();
 		    }
 		}
-
+	 
 		goList = function (thisPage) {
 		    document.querySelector("input[name=thisPage]").value = thisPage;
 		    form.action = goUrlXdmList;
 		    form.submit();
 		}
-
 	
 		
 	</script>

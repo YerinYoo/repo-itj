@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itjfw.infra.shipment.ShipmentDao">
+
+	<resultMap id="resultMapObj"
+		type="com.itjfw.infra.shipment.ShipmentDto"></resultMap>
+
+	<sql id="selectCommonShipment">
+		FROM shipment a
+		LEFT JOIN orders b ON a.ordersSeqF = b.ordersSeq
+		WHERE
+		1=1
+		<if test="voDelNy != null and !voDelNy.equals('')">AND a.shipmentDelNy = #{voDelNy}</if>
+
+		<choose>
+			<when test="voOptionDate == 1">AND a.shipmentRegDate BETWEEN #{voDateStart} AND#{voDateEnd}</when>
+			<when test="voOptionDate == 2">AND a.shipmentModDate BETWEEN #{voDateStart} AND#{voDateEnd}</when>
+		</choose>
+
+		<choose>
+			<when test="voOption == 1">AND a.shipmentSeq = #{voValue}</when>
+			<when test="voOption == 2">AND a.shipmentDeliverName LIKE CONCAT('%',#{voValue},'%')</when>
+			<when test="voOption == 3">AND a.shipmentStatusCd = #{voValue}</when>
+			<when test="voOption == 4">AND a.shipmentCount = #{voValue}</when>
+		</choose>
+	</sql>
+
+	<select id="selectOne" resultMap="resultMapObj">
+		select
+		shipmentSeq
+		,shipmentCount
+		,shipmentDeliverName
+		,shipmentStatusCd
+		,shipmentRegDate
+		,shipmentModDate
+		,shipmentDelNy
+		from shipment 
+		where 1=1
+		and shipmentSeq = #{shipmentSeq}
+	</select>
+
+	<insert id="insert">
+		insert into shipment(
+		shipmentDeliverName
+		,shipmentCount
+		,shipmentDelNy
+		,shipmentStatusCd
+		,ordersSeqF
+		)values(
+		#{shipmentDeliverName}
+		,#{shipmentCount}
+		,#{shipmentStatusCd}
+		,#{ordersSeqF}
+		,0
+		);
+
+		<!-- 값이 들어가는 순간 해당 시퀀스 값을 반환하여 , 이후에 다시 데이터를 추가한 페이지를 보기위함 -->
+		<selectKey resultType="String" keyProperty="shipmentSeq"
+			order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+
+
+	<update id="update">
+		UPDATE shipment
+		SET
+		shipmentDeliverName = #{shipmentDeliverName}
+		,shipmentCount = #{shipmentCount}
+		,shipmentStatusCd = #{shipmentStatusCd}
+		,ordersSeqF = #{ordersSeqF}
+		,shipmentModDate = now()
+		where
+		1=1
+		and shipmentSeq = #{shipmentSeq}
+	</update>
+
+	<update id="uelete">
+		UPDATE shipment
+		SET
+		shipmentDelNy=1
+		where 1=1
+		and
+		shipmentSeq=#{shipmentSeq}
+	</update>
+
+	<delete id="delete">
+		Delete from shipment
+		where 1=1
+		and shipmentSeq =
+		#{shipmentSeq}
+	</delete>
+
+	<select id="selectListWithoutPaging" resultMap="resultMapObj">
+		select
+		a.shipmentSeq
+		,a.shipmentCount
+		,a.shipmentDeliverName
+		,a.shipmentStatusCd
+		,a.shipmentRegDate
+		,a.shipmentModDate
+		,a.shipmentDelNy
+		,a.ordersSeqF
+		from shipment a
+		LEFT JOIN orders b ON
+		a.ordersSeqF = b.ordersSeq
+		where 1=1
+		AND a.shipmentDelNy=0
+	</select>
+
+	<select id="selectListWithPaging" resultMap="resultMapObj">
+		<include refid="base.selectListUpperForMysql" />
+		SELECT
+		a.shipmentSeq
+		,a.shipmentCount
+		,a.shipmentDeliverName
+		,a.shipmentStatusCd
+		,a.shipmentRegDate
+		,a.shipmentModDate
+		,a.shipmentDelNy
+		,a.ordersSeqF
+		<include refid="selectCommonShipment" />
+
+		ORDER BY a.shipmentSeq asc, a.shipmentSeq
+		<include refid="base.selectListLowerForMysql" />
+
+	</select>
+
+	<select id="selectCount" resultType="Integer">
+		SELECT COUNT(*)
+		<include refid="selectCommonShipment" />
+	</select>
+
+</mapper>
