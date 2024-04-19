@@ -83,8 +83,8 @@
 								<select class="form-select" aria-label="Default select example" id="voOption"
 									name="voOption">
 									<option value="" th:selected="${vo.voOption == null}">검색구분</option>
-									<option value="1" th:selected="${vo.voOption == 1}">코드그룹 SEQ</option>
-									<option value="2" th:selected="${vo.voOption == 2}">코드그룹 이름</option>
+									<option value="1" th:selected="${vo.voOption == 1}">주문 SEQ</option>
+									<option value="2" th:selected="${vo.voOption == 2}">주문자 이름</option>
 								</select>
 							</div>
 
@@ -136,14 +136,15 @@
 										<table class="table align-middle table-hover m-0">
 											<thead>
 												<tr>
-													<th scope="col-2"><input class="form-check-input" type="checkbox"
+													<th scope="col-1"><input class="form-check-input" type="checkbox"
 															value="" id="flexCheckDefault" /></th>
-													<th scope="col-2">GroupSeq</th>
-													<th scope="col-2">GroupName</th>
+													<th scope="col-2">ordersSeq</th>
+													<th scope="col-2">ordererName</th>
+													<th scope="col-1">order Member</th>
 													<th scope="col-2">delNy</th>
 													<th scope="col-2">modDate</th>
 													<th scope="col-2">regDate</th>
-													<th scope="col"></th>
+													<th></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -151,30 +152,31 @@
 													<td scope="row"><input class="form-check-input" type="checkbox"
 															value="" id="flexCheckDefault" /></td>
 													<td class="col"><a href="#"
-															th:href="@{/codeGroupDView(codeGroupSeq=${list.codeGroupSeq},codeGroupName=${list.codeGroupName},codeGroupDelNy=${list.codeGroupDelNy})}"
-															th:text="${list.codeGroupSeq}">#001</a></td>
+															th:href="@{/ordersView(ordersSeq=${list.ordersSeq},ordererName=${list.ordererName},ordersDelNy=${list.ordersDelNy})}"
+															th:text="${list.ordersSeq}"></a></td>
 													<!-- <th>
 															<img class="rounded-circle img-3x me-2" src="/xdm/assets/images/user.png"
 																alt="Bootstrap Gallery" />
 														</th> -->
-													<td class="col-2" th:text="${list.codeGroupName}">first1</td>
-													<td class="col-2" th:text="${list.codeGroupDelNy}">Last1</td>
+													<td class="col-2" th:text="${list.ordererName}">first1</td>
+													<td class="col-2" th:text="${list.memberSeqF}"></td>
+													<td class="col-2" th:text="${list.ordersDelNy}">Last1</td>
 													<td class="col-3"
-														th:text="${#dates.format(list.codeGroupModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
+														th:text="${#dates.format(list.ordersModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 													</td>
 													<td class="col-3"
-														th:text="${#dates.format(list.codeGroupRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
+														th:text="${#dates.format(list.ordersRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 													</td>
 													<td class="col-2">
 														<!-- uelete 버튼 시작 -->
 														<button class="btn btn-danger btn-sm mb-1"
 															data-bs-toggle="modal"
-															th:data-bs-target="'#ueleteModal' + ${list['codeGroupSeq']}"
+															th:data-bs-target="'#ueleteModal' + ${list['ordersSeq']}"
 															data-bs-target="#ueleteModal">
 															<i class="bi bi-trash"></i>
 														</button>
 														<!-- uelete Modal -->
-														<div class="modal fade" th:id="'ueleteModal' + ${list['codeGroupSeq']}"
+														<div class="modal fade" th:id="'ueleteModal' + ${list['ordersSeq']}"
 															id="ueleteModal" tabindex="-1"
 															aria-labelledby="ueleteModalLabel" aria-hidden="true">
 															<div class="modal-dialog">
@@ -186,10 +188,10 @@
 																			data-bs-dismiss="modal"
 																			aria-label="Close"></button>
 																	</div>
-																	<form action="/codeGroupUelete" method="post">
+																	<form action="/ordersUlt" method="post">
 																		<div class="modal-body">
-																			<input type="hidden" name="codeGroupSeq"
-																				th:value="${list.codeGroupSeq}">
+																			<input type="hidden" name="ordersSeq"
+																				th:value="${list.ordersSeq}">
 																			<span>정말 삭제하시겠습니까 ?</span>
 																		</div>
 																		<div class="modal-footer">
@@ -275,9 +277,9 @@ window.addEventListener('load', function () {
 		});
 
 		let form = document.querySelector("form[name=formList]");
-		let goUrlXdmList = "/codeGroupXdmList";								
-		let goUrlXdmInstForm = "/codeGroupInsertForm";							
-		let goUrlXdmView = "/codeGroupXdmView";								
+		let goUrlXdmList = "/ordersXdmList";								
+		let goUrlXdmInstForm = "/ordersInsertForm";							
+		let goUrlXdmView = "/ordersView";								
 /*
 		let goUrlXdmMultiUele = "/infra/codegroup/codeGroupXdmMultiUele";			
 		let goUrlXdmMultiDele = "/infra/codegroup/codeGroupXdmMultiDele";			

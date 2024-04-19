@@ -48,20 +48,42 @@
 									<div class="card-body">
 										<form class="row g-3 needs-validation" 
 											name="formUpdate" id="formUpdate"
-											action="/codeGroupUpdt" method="post">
-											
+											action="/ordersUpdt" method="post">
+										
 											<!-- 수정 폼 -->
+											<h5 for="name" class="form-label">변경하려는 아이템 Seq : <span th:text="${item.ordersSeq}"></span></h5>
 											<div class="col-md-3">
-												<label for="name" class="form-label">변경하려는 아이템 Seq:<span th:text="${item.codeGroupSeq}"></span></label>
-												<input type="text" class="form-control" name="codeGroupName" id="codeGroupName" th:value="${item.codeGroupName}" required />
-												<div class="invalid-feedback" id="codeGroupNameFeedback"></div>
-												
-												<input type="hidden" name="codeGroupSeq" th:value="${item.codeGroupSeq}" id="codeGroupSeq">
+												<label for="memberName" class="form-label">이름</span></label>
+												<input type="text" class="form-control" name="ordererName" id="ordererName" th:value="${item.ordererName}"/>
+												<div class="invalid-feedback" id="ordererNameFeedback"></div>
 											</div>
-
 											
+											<div class="col-md-3">
+												<label for="memberSeqF" class="form-label">멤버 선택</label> 
+												<select class="form-select" id="memberSeqF" name="memberSeqF">
+													<option selected="" disabled="" value="">Choose...</option>
+													<option
+														th:each="listOfMember : ${@memberService.selectListWithoutPaging()}"
+														th:value="${listOfMember.memberSeq}"
+														th:text="${listOfMember.memberName}"
+														th:selected="${item.memberSeqF}"></option>
+												</select>
+												<div class="invalid-feedback" id="memberSeqFFeedback"></div>
+											</div>
+																						
+											
+											<div class="col-md-3">
+												<label for="memberPwdCheck" class="form-label"</span>탈퇴 여부</label>
+												<select class="form-select" id="ordersDelNy" name="ordersDelNy">
+													<option selected="" disabled="" value="" th:selected="${item.ordersDelNy eq null}">Choose...</option>
+													<option value="0" th:selected="${item.ordersDelNy== 0}">N</option>
+													<option value="1" th:selected="${item.ordersDelNy==1}">Y</option>
+												</select>
+												<div class="invalid-feedback" id="ordersDelNyFeedback"></div>
+											</div>
+																						
 											<div class="d-flex justify-content-between col-12">
-												<a href="#" th:href="@{/codeGroupXdmList}" class="btn btn-primary" role="button">
+												<a href="#" th:href="@{/ordersXdmList}" class="btn btn-primary" role="button">
 													뒤로가기
 												</a>
 
@@ -104,8 +126,8 @@
 	
 	let form = document.querySelector("form[name=formUpdate]");
 	let seq = document.querySelector("input[name=seq]");
-	let goUrlXdmUpdtForm = "/codeGroupUpdt";
-	let goUrlXdmView = "/codeGroupXdmView";
+	let goUrlXdmUpdtForm = "/ordersUpdt";
+	let goUrlXdmView = "/ordersXdmView";
 		// 등록버튼
 		document.getElementById("btnUpdate").onclick = function () {
 			if (validationInst() == false) {
@@ -124,7 +146,7 @@
 		}
 
 		function validationUpdt() {
-			if (!checkOnlyKoreanEnglish('codeGroupName',2,0,'한국어랑 영어만 가능합니다.')) return false;
+			if (!checkOnlyKoreanEnglish('ordererName',2,0,'한국어랑 영어만 가능합니다.')) return false;
 		}
 
 // 		nullToEmpty = function (value) {

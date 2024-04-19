@@ -5,49 +5,50 @@
 
 <resultMap id="resultMapObj" type="com.itjfw.infra.orders.OrdersDto"></resultMap>
 
-<!-- Orders Mapper 공통 구문 -->
+<!-- orders Mapper 공통 구문 -->
 <!-- select 공통 구문 SQL -->
-	<sql id ="selectCommon">
+	<sql id ="selectCommonOrders">
 		from
-			orders
+			orders a
 		where 1=1
 			and ordersDelNy = 0
-			<if test="shDelNy != null and !shDelNy.equals('')">AND ordersDelNy = #{shDelNy}</if>
+			<if test="voDelNy != null and !voDelNy.equals('')">AND a.ordersDelNy = #{voDelNy}</if>
 			
  			<choose>
-				<when test="shOptionDate == 1">AND ordersRegDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-				<when test="shOptionDate == 2">AND ordersModDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				<when test="voOptionDate == 1">AND a.ordersRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+				<when test="voOptionDate == 2">AND ordersModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
 			</choose>
 			
  			<choose> 
-	            <when test="shOption == 1">AND ordersSeq = #{shValue}</when>
-	            <when test="shOption == 2">AND ordererName = #{shValue}</when>	       
+	            <when test="voOption == 1">AND a.ordersSeq = #{voValue}</when>
+	            <when test="voOption == 2">AND a.ordererName = #{voValue}</when>	       
        		</choose>
 	</sql>
 	
 <select id="ordersList" resultMap="resultMapObj">
-<include refid="base.selectListUpperForMysql" />
+<!--include upper, lower, limit 9999절 지우면 리스트 잘 뜸 + 페이징 기능 작동 X. 근데 저거 살려놓으면 리스트가 안 뜸. 왜??-->
+<!-- <include refid="base.selectListUpperForMysql" /> -->
 	select
-		ordersSeq,
-		ordererName,
-		ordersDelNy,
-		ordersRegDate,
-		ordersModDate,
-		memberSeqF
-		
-<include refid="selectCommon" />
-order by ordersSeq
-limit 99999999999
-<include refid="base.selectListLowerForMysql" />
+		a.ordersSeq,
+		a.ordererName,
+		a.ordersDelNy,
+		a.ordersRegDate,
+		a.ordersModDate,
+		a.memberSeqF
+
+<include refid="selectCommonOrders" /> 
+order by a.ordersSeq
+ <!-- limit 99999999999
+<include refid="base.selectListLowerForMysql" /> -->
 </select>
 
 
 <select id="getTotalOrdersCount" resultType="Integer">
 select count(*)
-<include refid="selectCommon"></include>
+<include refid="selectCommonOrders"></include>
 </select>
 
-<!-- 멤버 정보 셀렉문 -->
+<!-- 주문 정보 셀렉문 -->
 <select id="selectOrders" resultMap="resultMapObj">
 select
 	ordersSeq,
@@ -65,7 +66,7 @@ and
 	ordersSeq=#{ordersSeq}
 </select>
 
-<!--  주문 정보 추가 -->
+<!--  Add orders -->
 <insert id="ordersInst">
 insert into orders (
 	ordererName,
@@ -90,12 +91,13 @@ set
 	ordersDelNy=#{ordersDelNy},
 	ordersRegDate=now(),
 	ordersModDate=now(),
-
+	memberSeqF=#{memberSeqF} 
+	
 where 1=1
 	and ordersSeq=#{ordersSeq}
 </update>
 
-<!-- 주문 정보 삭제 / Uelete -->
+<!-- 주문 삭제 / Uelete -->
 <update id="ordersUlt">
 update orders
 set
@@ -105,7 +107,7 @@ and
 	ordersSeq=#{ordersSeq}
 </update>
 
-<!-- 주문 정보 삭제 / 아예 삭제 -->
+<!-- 주문 삭제 / 아예 삭제 -->
 <delete id="ordersDel">
 delete from orders
 where 1=1

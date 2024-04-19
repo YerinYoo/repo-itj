@@ -11,7 +11,7 @@ public class OrdersService {
 	@Autowired
 	OrdersDao ordersDao;
 	
-	public List<OrdersDto> ordersList() {
+	public List<OrdersDto> ordersList(OrdersVo vo) {
 		return ordersDao.ordersList();
 	}
 	
@@ -36,6 +36,7 @@ public class OrdersService {
 	}
 	
 	public Integer ordersDel(OrdersDto ordersDto) {
-		return ordersDao.ordesDel(ordersDto);
+		return ordersDao.ordersDel(ordersDto);
 	}
+
 }

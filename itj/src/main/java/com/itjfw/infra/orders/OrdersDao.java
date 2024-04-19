@@ -21,6 +21,6 @@ public interface OrdersDao {
 
 	public Integer ordersUlt(OrdersDto ordersDto);
 	
-	public Integer ordesDel(OrdersDto ordersDto);
+	public Integer ordersDel(OrdersDto ordersDto);
 }
 

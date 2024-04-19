@@ -55,25 +55,26 @@
 												<th scope="col-2">modDate</th>
 												<th scope="col-2">regDate</th>
 												<th scope="col-2">delNy</th>
+												<th scope="col-2">memberSeqF</th>
 
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td class="col-1" th:text="${item.codeGroupSeq}">#001</td>
+												<td class="col-1" th:text="${item.ordersSeq}">#001</td>
 												<!-- <th>
 															<img class="rounded-circle img-3x me-2" src="/xdm/assets/images/user.png"
 																alt="Bootstrap Gallery" />
 														</th> -->
-												<td class="col-2" th:text="${item.codeGroupName}">first1</td>
+												<td class="col-2" th:text="${item.ordererName}">first1</td>
 												<td class="col-3"
-													th:text="${#dates.format(item.codeGroupModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
+													th:text="${#dates.format(item.ordersModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 												</td>
 												<td class="col-3"
-													th:text="${#dates.format(item.codeGroupRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
+													th:text="${#dates.format(item.ordersRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 												</td>
-												<td class="col-1" th:text="${item.codeGroupDelNy}">
-												</td>
+												<td class="col-1" th:text="${item.ordersDelNy}"></td>
+												<td class="col-2" th:text="${item.memberSeqF}"></td>
 
 											</tr>
 
@@ -84,24 +85,24 @@
 									<div class="d-flex justify-content-between flex-row ms-5 pt-5">
 										<div class="col-2">
 											<a class="btn btn-danger btn-icon btn-sm mb-1" href="#"
-												th:href="@{/codeGroupXdmList}"><i class="bi bi-arrow-left"></i></a>
+												th:href="@{/ordersXdmList}"><i class="bi bi-arrow-left"></i></a>
 										</div>
 										<!-- 테이블 아래 쪽 수정 버튼 -->
 
 										<div class="col-2">
 											<a class="btn btn-info btn-sm mb-1" href="#"
-												th:href="@{/codeGroupUpdateForm(codeGroupSeq=${item.codeGroupSeq}, codeGroupName=${item.codeGroupName})}">
+												th:href="@{/ordersUpdateForm(ordersSeq=${item.ordersSeq}, ordersName=${item.ordererName})}">
 												<i class="bi bi-pencil"></i>
 											</a>
 
 											<!-- uelete 버튼 시작 -->
 											<button class="btn btn-danger btn-sm mb-1" data-bs-toggle="modal"
-												th:data-bs-target="'#ueleteModal' + ${item['codeGroupSeq']}"
+												th:data-bs-target="'#ueleteModal' + ${item['ordersSeq']}"
 												data-bs-target="#ueleteModal">
 												<i class="bi bi-trash"></i>
 											</button>
 											<!-- uelete Modal -->
-											<div class="modal fade" th:id="'ueleteModal' + ${item['codeGroupSeq']}"
+											<div class="modal fade" th:id="'ueleteModal' + ${item['ordersSeq']}"
 												id="ueleteModal" tabindex="-1" aria-labelledby="ueleteModalLabel"
 												aria-hidden="true">
 												<div class="modal-dialog">
@@ -112,9 +113,9 @@
 															<button type="button" class="btn-close"
 																data-bs-dismiss="modal" aria-label="Close"></button>
 														</div>
-														<form action="/codeGroupUelete" method="post">
+														<form action="/ordersUlt" method="post">
 															<div class="modal-body">
-																<input type="hidden" name="codeGroupSeq" th:value="${item.codeGroupSeq}">
+																<input type="hidden" name="ordersSeq" th:value="${item.ordersSeq}">
 																<span>정말 삭제하시겠습니까 ?</span>
 															</div>
 															<div class="modal-footer">
@@ -129,12 +130,12 @@
 											</div>
 											<!-- delete 버튼 시작 -->
 											<button class="btn btn-danger btn-sm mb-1" data-bs-toggle="modal"
-												th:data-bs-target="'#deleteModal' + ${item['codeGroupSeq']}"
+												th:data-bs-target="'#deleteModal' + ${item['ordersSeq']}"
 												data-bs-target="#deleteModal">
 												<i class="bi bi-x-lg"></i>
 											</button>
 											<!-- delete Modal -->
-											<div class="modal fade" th:id="'deleteModal' + ${item['codeGroupSeq']}"
+											<div class="modal fade" th:id="'deleteModal' + ${item['ordersSeq']}"
 												id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
 												aria-hidden="true">
 												<div class="modal-dialog">
@@ -145,9 +146,9 @@
 															<button type="button" class="btn-close"
 																data-bs-dismiss="modal" aria-label="Close"></button>
 														</div>
-														<form action="/codeGroupDelete" method="post">
+														<form action="/ordersDel" method="post">
 															<div class="modal-body">
-																<input type="hidden" name="codeGroupSeq" th:value="${item.codeGroupSeq}">
+																<input type="hidden" name="ordersSeq" th:value="${item.ordersSeq}">
 																<span>정말 삭제하시겠습니까 ?</span>
 															</div>
 															<div class="modal-footer">
