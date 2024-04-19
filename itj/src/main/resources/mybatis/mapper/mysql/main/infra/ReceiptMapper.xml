@@ -8,8 +8,13 @@
 
 <!-- 	select 공통 구문 -->
 		<sql id ="selectCommonProduct">
-			FROM recepit a
+			FROM receipt a
+			left join purchaseorder b
+				on a.purchaseOrderSeqF = b.purchaseOrderSeq
+			left join member c
+				on b.memberSeqF = c.memberSeq 
 			where 1=1
+				and a.receiptDelNy = 0
 			<if test="voDelNy != null and !voDelNy.equals('')">AND a.receiptDelNy = #{voDelNy}</if>
 				  
 			<choose>
@@ -19,6 +24,7 @@
 				
 			<choose> 
 	            <when test="voOption == 1">AND a.receiptSeq = #{voValue}</when>
+	            <when test="voOption == 2">AND c.memberName LIKE CONCAT('%',#{voValue},'%')</when>
 	   		</choose>
 		</sql>
 
@@ -34,6 +40,10 @@
 			,a.receiptRegDate
 			,a.receiptModDate
 			,a.purchaseOrderSeqF
+			,b.purchaseOrderSeq
+			,b.memberSeqF
+			,c.memberSeq
+			,c.memberName
 		<include refid="selectCommonProduct" />
 		ORDER BY a.receiptSeq desc
 		limit 99999999999
@@ -57,15 +67,23 @@
 			,a.receiptRegDate
 			,a.receiptModDate
 			,a.purchaseOrderSeqF
+			,b.purchaseOrderSeq
+			,b.memberSeqF
+			,c.memberSeq
+			,c.memberName		
 		from
-			recepit a
+			receipt a
+		left join purchaseorder b
+				on a.purchaseOrderSeqF = b.purchaseOrderSeq
+		left join member c
+			on b.memberSeqF = c.memberSeq 
 		where 1=1
 			and a.receiptDelNy = 0
 		    and a.receiptSeq = #{receiptSeq}
 	</select>
 	
 	<insert id="insert">
-		insert into recepit(
+		insert into receipt(
 			receiptCount
 			,receiptInventory
 			,receiptStatusCd
@@ -85,7 +103,7 @@
 	</insert>
 	
 	<update id="update">
-		update recepit
+		update receipt
 		set
 			receiptCount = #{receiptCount}
 			,receiptInventory = #{receiptInventory}
@@ -97,7 +115,7 @@
 	</update>
 	
 	<update id="updateDelete">
-   	update recepit
+   	update receipt
    	set
    		receiptDelNy = 1
    	WHERE 1=1
@@ -106,7 +124,7 @@
   	</update>
   	
   	<delete id="delete">
-  	delete from recepit
+  	delete from receipt
   	
   	where 1=1
   		and receiptSeq = #{receiptSeq}

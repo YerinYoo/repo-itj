@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.itjfw.common.util.UtilSearch;
+
 @Controller
 public class ReceiptController {
 
@@ -14,89 +16,89 @@ public class ReceiptController {
 	
 	// 리스트 페이지
 	@RequestMapping(value = "/receiptXdmList")
-	public String receiptXdmList(@ModelAttribute("vo") Model model) throws Exception{
+	public String receiptXdmList(@ModelAttribute("vo")ReceiptVo receiptVo, Model model) throws Exception{
 		
-//		UtilSearch.setSearch(productVo);
-//		
-//		productVo.setParamsPaging(productService.selectOneCount(productVo));
-//		
-//		if(productVo.getTotalRows() > 0) {
-//			
-//			model.addAttribute("list", productService.selectList(productVo));
-//		}
+		UtilSearch.setSearch(receiptVo);
+		
+		receiptVo.setParamsPaging(receiptService.selectOneCount(receiptVo));
+		
+		if(receiptVo.getTotalRows() > 0) {
+			
+			model.addAttribute("list", receiptService.selectList(receiptVo));
+		}
 	
 		return  "xdm/receipt/receiptXdmList";
 	
 	}
 	
 	// uelete
-//	@RequestMapping(value = "/productXdmUelete")
-//	public String productXdmUelete(ReceiptDto productDto) throws Exception{
-//		
-//		productService.updateDelete(productDto);
-//	
-//		return  "xdm/product/productXdmList";
-//	
-//	}
-//	
-//	// delete
-//	@RequestMapping(value = "/productXdmDelete")
-//	public String productXdmDelete(ReceiptDto productDto) throws Exception{
-//		
-//		productService.delete(productDto);
-//	
-//		return  "xdm/product/productXdmList";
-//	
-//	}
-//	
-//	// insert
-//	@RequestMapping(value = "/productXdmInsert")
-//	public String productXdmInsert(ReceiptDto productDto) throws Exception{
-//		
-//		productService.insert(productDto);
-//	
-//		return  "xdm/product/productXdmList";
-//	
-//	}
-//	
-//	
-//	// update
-//	@RequestMapping(value = "/productXdmUpdate")
-//	public String productXdmUpdate(ReceiptDto productDto) throws Exception{
-//		
-//		productService.update(productDto);
-//	
-//		return  "xdm/product/productXdmList";
-//	
-//	}
-//	
-//	// 상품 상세 정보
-//	@RequestMapping(value = "/productXdmView")
-//	public String productXdmView(ReceiptDto productDto, Model model) throws Exception{
-//		
-//		model.addAttribute("item", productService.selectOne(productDto));
-//		
-//		return  "xdm/product/productXdmView";
-//	
-//	}
-//	
-//	// 상품 등록
-//	@RequestMapping(value = "/productXdmInsertForm")
-//	public String productXdmInsertForm() throws Exception{
-//		
-//		
-//		return  "xdm/product/productXdmInsertForm";
-//	
-//	}
-//	
-//	// 상품 수정
-//	@RequestMapping(value = "/productXdmUpdateForm")
-//	public String productXdmUpdateForm(ReceiptDto productDto, Model model) throws Exception{
-//		
-//		model.addAttribute("item", productService.selectOne(productDto));
-//		
-//		return  "xdm/product/productXdmUpdateForm";
-//	
-//	}
+	@RequestMapping(value = "/receiptXdmUelete")
+	public String receiptXdmUelete(ReceiptDto receiptDto) throws Exception{
+		
+		receiptService.updateDelete(receiptDto);
+	
+		return  "xdm/receipt/receiptXdmList";
+	
+	}
+	
+	// delete
+	@RequestMapping(value = "/receiptXdmDelete")
+	public String receiptXdmDelete(ReceiptDto receiptDto) throws Exception{
+		
+		receiptService.delete(receiptDto);
+	
+		return  "xdm/receipt/receiptXdmList";
+	
+	}
+	
+	// insert
+	@RequestMapping(value = "/receiptXdmInsert")
+	public String receiptXdmInsert(ReceiptDto receiptDto) throws Exception{
+		
+		receiptService.insert(receiptDto);
+	
+		return  "xdm/receipt/receiptXdmList";
+	
+	}
+	
+	
+	// update
+	@RequestMapping(value = "/receiptXdmUpdate")
+	public String receiptXdmUpdate(ReceiptDto receiptDto) throws Exception{
+		
+		receiptService.update(receiptDto);
+	
+		return  "xdm/receipt/receiptXdmList";
+	
+	}
+	
+	// 상품 상세 정보
+	@RequestMapping(value = "/receiptXdmView")
+	public String receiptXdmView(ReceiptDto receiptDto, Model model) throws Exception{
+		
+		model.addAttribute("item", receiptService.selectOne(receiptDto));
+		
+		return  "xdm/receipt/receiptXdmView";
+	
+	}
+	
+	// 상품 등록
+	@RequestMapping(value = "/receiptXdmInsertForm")
+	public String receiptXdmInsertForm() throws Exception{
+		
+		
+		return  "xdm/receipt/receiptXdmInsertForm";
+	
+	}
+	
+	// 상품 수정
+	@RequestMapping(value = "/receiptXdmUpdateForm")
+	public String receiptXdmUpdateForm(ReceiptDto receiptDto, Model model) throws Exception{
+		
+		model.addAttribute("item", receiptService.selectOne(receiptDto));
+		
+		return  "xdm/receipt/receiptXdmUpdateForm";
+	
+	}
 	
 }

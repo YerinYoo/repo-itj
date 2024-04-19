@@ -13,6 +13,38 @@ public class ReceiptDto {
 	private Date receiptModDate;
 	private String purchaseOrderSeqF;
 	
+	private String purchaseOrderSeq;
+	private String memberSeqF;
+	
+	private String memberSeq;
+	private String memberName;
+	
+	
+	
+	public String getMemberSeqF() {
+		return memberSeqF;
+	}
+	public void setMemberSeqF(String memberSeqF) {
+		this.memberSeqF = memberSeqF;
+	}
+	public String getMemberSeq() {
+		return memberSeq;
+	}
+	public void setMemberSeq(String memberSeq) {
+		this.memberSeq = memberSeq;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	public String getPurchaseOrderSeq() {
+		return purchaseOrderSeq;
+	}
+	public void setPurchaseOrderSeq(String purchaseOrderSeq) {
+		this.purchaseOrderSeq = purchaseOrderSeq;
+	}
 	public String getReceiptSeq() {
 		return receiptSeq;
 	}
