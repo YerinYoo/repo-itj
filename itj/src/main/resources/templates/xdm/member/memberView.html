@@ -60,19 +60,19 @@
 										</thead>
 										<tbody>
 											<tr>
-												<td class="col-1" th:text="${item.codeGroupSeq}">#001</td>
+												<td class="col-1" th:text="${item.memberSeq}">#001</td>
 												<!-- <th>
 															<img class="rounded-circle img-3x me-2" src="/xdm/assets/images/user.png"
 																alt="Bootstrap Gallery" />
 														</th> -->
-												<td class="col-2" th:text="${item.codeGroupName}">first1</td>
+												<td class="col-2" th:text="${item.memberName}">first1</td>
 												<td class="col-3"
-													th:text="${#dates.format(item.codeGroupModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
+													th:text="${#dates.format(item.memberModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 												</td>
 												<td class="col-3"
-													th:text="${#dates.format(item.codeGroupRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
+													th:text="${#dates.format(item.memberRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 												</td>
-												<td class="col-1" th:text="${item.codeGroupDelNy}">
+												<td class="col-1" th:text="${item.memberDelNy}">
 												</td>
 
 											</tr>

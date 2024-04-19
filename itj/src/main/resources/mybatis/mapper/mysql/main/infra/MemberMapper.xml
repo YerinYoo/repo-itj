@@ -7,42 +7,42 @@
 
 <!-- member Mapper 공통 구문 -->
 <!-- select 공통 구문 SQL -->
-	<sql id ="selectCommon">
+	<sql id ="selectCommonMember">
 		from
-			member
+			member a
 		where 1=1
 			and memberDelNy = 0
-			<if test="shDelNy != null and !shDelNy.equals('')">AND memberDelNy = #{shDelNy}</if>
+			<if test="voDelNy != null and !voDelNy.equals('')">AND a.memberDelNy = #{voDelNy}</if>
 			
  			<choose>
-				<when test="shOptionDate == 1">AND memberRegDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-				<when test="shOptionDate == 2">AND memberModDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				<when test="voOptionDate == 1">AND a.memberRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+				<when test="voOptionDate == 2">AND memberModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
 			</choose>
 			
  			<choose> 
-	            <when test="shOption == 1">AND memberSeq = #{shValue}</when>
-	            <when test="shOption == 2">AND memberName = #{shValue}</when>	       
-	            <when test="shOption == 3">AND memberID = #{shValue}</when>     
-	           <when test="shOption == 4">AND memberTypeCd = #{shValue}</when>
+	            <when test="voOption == 1">AND a.memberSeq = #{voValue}</when>
+	            <when test="voOption == 2">AND a.memberName = #{voValue}</when>	       
+	            <when test="voOption == 3">AND a.memberID = #{voValue}</when>     
+	           <when test="voOption == 4">AND a.memberTypeCd = #{voValue}</when>
        		</choose>
 	</sql>
 	
 <select id="memberList" resultMap="resultMapObj">
 <include refid="base.selectListUpperForMysql" />
 	select
-		memberSeq,
-		memberID,
-		memberPwd,
-		memberName,
-		memberGenderCd,
-		memberTypeCd,
-		memberAddr,
-		memberDelNy,
-		memberRegDate,
-		memberModDate
-		
-<include refid="selectCommon" />
-order by memberSeq
+		a.memberSeq,
+		a.memberID,
+		a.memberPwd,
+		a.memberName,
+		a.memberGenderCd,
+		a.memberTypeCd,
+		a.memberAddr,
+		a.memberDelNy,
+		a.memberRegDate,
+		a.memberModDate
+
+<include refid="selectCommonMember" /> 
+order by a.memberSeq
 limit 99999999999
 <include refid="base.selectListLowerForMysql" />
 </select>
@@ -50,7 +50,7 @@ limit 99999999999
 
 <select id="getTotalMemberCount" resultType="Integer">
 select count(*)
-<include refid="selectCommon"></include>
+<include refid="selectCommonMember"></include>
 </select>
 
 <!-- 멤버 정보 셀렉문 -->
@@ -89,7 +89,7 @@ insert into member (
 	memberModDate
 ) values (
 	#{memberID},
-	#{memberPwd}.
+	#{memberPwd},
 	#{memberName},
 	#{memberGenderCd},
 	#{memberTypeCd},

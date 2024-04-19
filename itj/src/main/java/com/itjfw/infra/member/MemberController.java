@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.itjfw.common.base.BaseController;
 import com.itjfw.common.util.UtilSearch;
 
@@ -18,7 +16,7 @@ public class MemberController extends BaseController {
 	
 	//회원 목록
 	@RequestMapping(value = "/memberXdmList")
-	public String memberXdmList(@ModelAttribute("memberVo") MemberVo memberVo, Model model) throws Exception {
+	public String memberXdmList(@ModelAttribute("vo") MemberVo memberVo, Model model) throws Exception {
 
 		UtilSearch.setSearch(memberVo);
 		
@@ -26,10 +24,9 @@ public class MemberController extends BaseController {
 		
 		if(memberVo.getTotalRows() > 0) {
 			
-			model.addAttribute("list", memberService.memberList());
+			model.addAttribute("list", memberService.memberList(memberVo));
 
 		}
-		
 
 		return "xdm/member/memberXdmList";
 	}
@@ -37,7 +34,7 @@ public class MemberController extends BaseController {
 	@RequestMapping(value="/memberView")
 	public String memberView(MemberDto membeDto, Model model) throws Exception {
 		
-		model.addAttribute("member", memberService.selectMember(membeDto));
+		model.addAttribute("item", memberService.selectMember(membeDto));
 		
 		return "xdm/member/memberView";
 	}

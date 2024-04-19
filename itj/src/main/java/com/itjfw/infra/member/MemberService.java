@@ -12,8 +12,8 @@ public class MemberService {
 	@Autowired
 	MemberDao memberDao;
 	
-	public List<MemberDto> memberList() {
-		return memberDao.memberList();
+	public List<MemberDto> memberList(MemberVo vo) {
+		return memberDao.memberList(vo);
 	}
 	
 	public Integer getTotalMemberCount(MemberVo memberVo) throws Exception{

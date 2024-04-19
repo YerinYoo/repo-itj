@@ -83,8 +83,10 @@
 								<select class="form-select" aria-label="Default select example" id="voOption"
 									name="voOption">
 									<option value="" th:selected="${vo.voOption == null}">검색구분</option>
-									<option value="1" th:selected="${vo.voOption == 1}">코드그룹 SEQ</option>
-									<option value="2" th:selected="${vo.voOption == 2}">코드그룹 이름</option>
+									<option value="1" th:selected="${vo.voOption == 1}">멤버 SEQ</option>
+									<option value="2" th:selected="${vo.voOption == 2}">멤버 이름</option>
+									<option value="2" th:selected="${vo.voOption == 2}">멤버 ID</option>
+									<option value="2" th:selected="${vo.voOption == 2}">멤버 타입</option>
 								</select>
 							</div>
 
@@ -138,84 +140,63 @@
 												<tr>
 													<th scope="col-1"><input class="form-check-input" type="checkbox"
 															value="" id="flexCheckDefault" /></th>
-													<th scope="col-1">memberSeq</th>
-													<th scope="col-1">memberName</th>
+													<th scope="col-1">Seq</th>
+													<th scope="col-1">Name</th>
 													<th scope="col-1">ID</th>
-													<th scope="col-1">PWD</th>
-													<th scope="col-1">Gender</th>
+													<th scope="col-1">Pwd</th>
 													<th scope="col-1">Type</th>
-													<th scope="col-1">delNY</th>
-													<th scope="col-1">regDate</th>
-													<th scope="col-1">modDate</th>
-													<th scope="col"></th>
+													<th scope="col-1">Gender</th>
+													<th scope="col-1">Addr</th>
+													<th scope="col-1">delNy</th>
+													<th scope="col-2">modDate</th>
+													<th scope="col-2">regDate</th>
+													<th></th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:if="${!#lists.isEmpty(list)}" th:each="list:${memberXdmList}">
-													<td scope="row"><input class="form-check-input" type="checkbox"
-															value="" id="flexCheckDefault" /></td>
-													<td class="col"><a href="#"
-															th:href="@{/memberView(memberSeq=${list.memberSeq},memberName=${list.memberName},memberDelNy=${list.memberDelNy})}"
-															th:text="${list.memberSeq}"></a></td>
-													<!-- <th>
-															<img class="rounded-circle img-3x me-2" src="/xdm/assets/images/user.png"
-																alt="Bootstrap Gallery" />
-														</th> -->
-													<td class="col-1" th:text="${list.memberName}">first1</td>
-													<td class="col-1" th:text="${list.memberID}">Last1</td>
-													<td class="col-1" th:text="${list.memberPwd}">Last1</td>
-													<td class="col-1" th:text="${list.memberGenderCd}">Last1</td>
-													<td class="col-1" th:text="${list.memberTypeCd}">Last1</td>
-													<td class="col-1" th:text="${list.memberDelNy}">Last1</td>
-													<td class="col-2"
-														th:text="${#dates.format(list.codeGroupModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
-													</td>
-													<td class="col-2"
-														th:text="${#dates.format(list.codeGroupRegDate, 'yyyy-MM-dd일 HH:mm:ss')}">
-													</td>
-													<td class="col-2">
-														<!-- uelete 버튼 시작 -->
-														<button class="btn btn-danger btn-sm mb-1"
-															data-bs-toggle="modal"
-															th:data-bs-target="'#ueleteModal' + ${list['memberSeq']}"
-															data-bs-target="#ueleteModal">
-															<i class="bi bi-trash"></i>
-														</button>
-														<!-- uelete Modal -->
-														<div class="modal fade" th:id="'ueleteModal' + ${list['memberSeq']}"
-															id="ueleteModal" tabindex="-1"
-															aria-labelledby="ueleteModalLabel" aria-hidden="true">
-															<div class="modal-dialog">
-																<div class="modal-content">
-																	<div class="modal-header">
-																		<h5 class="modal-title" id="ueleteModalLabel">
-																			uelete 삭제 테스트</h5>
-																		<button type="button" class="btn-close"
-																			data-bs-dismiss="modal"
-																			aria-label="Close"></button>
-																	</div>
-																	<form action="/memberUlt" method="post">
-																		<div class="modal-body">
-																			<input type="hidden" name="memberSeq"
-																				th:value="${list.memberSeq}">
-																			<span>정말 삭제하시겠습니까 ?</span>
-																		</div>
-																		<div class="modal-footer">
-																			<button type="button"
-																				class="btn btn-secondary"
-																				data-bs-dismiss="modal">Close</button>
-																			<button type="submit"
-																				class="btn btn-primary">
-																				uelete삭제</button>
-																		</div>
-																	</form>
-																</div>
-															</div>
-														</div>
-													</td>
-												</tr>
-
+											    <tr th:if="${not #lists.isEmpty(list)}" th:each="member : ${list}">
+											        <td scope="row"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" /></td>
+											        <td class="col"><a href="#" th:href="@{/memberView(memberSeq=${member.memberSeq}, memberName=${member.memberName}, memberDelNy=${member.memberDelNy})}" th:text="${member.memberSeq}"></a></td>
+											        <!-- 나머지 컬럼들도 member 객체를 사용하여 출력 -->
+											        <td class="col-1" th:text="${member.memberName}"></td>
+											        <td class="col-1" th:text="${member.memberID}"></td>
+											        <td class="col-1" th:text="${member.memberPwd}"></td>
+											        <td class="col-1" th:text="${member.memberTypeCd}"></td>
+											        <td class="col-1" th:text="${member.memberGenderCd}"></td>
+													<td class="col-1" th:text="${member.memberAddr}"></td>
+											        <td class="col-1" th:text="${member.memberDelNy}"></td>
+											        <td class="col-2" th:text="${#dates.format(member.memberModDate, 'yyyy-MM-dd일 HH:mm:ss')}"></td>
+											        <td class="col-2" th:text="${#dates.format(member.memberRegDate, 'yyyy-MM-dd일 HH:mm:ss')}"></td>
+											        <td class="col-2">
+											            <!-- delete 버튼 -->
+											            <button class="btn btn-danger btn-sm mb-1" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${member.memberSeq}" data-bs-target="#deleteModal">
+											                <i class="bi bi-trash"></i>
+											            </button>
+											            <!-- delete Modal -->
+											            <div class="modal fade" th:id="'deleteModal' + ${member.memberSeq}" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+											                <div class="modal-dialog">
+											                    <div class="modal-content">
+											                        <div class="modal-header">
+											                            <h5 class="modal-title" id="deleteModalLabel">Delete Test</h5>
+											                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											                        </div>
+											                        <form action="/memberDel" method="post">
+											                            <div class="modal-body">
+											                                <input type="hidden" name="memberSeq" th:value="${member.memberSeq}">
+											                                <span>Are you sure you want to delete?</span>
+											                            </div>
+											                            <div class="modal-footer">
+											                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											                                <button type="submit" class="btn btn-primary">Delete</button>
+											                            </div>
+											                        </form>
+											                    </div>
+											                </div>
+											            </div>
+											        </td>
+											    </tr>
 											</tbody>
+
 										</table>
 										
 										<!--페이지네이션-->
@@ -283,12 +264,12 @@ window.addEventListener('load', function () {
 		});
 
 		let form = document.querySelector("form[name=formList]");
-		let goUrlXdmList = "/codeGroupXdmList";								
-		let goUrlXdmInstForm = "/codeGroupInsertForm";							
-		let goUrlXdmView = "/codeGroupXdmView";								
+		let goUrlXdmList = "/memberXdmList";								
+		let goUrlXdmInstForm = "/memberInsertForm";							
+		let goUrlXdmView = "/memberXdmView";								
 /*
-		let goUrlXdmMultiUele = "/infra/codegroup/codeGroupXdmMultiUele";			
-		let goUrlXdmMultiDele = "/infra/codegroup/codeGroupXdmMultiDele";			
+		let goUrlXdmMultiUele = "/infra/members/membersXdmMultiUele";			
+		let goUrlXdmMultiDele = "/infra/members/membersXdmMultiDele";			
 		*/
 
 		let seq = document.querySelector("input[name=seq]");									/* ### */
