@@ -1,4 +1,4 @@
-package com.itjfw.infra.Receipt;
+package com.itjfw.infra.receipt;
 
 import java.util.List;
 

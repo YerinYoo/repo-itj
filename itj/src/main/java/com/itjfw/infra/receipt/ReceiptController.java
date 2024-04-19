@@ -1,4 +1,4 @@
-package com.itjfw.infra.Receipt;
+package com.itjfw.infra.receipt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ReceiptController {
 
 	@Autowired
-	ReceiptService productService;
+	ReceiptService receiptService;
 	
 	// 리스트 페이지
 	@RequestMapping(value = "/receiptXdmList")
-	public String receiptXdmList(@ModelAttribute("vo") ReceiptVo productVo, Model model) throws Exception{
+	public String receiptXdmList(@ModelAttribute("vo") Model model) throws Exception{
 		
 //		UtilSearch.setSearch(productVo);
 //		
