@@ -154,7 +154,8 @@
 															th:href="@{/productXdmView(productSeq=${list.productSeq})}"
 															th:text="${list.productSeq}"></a></td>
 													<td class="col" th:text="${list.productName}"></td>
-													<td class="col" th:text="${list.productDelNy}"></td>
+													<td th:if="${list.productDelNy eq 0}">N</td>
+													<td th:unless="${list.productDelNy eq 0}">Y</td>
 													<td class="col" th:text="${list.productPrice}"></td>
 													<td class="col" th:text="${list.productStock}"></td>
 													<td class="col"
