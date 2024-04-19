@@ -22,5 +22,8 @@ public interface OrdersDao {
 	public Integer ordersUlt(OrdersDto ordersDto);
 	
 	public Integer ordersDel(OrdersDto ordersDto);
+	
+	//주문 상세 페이지에서 주문 정보 불러오기
+	public List<OrdersDto> selectListWithOutPaging();
 }
 

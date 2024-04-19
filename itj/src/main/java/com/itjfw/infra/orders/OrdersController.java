@@ -37,7 +37,7 @@ public class OrdersController extends BaseController {
 	}
 	
 	@RequestMapping(value="/ordersView")
-	public String memberView(OrdersDto ordersDto, Model model) throws Exception {
+	public String ordersView(OrdersDto ordersDto, Model model) throws Exception {
 		
 		model.addAttribute("item", ordersService.selectOrders(ordersDto));
 		

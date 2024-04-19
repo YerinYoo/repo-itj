@@ -38,5 +38,9 @@ public class OrdersService {
 	public Integer ordersDel(OrdersDto ordersDto) {
 		return ordersDao.ordersDel(ordersDto);
 	}
+	
+	public List<OrdersDto> selectListWithoutPaging() {
+		return ordersDao.selectListWithOutPaging();
+	}
 
 }
