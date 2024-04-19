@@ -161,10 +161,11 @@
 											        <td class="col-1" th:text="${member.memberName}"></td>
 											        <td class="col-1" th:text="${member.memberID}"></td>
 											        <td class="col-1" th:text="${member.memberPwd}"></td>
-											        <td class="col-1" th:text="${member.memberTypeCd}"></td>
-											        <td class="col-1" th:text="${member.memberGenderCd}"></td>
+											        <td class="col-1" th:if="${member.memberTypeCd!=null}" th:text="${@codeService.selectOneCachedCode(member.memberTypeCd)}"></td>
+											        <td class="col-1" th:if="${member.memberGenderCd!=null}" th:text="${@codeService.selectOneCachedCode(member.memberGenderCd)}"></td> 
 													<td class="col-1" th:text="${member.memberAddr}"></td>
-											        <td class="col-1" th:text="${member.memberDelNy}"></td>
+											        <td class="col-1" th:if="${member.memberDelNy eq 0}">N</td>
+													<td class="col-1" th:unless="${member.memberDelNy eq 0}">Y</td>
 											        <td class="col-2" th:text="${#dates.format(member.memberModDate, 'yyyy-MM-dd일 HH:mm:ss')}"></td>
 											        <td class="col-2" th:text="${#dates.format(member.memberRegDate, 'yyyy-MM-dd일 HH:mm:ss')}"></td>
 											        <td class="col-2">

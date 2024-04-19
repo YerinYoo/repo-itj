@@ -40,4 +40,8 @@ public class MemberService {
 		return memberDao.memberDel(memberDto);
 	}
 	
+    public List<MemberDto> selectListWithoutPaging() {
+        return memberDao.selectListWithoutPaging();
+    }
+	
 }

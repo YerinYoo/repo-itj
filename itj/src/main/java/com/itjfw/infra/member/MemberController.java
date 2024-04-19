@@ -32,9 +32,9 @@ public class MemberController extends BaseController {
 	}
 	
 	@RequestMapping(value="/memberView")
-	public String memberView(MemberDto membeDto, Model model) throws Exception {
+	public String memberView(MemberDto memberDto, Model model) throws Exception {
 		
-		model.addAttribute("item", memberService.selectMember(membeDto));
+		model.addAttribute("item", memberService.selectMember(memberDto));
 		
 		return "xdm/member/memberView";
 	}
@@ -43,6 +43,14 @@ public class MemberController extends BaseController {
 	public String memberInsertForm() throws Exception{
 	
 		return "xdm/member/memberInsertForm";
+	}
+	
+	@RequestMapping(value="/memberUpdateForm")
+	public String memberUpdateForm(MemberDto memberDto, Model model) throws Exception {
+		
+		model.addAttribute("item", memberService.selectMember(memberDto));
+		
+		return "xdm/member/memberUpdateForm";
 	}
 	
 // 메서드 컨트롤러
