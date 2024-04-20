@@ -24,8 +24,8 @@
 	   		</choose>
 		</sql>
 
-<!-- 	프로덕트 셀렉 리스트 -->
-	<select id="selectList" resultMap="resultMapObj">
+<!-- 	프로덕트페이징 셀렉 리스트 -->
+	<select id="selectListWithPaging" resultMap="resultMapObj">
 		<include refid="base.selectListUpperForMysql" />
 		select
 			a.productSeq
@@ -41,6 +41,23 @@
 		ORDER BY a.productSeq desc
 		limit 99999999999
 		<include refid="base.selectListLowerForMysql" />
+	</select>
+	
+<!-- 	프로덕트 페이징 없는 셀렉 리스트 -->
+		<select id="selectListWithoutPaging" resultMap="resultMapObj">
+		select
+			a.productSeq
+			,a.productName
+			,a.productPrice
+			,a.productMemo
+			,a.productStock
+			,a.productDelNy
+			,a.productRegDate
+			,a.productModDate
+			,a.memberSeqF
+		FROM product a
+			where 1=1
+			and a.productDelNy = 0
 	</select>
 	
 <!-- 	프로덕트 셀렉 카운트	 -->

@@ -13,8 +13,8 @@ public class ProductService {
 	ProductDao productDao;
 	
 	// 셀렉 리스트
-	public List<ProductDto> selectList(ProductVo vo) {
-		return productDao.selectList(vo);
+	public List<ProductDto> selectListWithoutPaging(ProductVo vo) {
+		return productDao.selectListWithoutPaging(vo);
 	}
 	
 	// 셀렉 리스트 카운트

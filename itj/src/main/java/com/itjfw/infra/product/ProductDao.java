@@ -5,7 +5,7 @@ import java.util.List;
 public interface ProductDao {
 
 	// 셀렉 리스트
-	public List<ProductDto> selectList(ProductVo vo);
+	public List<ProductDto> selectListWithoutPaging(ProductVo vo);
 	
 	// 셀렉 리스트 카운트
 	public int selectOneCount(ProductVo vo);

@@ -24,7 +24,7 @@ public class ProductController {
 		
 		if(productVo.getTotalRows() > 0) {
 			
-			model.addAttribute("list", productService.selectList(productVo));
+			model.addAttribute("list", productService.selectListWithPaging(productVo));
 		}
 	
 		return  "xdm/product/productXdmList";
