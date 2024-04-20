@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="~{include/xdmHead :: xdmHead}"></div>
+</head>
+
+<body>
+
+	<!-- Page wrapper start -->
+	<div class="page-wrapper">
+
+		<!-- Main container start -->
+		<div class="main-container">
+
+			<div th:replace="~{include/xdmAside :: xdmAside}"></div>
+
+			<div th:replace="~{include/xdmHeader :: xdmHeader}"></div>
+
+			
+
+				<!-- App hero header starts -->
+				<div class="app-hero-header d-flex align-items-start">
+
+					<!-- Breadcrumb start -->
+					<ol class="breadcrumb d-none d-lg-flex align-items-center">
+						<li class="breadcrumb-item">
+							<i class="bi bi-house"></i>
+							<a href="index.html">Home</a>
+						</li>
+						<li class="breadcrumb-item">tables</li>
+						<li class="breadcrumb-item" aria-current="page">
+							view
+						</li>
+					</ol>
+					<!-- Breadcrumb end -->
+
+
+
+				</div>
+				<!-- App Hero header ends -->
+
+				<!-- App body starts -->
+				<div class="app-body">
+					
+					<!-- Row start -->
+					<div class="row">
+						<div class="col-xxl-12">
+							<div class="card mb-4">
+								<div class="card-body">
+									<form class="row g-3"
+										method="post">
+										
+										<div class="col-md-6">
+											<label for="purchaseOrderDetailSeq" class="form-label">purchaseOrderDetail Seq</label> <input
+												type="text" class="form-control" name="purchaseOrderDetailSeq" id="purchaseOrderDetailSeq"
+												th:value="${item.purchaseOrderDetailSeq}" readonly  />
+										</div>
+										<div class="col-md-6">
+											<label for="purchaseOrderDetailDelNy" class="form-label">purchaseOrderDetail DelNy</label> <input
+												type="text" class="form-control" name="purchaseOrderDetailDelNy" id="purchaseOrderDetailDelNy"
+												th:value="${item.purchaseOrderDetailDelNy}" readonly />
+										</div>
+										<div class="col-md-6">
+											<label for="purchaseOrderSeq" class="form-label">purchase No</label> <input
+												type="text" class="form-control" name="purchaseOrderSeq" id="purchaseOrderSeq"
+												th:value="${item.purchaseOrderSeq}"  readonly/>
+										</div>
+										<div class="col-md-6"></div>
+										<div class="col-md-6">
+											<label for="productSeq" class="form-label">Product No</label> <input
+												type="text" class="form-control" name="productSeq" id="productSeq"
+												th:value="${item.productSeq}" readonly />
+										</div>
+										<div class="col-md-6">
+											<label for="productName" class="form-label">Product Name</label> <input
+												type="text" class="form-control" name="productName" id="productName"
+												th:value="${item.productName}" readonly />
+										</div>
+										<div class="col-md-6">
+											<label for="purchaseCount" class="form-label">Count</label> <input
+												type="text" class="form-control" name="purchaseCount" id="purchaseCount"
+												th:value="${item.purchaseCount}" readonly />
+										</div>
+										<div class="col-md-6">
+											<label for="purchaseDeliverName" class="form-label">Deliver Name</label> <input
+												type="text" class="form-control" name="purchaseDeliverName" id="purchaseDeliverName"
+												th:value="${item.purchaseDeliverName}" readonly  />
+										</div>
+										<div class="col-md-6">
+											<label for="purchaseStatusCd" class="form-label">Purchase Status</label> <input
+												type="text" class="form-control" name="purchaseStatusCd" id="purchaseStatusCd"
+												th:value="${item.purchaseStatusCd}" readonly  />
+										</div>
+										<div class="col-md-6"></div>
+										<div class="col-md-6">
+											<label for="purchaseOrderDetailRegDate" class="form-label">PurchaseOrderDetail RegDate</label> <input
+												type="text" class="form-control" name="purchaseOrderDetailRegDate" id="purchaseOrderDetailRegDate"
+												th:value="${#dates.format(item.purchaseOrderDetailRegDate, 'yyyy-MM-dd일 HH:mm:ss')}" readonly />
+										</div>
+										<div class="col-md-6">
+											<label for="purchaseOrderDetailModDate" class="form-label">PurchaseOrderDetail ModDate</label>
+											<input type="text" class="form-control" name="purchaseOrderDetailModDate" id="purchaseOrderDetailModDate" 
+											th:value="${#dates.format(item.purchaseOrderDetailModDate, 'yyyy-MM-dd일 HH:mm:ss')}" readonly />
+										</div>
+									</form>
+									<!-- 테이블 아래 쪽 뒤로가기 -->
+									<div class="d-flex justify-content-between flex-row ms-5 pt-5">
+										<div class="col-2">
+											<a class="btn btn-danger btn-icon btn-sm mb-1" href="#"
+												th:href="@{/purchaseOrderDetailXdmList}"><i class="bi bi-arrow-left"></i></a>
+										</div>
+										<!-- 테이블 아래 쪽 등록 버튼 -->
+
+										<div class="col-2">
+											<a class="btn btn-info btn-sm mb-1" href="#"
+												th:href="@{/purchaseOrderDetailXdmUpdateForm(purchaseOrderDetailSeq=${item.purchaseOrderDetailSeq})}">
+												<i class="bi bi-pencil"></i>
+											</a>
+
+											<!-- uelete 버튼 시작 -->
+											<button class="btn btn-danger btn-sm mb-1" data-bs-toggle="modal"
+												th:data-bs-target="'#ueleteModal' + ${item['purchaseOrderDetailSeq']}"
+												data-bs-target="#ueleteModal">
+												<i class="bi bi-trash"></i>
+											</button>
+											<!-- uelete Modal -->
+											<div class="modal fade" th:id="'ueleteModal' + ${item['purchaseOrderDetailSeq']}"
+												id="ueleteModal" tabindex="-1" aria-labelledby="ueleteModalLabel"
+												aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="ueleteModalLabel">
+																상품 삭제</h5>
+															<button type="button" class="btn-close"
+																data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<form action="/codeUelete" method="post">
+															<div class="modal-body">
+																<input type="hidden" name="purchaseOrderDetailSeq" th:value="${item.purchaseOrderDetailSeq}">
+																<span>정말 삭제하시겠습니까 ?</span>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary"
+																	data-bs-dismiss="modal">Close</button>
+																<button type="submit" class="btn btn-primary">
+																	삭제</button>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+											<!-- delete 버튼 시작 -->
+											<button class="btn btn-danger btn-sm mb-1" data-bs-toggle="modal"
+												th:data-bs-target="'#deleteModal' + ${item['purchaseOrderDetailSeq']}"
+												data-bs-target="#deleteModal">
+												<i class="bi bi-x-lg"></i>
+											</button>
+											<!-- delete Modal -->
+											<div class="modal fade" th:id="'deleteModal' + ${item['purchaseOrderDetailSeq']}"
+												id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+												aria-hidden="true">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="deleteModalLabel">
+																완전 삭제</h5>
+															<button type="button" class="btn-close"
+																data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<form action="/codeDelete" method="post">
+															<div class="modal-body">
+																<input type="hidden" name="purchaseOrderDetailSeq" th:value="${item.purchaseOrderDetailSeq}">
+																<span>정말 삭제하시겠습니까 ?</span>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary"
+																	data-bs-dismiss="modal">Close</button>
+																<button type="submit" class="btn btn-primary">
+																	삭제</button>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Row end -->
+
+
+
+				</div>
+				<!-- App body ends -->
+			</div>
+			<!-- App container ends -->
+
+		</div>
+		<!-- Main container end -->
+
+	</div>
+	<!-- Page wrapper end -->
+
+	<div th:replace="~{include/commonjs :: commonXdmJs}"></div>
+	
+</body>
+
+</html>

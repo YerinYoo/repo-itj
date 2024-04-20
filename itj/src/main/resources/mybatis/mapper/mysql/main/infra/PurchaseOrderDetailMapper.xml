@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itjfw.infra.purchaseorderdetail.PurchaseOrderDetailDao">
+
+	<resultMap id="resultMapObj" type="com.itjfw.infra.purchaseorderdetail.PurchaseOrderDetailDto"></resultMap>
+
+
+<!-- 	select 공통 구문 -->
+		<sql id ="selectCommonProduct">
+			FROM purchaseorderdetail a
+			left join product b
+				on a.productSeqF = b.productSeq
+			left join purchaseorder c
+				on a.purchaseSeqF = c.purchaseOrderSeq 
+			where 1=1
+			<if test="voDelNy != null and !voDelNy.equals('')">AND a.purchaseOrderDetailDelNy = #{voDelNy}</if>
+				  
+			<choose>
+				<when test="voOptionDate == 1">AND a.purchaseOrderDetailRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+				<when test="voOptionDate == 2">AND a.purchaseOrderDetailModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+			</choose>
+				
+			<choose> 
+	            <when test="voOption == 1">AND a.purchaseOrderDetailSeq = #{voValue}</when>
+	            <when test="voOption == 2">AND a.purchaseDeliverName LIKE CONCAT('%',#{voValue},'%')</when>
+	   		</choose>
+		</sql>
+
+<!-- 	프로덕트페이징 셀렉 리스트 -->
+	<select id="selectListWithPaging" resultMap="resultMapObj">
+		<include refid="base.selectListUpperForMysql" />
+		select
+			a.purchaseOrderDetailSeq
+			,a.purchaseOrderDetailDelNy
+			,a.purchaseCount
+			,a.purchaseDeliverName
+			,a.purchaseStatusCd
+			,a.purchaseOrderDetailRegDate
+			,a.purchaseOrderDetailModDate
+			,a.productSeqF
+			,a.purchaseSeqF
+			,b.productSeq
+			,b.productName
+			,c.purchaseOrderSeq
+		<include refid="selectCommonProduct" />
+		ORDER BY a.purchaseOrderDetailSeq desc
+		limit 99999999999
+		<include refid="base.selectListLowerForMysql" />
+	</select>
+	
+<!-- 	프로덕트 페이징 없는 셀렉 리스트 -->
+		<select id="selectListWithoutPaging" resultMap="resultMapObj">
+		select
+			a.purchaseOrderDetailSeq
+			,a.purchaseOrderDetailDelNy
+			,a.purchaseCount
+			,a.purchaseDeliverName
+			,a.purchaseStatusCd
+			,a.purchaseOrderDetailRegDate
+			,a.purchaseOrderDetailModDate
+			,a.productSeqF
+			,a.purchaseSeqF
+			,b.productSeq
+			,b.productName
+			,c.purchaseOrderSeq
+			FROM purchaseorderdetail a
+			left join product b
+				on a.productSeqF = b.productSeq
+			left join purchaseorder c
+				on a.purchaseSeqF = c.purchaseOrderSeq 
+			where 1=1
+				and purchaseOrderDetailDelNy = 0
+	</select>
+	
+<!-- 	프로덕트 셀렉 카운트	 -->
+	<select id="selectOneCount" resultType="Integer">
+		select COUNT(*)
+		<include refid="selectCommonProduct"></include>
+	</select>
+	
+		<!-- 프로덕트 셀렉원 -->
+	<select id="selectOne" resultMap="resultMapObj">
+		select
+			a.purchaseOrderDetailSeq
+			,a.purchaseOrderDetailDelNy
+			,a.purchaseCount
+			,a.purchaseDeliverName
+			,a.purchaseStatusCd
+			,a.purchaseOrderDetailRegDate
+			,a.purchaseOrderDetailModDate
+			,a.productSeqF
+			,a.purchaseSeqF
+			,b.productSeq
+			,b.productName
+			,c.purchaseOrderSeq
+		FROM purchaseorderdetail a
+		left join product b
+			on a.productSeqF = b.productSeq
+		left join purchaseorder c
+			on a.purchaseSeqF = c.purchaseOrderSeq 
+		where 1=1
+			and purchaseOrderDetailDelNy = 0
+		    and a.purchaseOrderDetailSeq = #{purchaseOrderDetailSeq}
+	</select>
+	
+	<insert id="insert">
+		insert into purchaseorderdetail(
+			purchaseOrderDetailDelNy
+			,purchaseCount
+			,purchaseDeliverName
+			,purchaseStatusCd
+			,purchaseOrderDetailRegDate
+			,purchaseOrderDetailModDate
+			,productSeqF
+			,purchaseSeqF
+		) values (
+			0
+			,#{purchaseCount}
+			,#{purchaseDeliverName}
+			,#{purchaseStatusCd}
+			,now()
+			,now()
+			,#{productSeq}
+			,#{purchaseOrderSeq}
+		)
+	</insert>
+	
+	<update id="update">
+		update purchaseorderdetail
+		set
+			purchaseCount = #{purchaseCount}
+			,purchaseDeliverName = #{purchaseDeliverName}
+			,purchaseStatusCd = #{purchaseStatusCd}
+			,productModDate = now()
+			,productSeqF = #{productSeq}
+			,purchaseSeq = #{purchaseOrderSeq}
+		where 1=1
+			and purchaseOrderDetailSeq = #{purchaseOrderDetailSeq}
+	</update>
+	
+	<update id="updateDelete">
+   	update purchaseorderdetail
+   	set
+   		purchaseOrderDetailDelNy = 1
+   	WHERE 1=1
+   		and purchaseOrderDetailSeq = #{purchaseOrderDetailSeq}
+  	
+  	</update>
+  	
+  	<delete id="delete">
+  	delete from purchaseorderdetail
+  	
+  	where 1=1
+  		and purchaseOrderDetailSeq = #{purchaseOrderDetailSeq}
+  	
+  	</delete>
+	
+	
+	
+	
+</mapper>
