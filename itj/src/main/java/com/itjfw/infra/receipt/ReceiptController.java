@@ -24,7 +24,7 @@ public class ReceiptController {
 		
 		if(receiptVo.getTotalRows() > 0) {
 			
-			model.addAttribute("list", receiptService.selectList(receiptVo));
+			model.addAttribute("list", receiptService.selectListWithPaging(receiptVo));
 		}
 	
 		return  "xdm/receipt/receiptXdmList";

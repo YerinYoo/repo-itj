@@ -5,7 +5,7 @@ import java.util.List;
 public interface ReceiptDao {
 
 	// 셀렉 리스트
-	public List<ReceiptDto> selectList(ReceiptVo vo);
+	public List<ReceiptDto> selectListWithoutPaging(ReceiptVo vo);
 	
 	// 셀렉 리스트 카운트
 	public int selectOneCount(ReceiptVo vo);

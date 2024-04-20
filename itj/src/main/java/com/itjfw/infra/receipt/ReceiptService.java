@@ -13,8 +13,8 @@ public class ReceiptService {
 	ReceiptDao receiptDao;
 	
 	// 셀렉 리스트
-	public List<ReceiptDto> selectList(ReceiptVo vo) {
-		return receiptDao.selectList(vo);
+	public List<ReceiptDto> selectListWithoutPaging(ReceiptVo vo) {
+		return receiptDao.selectListWithoutPaging(vo);
 	}
 	
 	// 셀렉 리스트 카운트

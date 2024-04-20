@@ -29,7 +29,7 @@
 		</sql>
 
 <!-- 	프로덕트 셀렉 리스트 -->
-	<select id="selectList" resultMap="resultMapObj">
+	<select id="selectListWithPaging" resultMap="resultMapObj">
 		<include refid="base.selectListUpperForMysql" />
 		select
 			a.receiptSeq
@@ -48,6 +48,30 @@
 		ORDER BY a.receiptSeq desc
 		limit 99999999999
 		<include refid="base.selectListLowerForMysql" />
+	</select>
+	
+<!-- 	프로덕트 페이징 없는 셀렉 리스트 -->
+	<select id="selectListWithoutPaging" resultMap="resultMapObj">
+		select
+			a.receiptSeq
+			,a.receiptCount
+			,a.receiptInventory
+			,a.receiptDelNy
+			,a.receiptStatusCd
+			,a.receiptRegDate
+			,a.receiptModDate
+			,a.purchaseOrderSeqF
+			,b.purchaseOrderSeq
+			,b.memberSeqF
+			,c.memberSeq
+			,c.memberName
+		FROM receipt a
+			left join purchaseorder b
+				on a.purchaseOrderSeqF = b.purchaseOrderSeq
+			left join member c
+				on b.memberSeqF = c.memberSeq 
+			where 1=1
+				and a.receiptDelNy = 0
 	</select>
 	
 <!-- 	프로덕트 셀렉 카운트	 -->
