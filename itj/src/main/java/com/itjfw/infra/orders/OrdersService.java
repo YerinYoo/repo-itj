@@ -40,7 +40,7 @@ public class OrdersService {
 	}
 	
 	public List<OrdersDto> selectListWithoutPaging() {
-		return ordersDao.selectListWithOutPaging();
+		return ordersDao.selectListWithoutPaging();
 	}
 
 }
