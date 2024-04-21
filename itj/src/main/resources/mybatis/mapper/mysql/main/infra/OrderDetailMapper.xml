@@ -8,20 +8,16 @@
 <!-- order detail Mapper 공통 구문 //근데 얜 공통구문 딱히 없는 것 같기도 함.-->
 <!-- select 공통 구문 SQL -->
 	<sql id ="selectCommonOrderDetail">
-		from
-			orderDetail a
-		where 1=1
-			and ordersDelNy = 0
-			<if test="voDelNy != null and !voDelNy.equals('')">AND a.orderDetailDelNy = #{voDelNy}</if>
+
 			
  			<choose>
-				<when test="voOptionDate == 1">AND a.orderDetailRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
-				<when test="voOptionDate == 2">AND ordersModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+				<when test="voOptionDate == 1">AND orderDetailRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+				<when test="voOptionDate == 2">AND orderDetailModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
 			</choose>
 			
  			<choose> 
-	            <when test="voOption == 1">AND a.ordersSeq = #{voValue}</when>
-	            <when test="voOption == 2">AND a.ordererName = #{voValue}</when>	       
+	            <when test="voOption == 1">AND ordersSeqF = #{voValue}</when>
+	            <when test="voOption == 2">AND orderDeliverName = #{voValue}</when>
        		</choose>
 	</sql>
 	
@@ -33,7 +29,6 @@
 		a.ordersCount,
 		a.orderDeliverName,
 		a.orderStatusCd,
-		a.memberSeqF,
 		a.ordersSeqF,
 		a.productSeqF,
 		b.ordersSeq,
@@ -41,9 +36,9 @@
 		b.ordersRegDate,
 		b.ordersModDate,
 		b.ordersDelNy,
-		b.productSeqF
+		c.productName
 	from
-		orderDetail
+		orderDetail a
 		
 	left join 
 		orders b 
@@ -52,7 +47,18 @@
 	left join
 		product c
 	on a.productSeqF=c.productSeq
-	
+
+ 			<choose>
+				<when test="voOptionDate == 1">AND b.ordersRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+				<when test="voOptionDate == 2">AND b.ordersModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+			</choose>
+			
+ 			<choose> 
+	            <when test="voOption == 1">AND a.orderDetailSeqF = #{voValue}</when>
+	            <when test="voOption == 2">AND a.orderDeliverName = #{voValue}</when>
+	            <when test="voOption == 3">AND b.ordererName = #{voValue}</when>
+       		</choose>
+       		
 order by a.orderDetailSeq
  <!-- limit 99999999999
 <include refid="base.selectListLowerForMysql" /> -->
@@ -60,9 +66,7 @@ order by a.orderDetailSeq
 
 
 <select id="getTotalOrderDetailCount" resultType="Integer">
-select count(*)
-<include refid="selectCommonOrderDetail"></include>
-</select>
+select count(*) from orderDetail</select>
 
 <!-- 주문 정보 셀렉문 -->
 <select id="selectOrderDetail" resultMap="resultMapObj">

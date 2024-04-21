@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.itjfw.common.base.BaseController;
 import com.itjfw.common.util.UtilSearch;
 import com.itjfw.infra.orders.OrdersService;
+import com.itjfw.infra.product.ProductService;
+import com.itjfw.infra.product.ProductVo;
 
 
 @Controller
@@ -18,6 +20,8 @@ public class OrderDetailController extends BaseController{
 	OrderDetailService orderDetailService;
 	@Autowired
 	OrdersService ordersService;
+	@Autowired
+	ProductService productService;
 	
 	//주문 상세 리스트
 	@RequestMapping(value="/orderDetailXdmList")
@@ -46,12 +50,12 @@ public class OrderDetailController extends BaseController{
 	
 	//주문 상세 인서트
 	@RequestMapping(value="/orderDetailInsertForm")
-	public String orderDetailInsertForm(OrderDetailDto orderDetailDto, Model model) throws Exception {
+	public String orderDetailInsertForm(OrderDetailDto orderDetailDto, ProductVo productVo, Model model) throws Exception {
 		
 		//주문 상세 페이지에서 주문 리스트 셀렉트 박스로 받아오기
 		model.addAttribute("ListOfOrders", ordersService.selectListWithoutPaging());
 		//주문 상세 페이지에서 상품 리스트 셀렉트 박스로 받아오기
-		
+		model.addAttribute("ListOfProducts", productService.selectListWithoutPaging(productVo));
 		
 		return "xdm/orderdetail/orderDetailInsertForm";
 	}

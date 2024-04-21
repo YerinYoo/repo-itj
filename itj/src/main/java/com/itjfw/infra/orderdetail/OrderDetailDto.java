@@ -1,5 +1,7 @@
 package com.itjfw.infra.orderdetail;
 
+import java.sql.Date;
+
 public class OrderDetailDto {
 	
 	private String orderDetailSeq;
@@ -8,6 +10,12 @@ public class OrderDetailDto {
 	private String orderStatusCd;
 	private String ordersSeqF;
 	private String productSeqF;
+	private String ordersSeq;
+	private String ordererName;
+	private Date ordersRegDate;
+	private Date ordersModDate;
+	private Integer ordersDelNy;
+	private String productName;
 	
 	//order Detail getter, setter
 	public String getOrderDetailSeq() {
@@ -46,13 +54,51 @@ public class OrderDetailDto {
 	public void setProductSeqF(String productSeqF) {
 		this.productSeqF = productSeqF;
 	}
-	
+	public String getOrdersSeq() {
+		return ordersSeq;
+	}
+	public void setOrdersSeq(String ordersSeq) {
+		this.ordersSeq = ordersSeq;
+	}
+	public String getOrdererName() {
+		return ordererName;
+	}
+	public void setOrdererName(String ordererName) {
+		this.ordererName = ordererName;
+	}
+	public Date getOrdersRegDate() {
+		return ordersRegDate;
+	}
+	public void setOrdersRegDate(Date ordersRegDate) {
+		this.ordersRegDate = ordersRegDate;
+	}
+	public Date getOrdersModDate() {
+		return ordersModDate;
+	}
+	public void setOrdersModDate(Date ordersModDate) {
+		this.ordersModDate = ordersModDate;
+	}
+	public Integer getOrdersDelNy() {
+		return ordersDelNy;
+	}
+	public void setOrdersDelNy(Integer ordersDelNy) {
+		this.ordersDelNy = ordersDelNy;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
 	//order Detail toString()
 	@Override
 	public String toString() {
 		return "OrderDetailDto [orderDetailSeq=" + orderDetailSeq + ", ordersCount=" + ordersCount
 				+ ", orderDeliverName=" + orderDeliverName + ", orderStatusCd=" + orderStatusCd + ", ordersSeqF="
-				+ ordersSeqF + ", productSeqF=" + productSeqF + "]";
+				+ ordersSeqF + ", productSeqF=" + productSeqF + ", ordersSeq=" + ordersSeq + ", ordererName="
+				+ ordererName + ", ordersRegDate=" + ordersRegDate + ", ordersModDate=" + ordersModDate
+				+ ", ordersDelNy=" + ordersDelNy + ", productName=" + productName + "]";
 	}
+	
 	
 }
