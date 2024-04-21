@@ -18,5 +18,9 @@ public interface OrderDetailDao {
 	public Integer orderDetailInst(OrderDetailDto orderDetailDto);
 	
 	public Integer orderDetailUpdt(OrderDetailDto orderDetailDto);
+	
+	public Integer orderDetailUlt (OrderDetailDto orderDetailDto);
+	
+	public Integer orderDetailDel (OrderDetailDto orderDetailDto);
 
 }

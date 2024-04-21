@@ -132,34 +132,50 @@
 										<table class="table align-middle table-hover m-0">
 											<thead>
 												<tr>
-													<th scope="col-2"><input class="form-check-input" type="checkbox"
+													<th scope="col"><input class="form-check-input" type="checkbox"
 															value="" id="flexCheckDefault" /></th>
-													<th scope="col-2">orderDetailSeq</th>
-													<th scope="col-2">ordersCount</th>
-													<th scope="col-2">orderDeliverName</th>
-													<th scope="col-2">orderStatus</th>
-													<th scope="col-2">ordererName</th>
-													<th scope="col-2">orderProduct</th>
-													<th scope="col"></th>
+													<!-- orderDetail table column -->
+													<th scope="col">orderDetailSeq</th>
+													<th scope="col">ordersCount</th>
+													<th scope="col">orderDeliverName</th>
+													<th scope="col">orderStatus</th>
+													<!-- order table column -->
+													<th scope="col">ordererName</th>
+													<!-- product table column -->
+													<th scope="col">productName</th>
+													<th scope="col">productPrice</th>
+													<!-- member table column -->
+													<th scope="col">memberID</th>
+													<th scope="col">memberName</th>
+													<th scope="col">memberType</th>
+													<th></th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr th:if="${!#lists.isEmpty(list)}" th:each="list:${list}">
+													
+													<!-- orderDetail table column 관련 -->
 													<td scope="row"><input class="form-check-input" type="checkbox"
 															value="" id="flexCheckDefault" /></td>
 													<td class="col"><a href="#"
 															th:href="@{/orderDetailView(orderDetailSeq=${list.orderDetailSeq},orderDeliverName=${list.orderDeliverName})}"
 															th:text="${list.orderDetailSeq}">#001</a></td>
-													<!-- <th>
-															<img class="rounded-circle img-3x me-2" src="/xdm/assets/images/user.png"
-																alt="Bootstrap Gallery" />
-														</th> -->
-													<td class="col-2" th:text="${list.ordersCount}">first1</td>
-													<td class="col-2" th:text="${list.orderDeliverName}">Last1</td>
-													<td class="col-2" th:if="${list.orderStatusCd!=null}" th:text="${@codeService.selectOneCachedCode(list.orderStatusCd)}"></td> 
-													<td class="col-2" th:text="${list.ordererName}"></td>
-													<td class="col-2" th:text="${list.productName}"></td>
-													<td class="col-2">
+													<td class="col" th:text="${list.ordersCount}">first1</td>
+													<td class="col" th:text="${list.orderDeliverName}">Last1</td>
+													<td class="col" th:if="${list.orderStatusCd!=null}" th:text="${@codeService.selectOneCachedCode(list.orderStatusCd)}"></td> 
+													
+													<!-- order table column 관련 -->
+													<td class="col" th:text="${list.ordererName}"></td>
+													
+													<!-- product table 관련 -->
+													<td class="col" th:text="${list.productName}"></td>
+													<td class="col" th:text="${list.productPrice}"></td>
+				
+													<!-- member table 관련 -->
+													<td class="col" th:text="${list.memberID}"></td>
+													<td class="col" th:text="${list.memberName}"></td>
+													<td class="col" th:text="${@codeService.selectOneCachedCode(list.memberTypeCd)}"></td>
+													<td class="col"
 														<!-- uelete 버튼 시작 -->
 														<button class="btn btn-danger btn-sm mb-1"
 															data-bs-toggle="modal"
@@ -180,7 +196,7 @@
 																			data-bs-dismiss="modal"
 																			aria-label="Close"></button>
 																	</div>
-																	<form action="/codeUelete" method="post">
+																	<form action="/orderDetailUlt" method="post">
 																		<div class="modal-body">
 																			<input type="hidden" name="orderDetailSeq"
 																				th:value="${list.orderDetailSeq}">

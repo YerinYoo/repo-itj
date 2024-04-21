@@ -5,20 +5,42 @@
 
 <resultMap id="resultMapObj" type="com.itjfw.infra.orderdetail.OrderDetailDto"></resultMap>
 
-<!-- order detail Mapper 공통 구문 //근데 얜 공통구문 딱히 없는 것 같기도 함.-->
+<!-- orders Mapper 공통 구문 -->
 <!-- select 공통 구문 SQL -->
 	<sql id ="selectCommonOrderDetail">
-
+	from
+		orderDetail a
+		
+		<!-- 조인문 start -->
+		inner join
+			orders b
+		on
+			a.ordersSeqF=b.ordersSeq
+		
+		inner join
+			product c
+		on
+			a.productSeqF=c.productSeq
 			
- 			<choose>
-				<when test="voOptionDate == 1">AND orderDetailRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
-				<when test="voOptionDate == 2">AND orderDetailModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
-			</choose>
+		inner join
+			member d
+		on b.memberSeqF=d.memberSeq
+		<!-- 조인문 end -->
+		
+	where 1=1
+		and a.orderDetailDelNy = 0
+		<if test="voDelNy != null and !voDelNy.equals('')">AND a.orderDetailDelNy = #{voDelNy}</if>
 			
- 			<choose> 
-	            <when test="voOption == 1">AND ordersSeqF = #{voValue}</when>
-	            <when test="voOption == 2">AND orderDeliverName = #{voValue}</when>
-       		</choose>
+ 		<choose>
+			<when test="voOptionDate == 1">AND a.orderDetailRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+			<when test="voOptionDate == 2">AND orderDetailModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+		</choose>
+			
+ 		<choose> 
+	        <when test="voOption == 1">AND a.orderDetailSeq = #{voValue}</when>
+	        <when test="voOption == 2">AND a.orderDeliverName = #{voValue}</when>	  
+       	</choose>
+		
 	</sql>
 	
 <select id="orderDetailList" resultMap="resultMapObj">
@@ -29,44 +51,66 @@
 		a.ordersCount,
 		a.orderDeliverName,
 		a.orderStatusCd,
+		a.orderDetailDelNy,
+		a.orderDetailRegDate,
+		a.orderDetailModDate,
 		a.ordersSeqF,
 		a.productSeqF,
 		b.ordersSeq,
 		b.ordererName,
-		b.ordersRegDate,
-		b.ordersModDate,
-		b.ordersDelNy,
-		c.productName
+		c.productSeq,
+		c.productName,
+		c.productPrice,
+		d.memberSeq,
+		d.memberID,
+		d.memberName,
+		d.memberTypeCd
+		
 	from
 		orderDetail a
 		
-	left join 
-		orders b 
-	on
-		b.ordersSeq=a.ordersSeqF
-	left join
-		product c
-	on a.productSeqF=c.productSeq
-
- 			<choose>
-				<when test="voOptionDate == 1">AND b.ordersRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
-				<when test="voOptionDate == 2">AND b.ordersModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
-			</choose>
+		<!-- 조인문 start -->
+		inner join
+			orders b
+		on
+			a.ordersSeqF=b.ordersSeq
+		
+		inner join
+			product c
+		on
+			a.productSeqF=c.productSeq
 			
- 			<choose> 
-	            <when test="voOption == 1">AND a.orderDetailSeqF = #{voValue}</when>
-	            <when test="voOption == 2">AND a.orderDeliverName = #{voValue}</when>
-	            <when test="voOption == 3">AND b.ordererName = #{voValue}</when>
-       		</choose>
-       		
+		inner join
+			member d
+		on b.memberSeqF=d.memberSeq
+		<!-- 조인문 end -->
+		
+	where 1=1
+		and a.orderDetailDelNy = 0
+		<if test="voDelNy != null and !voDelNy.equals('')">AND a.orderDetailDelNy = #{voDelNy}</if>
+			
+ 		<choose>
+			<when test="voOptionDate == 1">AND a.orderDetailRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+			<when test="voOptionDate == 2">AND orderDetailModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
+		</choose>
+			
+ 		<choose> 
+	        <when test="voOption == 1">AND a.orderDetailSeq = #{voValue}</when>
+	        <when test="voOption == 2">AND a.orderDeliverName = #{voValue}</when>	  
+       	</choose>
+		
+
+<!--<include refid="selectCommonOrderDetail" /> -->
 order by a.orderDetailSeq
  <!-- limit 99999999999
 <include refid="base.selectListLowerForMysql" /> -->
 </select>
 
-
+<!-- 전체 개수 반환 쿼리 -->
 <select id="getTotalOrderDetailCount" resultType="Integer">
-select count(*) from orderDetail</select>
+	select count(*)
+	<include refid="selectCommonOrderDetail" />
+</select>
 
 <!-- 주문 정보 셀렉문 -->
 <select id="selectOrderDetail" resultMap="resultMapObj">
@@ -75,28 +119,42 @@ select count(*) from orderDetail</select>
 		a.ordersCount,
 		a.orderDeliverName,
 		a.orderStatusCd,
-		a.memberSeqF,
+		a.orderDetailDelNy,
+		a.orderDetailRegDate,
+		a.orderDetailModDate,
 		a.ordersSeqF,
 		a.productSeqF,
 		b.ordersSeq,
 		b.ordererName,
-		b.ordersRegDate,
-		b.ordersModDate,
-		b.ordersDelNy,
-		b.productSeqF
-	from
-		orderDetail
+		c.productSeq,
+		c.productName,
+		c.productPrice,
+		d.memberSeq,
+		d.memberID,
+		d.memberName,
+		d.memberTypeCd
 		
-	left join 
-		orders b 
-	on
-		b.ordersSeq=a.ordersSeqF
-	left join
-		product c
-	on a.productSeqF=c.productSeq
-	
-where 1=1
-and
+	from
+		orderDetail a
+		
+		<!-- 조인문 start -->
+		inner join
+			orders b
+		on
+			a.ordersSeqF=b.ordersSeq
+		
+		inner join
+			product c
+		on
+			a.productSeqF=c.productSeq
+			
+		inner join
+			member d
+		on b.memberSeqF=d.memberSeq
+		<!-- 조인문 end -->
+		
+	where 1=1
+	and
 	orderDetailSeq=#{orderDetailSeq}
 </select>
 
@@ -104,16 +162,22 @@ and
 <insert id="orderDetailInst">
 insert into orderDetail (
 	ordersCount,
+	ordersSeqF,
+	productSeqF,
+	orderDetailDelNy,
 	orderDeliverName,
 	orderStatusCd,
-	ordersSeqF,
-	productSeqF
+	orderDetailRegDate,
+	orderDetailModDate
 ) values (
 	#{ordersCount},
+	#{ordersSeqF},
+	#{productSeqF},
+	#{orderDetailDelNy},
 	#{orderDeliverName},
 	#{orderStatusCd},
-	#{ordersSeqF}
-	#{productSeqF}
+	now(),
+	now()
 );
 </insert>
 
@@ -121,17 +185,51 @@ insert into orderDetail (
 <update id="orderDetailUpdt">
 update orders
 set
-	ordersCount=#{ordererName},
-	orderDeliverName=#{orderDeliverName},
-	orderStatusCd=#{orderStatusCd},
+	ordersCount=#{ordersCount},
+	orderDetailDelNy=#{orderDetailDelNy},
+	ordersRegDate=now(),
+	ordersModDate=now(),
 	ordersSeqF=#{ordersSeqF},
-	productSeqF=#{productSeqF} 
+	productSeqF=#{productSeqF},
+	orderStatusCd=#{orderStatusCd} 
 	
 where 1=1
 	and orderDetailSeq=#{orderDetailSeq}
 </update>
 
-<!-- order Detil 테이블에 delNY 칼럼 없어, uelete 구현 불
-	delete > order 뷰에서 삭제 시 주문 상세도 함께 삭제되도록 조인함 -->
+<!-- 주문 삭제 / Uelete -->
+<update id="orderDetailUlt">
+update orderDetail
+set
+	orderDetailDelNy=1
+where 1=1
+and
+	orderDetailSeq=#{orderDetailSeq}
+</update>
+
+<!-- 주문 삭제 / 아예 삭제 -->
+<delete id="orderDetailDel">
+delete from orderDetail
+	
+where 1=1
+and
+	orderDetailSeq=#{orderDetailSeq}
+</delete>
+
+<!-- 주문 상세 페이지에서 주문 정보 불러오기 -->
+<select id="selectListWithoutPaging" resultMap="resultMapObj">
+select
+	a.ordersSeq,
+	a.ordererName,
+	a.memberSeqF
+	
+from
+	orders a
+where 1=1
+and a.ordersDelNy=0
+order by a.ordersSeq desc
+</select>
+	
+
 
 </mapper>

@@ -30,4 +30,12 @@ public class OrderDetailService {
 	public Integer orderDetailUpdt(OrderDetailDto orderDetailDto) {
 		return orderDetailDao.orderDetailUpdt(orderDetailDto);
 	}
+	
+	public Integer orderDetailUlt (OrderDetailDto orderDetailDto) {
+		return orderDetailDao.orderDetailUlt(orderDetailDto);
+	}
+	
+	public Integer orderDetailDel (OrderDetailDto orderDetailDto) {
+		return orderDetailDao.orderDetailDel(orderDetailDto);
+	}
 }
