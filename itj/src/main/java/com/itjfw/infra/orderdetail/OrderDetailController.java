@@ -16,9 +16,10 @@ import com.itjfw.infra.product.ProductVo;
 
 @Controller
 public class OrderDetailController extends BaseController{
-	
+	//기존 테이블 정보 서비
 	@Autowired
 	OrderDetailService orderDetailService;
+	//selectListWithoutPaging로 받아올 서비스 
 	@Autowired
 	OrdersService ordersService;
 	@Autowired
