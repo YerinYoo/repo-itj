@@ -12,7 +12,7 @@ public class OrdersService {
 	OrdersDao ordersDao;
 	
 	public List<OrdersDto> ordersList(OrdersVo vo) {
-		return ordersDao.ordersList();
+		return ordersDao.ordersList(vo);
 	}
 	
 	public Integer getTotalOrdersCount(OrdersVo ordersVo) throws Exception {

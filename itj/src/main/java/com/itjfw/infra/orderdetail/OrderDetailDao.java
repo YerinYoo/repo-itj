@@ -5,7 +5,7 @@ import java.util.List;
 public interface OrderDetailDao { 
 	
 	//주문 상세 전체 리스트
-	public List<OrderDetailDto> orderDetailList();
+	public List<OrderDetailDto> orderDetailList(OrderDetailVo orderDetailVo);
 	
 	//특정 주문 상세 셀렉원
 	public OrderDetailDto selectOrderDetail(OrderDetailDto orderDetailDto);

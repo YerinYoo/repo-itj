@@ -41,11 +41,13 @@
 	        <when test="voOption == 2">AND a.orderDeliverName = #{voValue}</when>	  
        	</choose>
 		
+		
 	</sql>
 	
+<!-- 주문 상세 리스트로 받아-->
 <select id="orderDetailList" resultMap="resultMapObj">
 <!--include upper, lower, limit 9999절 지우면 리스트 잘 뜸 + 페이징 기능 작동 X. 근데 저거 살려놓으면 리스트가 안 뜸. 왜??-->
-<!-- <include refid="base.selectListUpperForMysql" /> -->
+ <include refid="base.selectListUpperForMysql" /> 
 	select
 		a.orderDetailSeq,
 		a.ordersCount,
@@ -65,45 +67,10 @@
 		d.memberID,
 		d.memberName,
 		d.memberTypeCd
-		
-	from
-		orderDetail a
-		
-		<!-- 조인문 start -->
-		inner join
-			orders b
-		on
-			a.ordersSeqF=b.ordersSeq
-		
-		inner join
-			product c
-		on
-			a.productSeqF=c.productSeq
-			
-		inner join
-			member d
-		on b.memberSeqF=d.memberSeq
-		<!-- 조인문 end -->
-		
-	where 1=1
-		and a.orderDetailDelNy = 0
-		<if test="voDelNy != null and !voDelNy.equals('')">AND a.orderDetailDelNy = #{voDelNy}</if>
-			
- 		<choose>
-			<when test="voOptionDate == 1">AND a.orderDetailRegDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
-			<when test="voOptionDate == 2">AND orderDetailModDate BETWEEN #{voDateStart} AND #{voDateEnd}</when>
-		</choose>
-			
- 		<choose> 
-	        <when test="voOption == 1">AND a.orderDetailSeq = #{voValue}</when>
-	        <when test="voOption == 2">AND a.orderDeliverName = #{voValue}</when>	  
-       	</choose>
-		
-
-<!--<include refid="selectCommonOrderDetail" /> -->
+<include refid="selectCommonOrderDetail" />
 order by a.orderDetailSeq
- <!-- limit 99999999999
-<include refid="base.selectListLowerForMysql" /> -->
+ limit 9999
+<include refid="base.selectListLowerForMysql" /> 
 </select>
 
 <!-- 전체 개수 반환 쿼리 -->

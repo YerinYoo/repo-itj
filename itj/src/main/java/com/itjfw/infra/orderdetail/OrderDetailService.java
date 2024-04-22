@@ -12,7 +12,7 @@ public class OrderDetailService {
 	OrderDetailDao orderDetailDao;
 	
 	public List<OrderDetailDto> orderDetailList(OrderDetailVo vo) {
-		return orderDetailDao.orderDetailList();
+		return orderDetailDao.orderDetailList(vo);
 	}
 	
 	public OrderDetailDto selectOrderDetail(OrderDetailDto orderDetailDto) {

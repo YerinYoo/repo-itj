@@ -27,7 +27,7 @@
 	
 <select id="ordersList" resultMap="resultMapObj">
 <!--include upper, lower, limit 9999절 지우면 리스트 잘 뜸 + 페이징 기능 작동 X. 근데 저거 살려놓으면 리스트가 안 뜸. 왜??-->
-<!-- <include refid="base.selectListUpperForMysql" /> -->
+ <include refid="base.selectListUpperForMysql" /> 
 	select
 		a.ordersSeq,
 		a.ordererName,
@@ -38,8 +38,8 @@
 
 <include refid="selectCommonOrders" /> 
 order by a.ordersSeq
- <!-- limit 99999999999
-<include refid="base.selectListLowerForMysql" /> -->
+  limit 99999999999
+<include refid="base.selectListLowerForMysql" /> 
 </select>
 
 
