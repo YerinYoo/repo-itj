@@ -28,4 +28,6 @@ public interface MemberDao {
 	
 	//로그인 처리
 	public MemberDto selectOneById(String memberID);
+	
+	public List<MemberDto> selectManagerListWithoutPaging();
 }

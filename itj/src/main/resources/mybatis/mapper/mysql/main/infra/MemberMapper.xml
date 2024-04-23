@@ -149,4 +149,18 @@ and
 	order by a.memberSeq desc
 </select>
    
+<!-- 주문 페이지에서 멤버 정보 불러오기-->
+<select id="selectManagerListWithoutPaging" resultMap="resultMapObj">
+	select
+		a.memberSeq,
+		a.memberName
+		
+	from
+		member a
+	where 1=1
+	and a.memberDelNy=0
+	and a.memberTypeCd=3
+	order by a.memberSeq desc
+</select>   
+   
 </mapper>
