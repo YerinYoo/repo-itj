@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<div th:replace="~{include/xdmHead :: xdmHead}"></div>
+<div th:replace="~{include/xdmHead :: xdmHead}"></div>
 </head>
 
 <body>
@@ -16,158 +16,178 @@
 
 			<div th:replace="~{include/xdmHeader :: xdmHeader}"></div>
 
-			
 
-				<!-- App hero header starts -->
-				<div class="app-hero-header d-flex align-items-start">
 
-					<!-- Breadcrumb start -->
-					<ol class="breadcrumb d-none d-lg-flex align-items-center">
-						<li class="breadcrumb-item">
-							<i class="bi bi-house"></i>
-							<a href="index.html">Home</a>
-						</li>
-						<li class="breadcrumb-item">tables</li>
-						<li class="breadcrumb-item" aria-current="page">
-							view
-						</li>
-					</ol>
-					<!-- Breadcrumb end -->
+			<!-- App hero header starts -->
+			<div class="app-hero-header d-flex align-items-start">
+
+				<!-- Breadcrumb start -->
+				<ol class="breadcrumb d-none d-lg-flex align-items-center">
+					<li class="breadcrumb-item"><i class="bi bi-house"></i> <a
+						href="index.html">Home</a></li>
+					<li class="breadcrumb-item">tables</li>
+					<li class="breadcrumb-item" aria-current="page">view</li>
+				</ol>
+				<!-- Breadcrumb end -->
 
 
 
-				</div>
-				<!-- App Hero header ends -->
+			</div>
+			<!-- App Hero header ends -->
 
-				<!-- App body starts -->
-				<div class="app-body">
-					
-					<!-- Row start -->
-					<div class="row">
-						<div class="col-xxl-12">
-							<div class="card mb-4">
-								<div class="card-body">
-									<form class="row g-3"
-										method="post">
-										
-										<div class="col-md-6">
-											<label for="productSeq" class="form-label">Product Seq</label> <input
-												type="text" class="form-control" name="productSeq" id="productSeq"
-												th:value="${item.productSeq}" readonly  />
-										</div>
-										<div class="col-md-6">
-											<label for="productName" class="form-label">Product Name</label> <input
-												type="text" class="form-control" name="productName" id="productName"
-												th:value="${item.productName}"  readonly/>
-										</div>
-										<div class="col-md-6">
-											<label for="productPrice" class="form-label">Product Price</label> <input
-												type="text" class="form-control" name="productPrice" id="productPrice"
-												th:value="${item.productPrice}" readonly  />
-										</div>
-										<div class="col-md-6">
-											<label for="productMemo" class="form-label">Product Memo</label> <input
-												type="text" class="form-control" name="productMemo" id="productMemo"
-												th:value="${item.productMemo}" readonly />
-										</div>
-										<div class="col-md-6">
-											<label for="productStock" class="form-label">Product Stock</label> <input
-												type="text" class="form-control" name="productStock" id="productStock"
-												th:value="${item.productStock}" readonly />
-										</div>
-										<div class="col-md-6">
-											<label for="productDelNy" class="form-label">Product DelNy</label> <input
-												type="text" class="form-control" name="productDelNy" id="productDelNy"
-												th:value="${item.productDelNy}" readonly />
-										</div>
-										<div class="col-md-6">
-											<label for="productRegDate" class="form-label">Product RegDate</label> <input
-												type="text" class="form-control" name="productRegDate" id="productRegDate"
-												th:value="${#dates.format(item.productRegDate, 'yyyy-MM-dd일 HH:mm:ss')}" readonly />
-										</div>
-										<div class="col-md-6">
-											<label for="productModDate" class="form-label">Product ModDate</label>
-											<input type="text" class="form-control" name="productModDate" id="productModDate" th:value="${#dates.format(item.productModDate, 'yyyy-MM-dd일 HH:mm:ss')}" readonly />
-										</div>
-									</form>
-									<!-- 테이블 아래 쪽 뒤로가기 -->
-									<div class="d-flex justify-content-between flex-row ms-5 pt-5">
-										<div class="col-2">
-											<a class="btn btn-danger btn-icon btn-sm mb-1" href="#"
-												th:href="@{/productXdmList}"><i class="bi bi-arrow-left"></i></a>
-										</div>
-										<!-- 테이블 아래 쪽 등록 버튼 -->
+			<!-- App body starts -->
+			<div class="app-body">
 
-										<div class="col-2">
-											<a class="btn btn-info btn-sm mb-1" href="#"
-												th:href="@{/productXdmUpdateForm(productSeq=${item.productSeq})}">
-												<i class="bi bi-pencil"></i>
-											</a>
+				<!-- Row start -->
+				<div class="row">
+					<div class="col-xxl-12">
+						<div class="card mb-4">
+							<div class="card-body">
+								<form class="row g-3" method="post">
 
-											<!-- uelete 버튼 시작 -->
-											<button class="btn btn-danger btn-sm mb-1" data-bs-toggle="modal"
-												th:data-bs-target="'#ueleteModal' + ${item['productSeq']}"
-												data-bs-target="#ueleteModal">
-												<i class="bi bi-trash"></i>
-											</button>
-											<!-- uelete Modal -->
-											<div class="modal fade" th:id="'ueleteModal' + ${item['productSeq']}"
-												id="ueleteModal" tabindex="-1" aria-labelledby="ueleteModalLabel"
-												aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="ueleteModalLabel">
-																상품 삭제</h5>
-															<button type="button" class="btn-close"
-																data-bs-dismiss="modal" aria-label="Close"></button>
-														</div>
-														<form action="/codeUelete" method="post">
-															<div class="modal-body">
-																<input type="hidden" name="productSeq" th:value="${item.productSeq}">
-																<span>정말 삭제하시겠습니까 ?</span>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary"
-																	data-bs-dismiss="modal">Close</button>
-																<button type="submit" class="btn btn-primary">
-																	삭제</button>
-															</div>
-														</form>
+									<div class="col-md-6">
+										<label for="productSeq" class="form-label">Product Seq</label>
+										<input type="text" class="form-control" name="productSeq"
+											id="productSeq" th:value="${item.productSeq}" readonly />
+									</div>
+									<div class="col-md-6">
+										<label for="productName" class="form-label">Product
+											Name</label> <input type="text" class="form-control"
+											name="productName" id="productName"
+											th:value="${item.productName}" readonly />
+									</div>
+									<div class="col-md-6">
+										<label for="productPrice" class="form-label">Product
+											Price</label> <input type="text" class="form-control"
+											name="productPrice" id="productPrice"
+											th:value="${item.productPrice}" readonly />
+									</div>
+									<div class="col-md-6">
+										<label for="productMemo" class="form-label">Product
+											Memo</label> <input type="text" class="form-control"
+											name="productMemo" id="productMemo"
+											th:value="${item.productMemo}" readonly />
+									</div>
+									<div class="col-md-6">
+										<label for="productStock" class="form-label">Product
+											Stock</label> <input type="text" class="form-control"
+											name="productStock" id="productStock"
+											th:value="${item.productStock}" readonly />
+									</div>
+									<div class="col-md-6">
+										<label for="productDelNy" class="form-label">Product
+											DelNy</label> <input type="text" class="form-control"
+											name="productDelNy" id="productDelNy"
+											th:value="${item.productDelNy}" readonly />
+									</div>
+									<div class="col-md-6">
+										<label for="memberSeqF" class="form-label">거래처 선택</label> <select disabled
+											class="form-select" id="memberSeqF" name="memberSeqF">
+											<option
+												th:each="member : ${@memberService.selectCompanyListWithoutPaging()}"
+												th:value="${member.memberSeq}"
+												th:text="${member.memberName}"
+												th:selected="${member.memberSeq} == ${item?.memberSeqF} "></option>
+										</select>
+										<div class="invalid-feedback" id="memberSeqFFeedback"></div>
+
+									</div>
+									<div class="col-md-6">
+										<label for="productRegDate" class="form-label">Product
+											RegDate</label> <input type="text" class="form-control"
+											name="productRegDate" id="productRegDate"
+											th:value="${#dates.format(item.productRegDate, 'yyyy-MM-dd일 HH:mm:ss')}"
+											readonly />
+									</div>
+									<div class="col-md-6">
+										<label for="productModDate" class="form-label">Product
+											ModDate</label> <input type="text" class="form-control"
+											name="productModDate" id="productModDate"
+											th:value="${#dates.format(item.productModDate, 'yyyy-MM-dd일 HH:mm:ss')}"
+											readonly />
+									</div>
+								</form>
+								<!-- 테이블 아래 쪽 뒤로가기 -->
+								<div class="d-flex justify-content-between flex-row ms-5 pt-5">
+									<div class="col-2">
+										<a class="btn btn-danger btn-icon btn-sm mb-1" href="#"
+											th:href="@{/productXdmList}"><i class="bi bi-arrow-left"></i></a>
+									</div>
+									<!-- 테이블 아래 쪽 등록 버튼 -->
+
+									<div class="col-2">
+										<a class="btn btn-info btn-sm mb-1" href="#"
+											th:href="@{/productXdmUpdateForm(productSeq=${item.productSeq})}">
+											<i class="bi bi-pencil"></i>
+										</a>
+
+										<!-- uelete 버튼 시작 -->
+										<button class="btn btn-danger btn-sm mb-1"
+											data-bs-toggle="modal"
+											th:data-bs-target="'#ueleteModal' + ${item['productSeq']}"
+											data-bs-target="#ueleteModal">
+											<i class="bi bi-trash"></i>
+										</button>
+										<!-- uelete Modal -->
+										<div class="modal fade"
+											th:id="'ueleteModal' + ${item['productSeq']}"
+											id="ueleteModal" tabindex="-1"
+											aria-labelledby="ueleteModalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="ueleteModalLabel">상품 삭제</h5>
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
+													<form action="/codeUelete" method="post">
+														<div class="modal-body">
+															<input type="hidden" name="productSeq"
+																th:value="${item.productSeq}"> <span>정말
+																삭제하시겠습니까 ?</span>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-bs-dismiss="modal">Close</button>
+															<button type="submit" class="btn btn-primary">
+																삭제</button>
+														</div>
+													</form>
 												</div>
 											</div>
-											<!-- delete 버튼 시작 -->
-											<button class="btn btn-danger btn-sm mb-1" data-bs-toggle="modal"
-												th:data-bs-target="'#deleteModal' + ${item['productSeq']}"
-												data-bs-target="#deleteModal">
-												<i class="bi bi-x-lg"></i>
-											</button>
-											<!-- delete Modal -->
-											<div class="modal fade" th:id="'deleteModal' + ${item['productSeq']}"
-												id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
-												aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="deleteModalLabel">
-																완전 삭제</h5>
-															<button type="button" class="btn-close"
-																data-bs-dismiss="modal" aria-label="Close"></button>
-														</div>
-														<form action="/codeDelete" method="post">
-															<div class="modal-body">
-																<input type="hidden" name="productSeq" th:value="${item.productSeq}">
-																<span>정말 삭제하시겠습니까 ?</span>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary"
-																	data-bs-dismiss="modal">Close</button>
-																<button type="submit" class="btn btn-primary">
-																	삭제</button>
-															</div>
-														</form>
+										</div>
+										<!-- delete 버튼 시작 -->
+										<button class="btn btn-danger btn-sm mb-1"
+											data-bs-toggle="modal"
+											th:data-bs-target="'#deleteModal' + ${item['productSeq']}"
+											data-bs-target="#deleteModal">
+											<i class="bi bi-x-lg"></i>
+										</button>
+										<!-- delete Modal -->
+										<div class="modal fade"
+											th:id="'deleteModal' + ${item['productSeq']}"
+											id="deleteModal" tabindex="-1"
+											aria-labelledby="deleteModalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="deleteModalLabel">완전 삭제</h5>
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
+													<form action="/codeDelete" method="post">
+														<div class="modal-body">
+															<input type="hidden" name="productSeq"
+																th:value="${item.productSeq}"> <span>정말
+																삭제하시겠습니까 ?</span>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-bs-dismiss="modal">Close</button>
+															<button type="submit" class="btn btn-primary">
+																삭제</button>
+														</div>
+													</form>
 												</div>
 											</div>
 										</div>
@@ -176,23 +196,24 @@
 							</div>
 						</div>
 					</div>
-					<!-- Row end -->
-
-
-
 				</div>
-				<!-- App body ends -->
-			</div>
-			<!-- App container ends -->
+				<!-- Row end -->
 
+
+
+			</div>
+			<!-- App body ends -->
 		</div>
-		<!-- Main container end -->
+		<!-- App container ends -->
+
+	</div>
+	<!-- Main container end -->
 
 	</div>
 	<!-- Page wrapper end -->
 
 	<div th:replace="~{include/commonjs :: commonXdmJs}"></div>
-	
+
 </body>
 
 </html>

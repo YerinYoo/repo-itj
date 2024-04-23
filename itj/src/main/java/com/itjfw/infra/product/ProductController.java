@@ -6,10 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.itjfw.common.base.BaseController;
 import com.itjfw.common.util.UtilSearch;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
-public class ProductController {
+public class ProductController extends BaseController{
 
 	@Autowired
 	ProductService productService;
@@ -37,7 +40,7 @@ public class ProductController {
 		
 		productService.updateDelete(productDto);
 	
-		return  "xdm/product/productXdmList";
+		return "redirect:/productXdmList";
 	
 	}
 	
@@ -47,28 +50,28 @@ public class ProductController {
 		
 		productService.delete(productDto);
 	
-		return  "xdm/product/productXdmList";
+		return "redirect:/productXdmList";
 	
 	}
 	
 	// insert
 	@RequestMapping(value = "/productXdmInsert")
-	public String productXdmInsert(ProductDto productDto) throws Exception{
+	public String productXdmInsert(ProductDto productDto, HttpSession httpSession) throws Exception{
 		
 		productService.insert(productDto);
 	
-		return  "xdm/product/productXdmList";
+		return "redirect:/productXdmList";
 	
 	}
 	
 	
 	// update
 	@RequestMapping(value = "/productXdmUpdate")
-	public String productXdmUpdate(ProductDto productDto) throws Exception{
+	public String productXdmUpdate(ProductDto productDto, HttpSession httpSession) throws Exception{
 		
 		productService.update(productDto);
 	
-		return  "xdm/product/productXdmList";
+		return "redirect:/productXdmList";
 	
 	}
 	

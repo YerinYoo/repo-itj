@@ -67,5 +67,9 @@ public class MemberService {
 	public List<MemberDto> selectManagerListWithoutPaging() {
 		return memberDao.selectManagerListWithoutPaging();
 	}
+	
+	public List<MemberDto> selectCompanyListWithoutPaging() {
+		return memberDao.selectCompanyListWithoutPaging();
+	}
 
 }

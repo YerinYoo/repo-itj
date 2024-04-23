@@ -30,4 +30,6 @@ public interface MemberDao {
 	public MemberDto selectOneById(String memberID);
 	
 	public List<MemberDto> selectManagerListWithoutPaging();
+	
+	public List<MemberDto> selectCompanyListWithoutPaging();
 }
