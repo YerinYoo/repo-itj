@@ -164,7 +164,7 @@ and
 </select>   
 
 <!-- 로그인 처리 쿼리 -->
-<select id="selectOneById"></select>
+<select id="selectOneById">
 	select
 		memberSeq,
 		memberName,
