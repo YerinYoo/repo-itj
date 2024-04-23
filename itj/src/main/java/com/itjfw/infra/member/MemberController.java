@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itjfw.common.base.BaseController;
 import com.itjfw.common.constants.Constants;
 import com.itjfw.common.util.UtilSearch;
-import com.recorded.infra.member.MemberDto;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -104,7 +102,7 @@ public class MemberController extends BaseController {
 	
 //로그인 처리 
     @ResponseBody
-    @RequestMapping(value = "loginAdm")
+    @RequestMapping(value = "/loginAdm")
     public Map<String, Object> loginAdmPg(MemberDto dto, HttpSession httpSession) throws Exception {
         Map<String, Object> returnMap = new HashMap<>();
 
@@ -132,4 +130,18 @@ public class MemberController extends BaseController {
 
         return returnMap;
     }
+    
+	// 사용자 세션 로그아웃
+	@ResponseBody
+	@RequestMapping(value = "memberLogout")
+	public Map<String, Object> memberLogout(MemberDto dto, HttpSession httpSession) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		httpSession.invalidate(); // 세션 무효화
+		
+		returnMap.put("rt", "success");
+		
+        return returnMap; // 로그아웃 후 관리자 로그인 페이지로 리다이렉트
+    }
+	
 }
