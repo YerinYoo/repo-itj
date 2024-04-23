@@ -42,6 +42,20 @@
 									<form name="formInsert" id="formInsert" class="row g-3 needs-validation"
 										method="post">
 
+										<div class="col-md-4">
+											<label for="memberSeqF" class="form-label">주문 상품 선택</label> 
+											<select class="form-select" id="memberSeqF" name="memberSeqF">
+												<option selected="" disabled="" value="">Choose...</option>
+												<option
+													th:each="member : ${@memberService.selectListWithoutPaging(vo)}"
+													th:value="${member.memberSeq}"
+													th:text="${member.memberName}">
+												</option>
+											</select>
+											<div class="invalid-feedback" id="memberSeqFFeedback"></div>
+											
+										</div>
+
 										<div class="col-md-3">
 											<label for="memberSeqF" class="form-label">발주자 seq</span></label> <input
 												type="text" class="form-control" name="memberSeqF" id="memberSeqF"
@@ -120,19 +134,9 @@
 		}
 
 		function validationUpdt() {
-			if(!checkOnlyKoreanEnglish('purchaseOrderName',2,0,'한글과 영어만 사용가능합니다.')) return false;
-			
-			if(!checkSelectNull('purchaseOrderGroupSeqF',2,'값을 선택해주십시요.')) return false;
 		}
 
-		nullToEmpty = function (value) {
-			if (value == null || value == 'null' || value.length == 0) {
-				return false;
-			} else {
-				return true;
-			}
-
-		}
+		
 
 	</script>
 
