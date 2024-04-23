@@ -2,7 +2,6 @@ package com.itjfw.infra.member;
 
 import java.util.List;
 
-
 public interface MemberDao {
 	
 	//멤버 전체 리스트
@@ -26,4 +25,7 @@ public interface MemberDao {
 	
 	//오더 페이지에서 멤버 정보 불러오기
 	public List<MemberDto> selectListWithoutPaging();
+	
+	//로그인 처리
+	public MemberDto selectOneById(String memberID);
 }

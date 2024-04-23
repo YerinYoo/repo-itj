@@ -3,8 +3,8 @@ package com.itjfw.infra.member;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class MemberService {
@@ -12,6 +12,8 @@ public class MemberService {
 	@Autowired
 	MemberDao memberDao;
 	
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	 
 	public List<MemberDto> memberList(MemberVo vo) {
 		return memberDao.memberList(vo);
 	}
@@ -44,4 +46,22 @@ public class MemberService {
         return memberDao.selectListWithoutPaging();
     }
 	
+    //로그인 및 비밀번호 암호화 처리
+    public MemberDto authenticate(String ID, String pwd) {
+        MemberDto member = memberDao.selectOneById(ID);
+
+        if (member != null && passwordEncoder.matches(pwd, member.getMemberPwd())) {
+            return member;
+        } else {
+            return null;
+        }
+        
+    }
+
+    public MemberDto selectOneById(String id) {
+        MemberDto dto = new MemberDto();
+        dto.setMemberID(id);
+        return memberDao.selectMember(dto);
+    }
+    
 }

@@ -65,36 +65,21 @@ public class MemberController extends BaseController {
 	
 // 메서드 컨트롤러
 	@RequestMapping(value="/memberInst")
-	public String memberInst(MemberDto  memberDto) throws Exception {
-		String originalPwd = memberDto.getMemberID();
+	public String memberInst(MemberDto memberDto) throws Exception {
 		
 		//사용자가 입력한 비밀번호를 암호화하여 DTO 객체에 설정
 		memberDto.setMemberPwd(encodeBcrypt(memberDto.getMemberPwd(), 9));
 		
-		//입력 값이 없으면 0으로 설정
-		if (memberDto.getMemberDelNy() == null) {
-			memberDto.setMemberDelNy(0);
-		}
-		
-		//데이터베이스에 인서트 하기 전 암호화된 비밀번호를 확인하고 출력
-		System.out.println("Encrypted Password : " + memberDto.getMemberPwd());
-		
-		//사용자가 입력한 비밀번호와 암호화된 비밀번호를 비교하여 출력 
-		if (matchesBcrypt(originalPwd, memberDto.getMemberPwd(), 10)) {
-			System.out.println("Password Matches!");
-		} else {
-			System.out.println("Password Doesn't Maatch!");
-		
 		memberService.memberInst(memberDto);
-		
 		return "redirect:/memberXdmList";
-		}
 	}
-	
-
 	
 	@RequestMapping("/memberUpdt")
 	public String memberUpdt(MemberDto memberDto) throws Exception{
+		
+		//사용자가 입력한 비밀번호를 암호화하여 DTO 객체에 설정
+		memberDto.setMemberPwd(encodeBcrypt(memberDto.getMemberPwd(), 9));
+
 		memberService.memberUpdt(memberDto);
 		return "redirect:/memberXdmList";
 	}
@@ -111,9 +96,15 @@ public class MemberController extends BaseController {
 		return "redirect:/memberXdmList";
 	}
 	
+//로그인 페이지 
+	@RequestMapping(value="/XdmLogin")
+	public String adminLogin(MemberDto memberDto) throws Exception {
+        return "/adminLogin"; //경로 다시 확인해야 함.
+    }
+	
 //로그인 처리 
     @ResponseBody
-    @RequestMapping(value = "loginAdmPg")
+    @RequestMapping(value = "loginAdm")
     public Map<String, Object> loginAdmPg(MemberDto dto, HttpSession httpSession) throws Exception {
         Map<String, Object> returnMap = new HashMap<>();
 
