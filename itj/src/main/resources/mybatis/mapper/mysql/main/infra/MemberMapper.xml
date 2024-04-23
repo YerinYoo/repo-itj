@@ -162,5 +162,24 @@ and
 	and a.memberTypeCd=3
 	order by a.memberSeq desc
 </select>   
+
+<!-- 로그인 처리 쿼리 -->
+<select id="selectOneById"></select>
+	select
+		memberSeq,
+		memberName,
+		memberID,
+		memberPwd,
+		memberGenderCd,
+		memberTypeCd,
+		memberAddr,
+		memberDelNy,
+		memberRegDate,
+		memberModDate
+		
+	from
+		member
+	where memberID = #{memberID}
+</select>
    
 </mapper>
