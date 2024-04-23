@@ -52,6 +52,12 @@
 										
 											<!-- 수정 폼 -->
 											<h5 for="name" class="form-label">변경하려는 아이템 Seq : <span th:text="${item.ordersSeq}"></span></h5>
+											
+											<div class="col-md-3">
+												<label for="memberName" class="form-label">주문 번호</span></label>
+												<input type="text" class="form-control" name="ordersSeq" id="ordersSeq" th:value="${item.ordersSeq}" disabled/>
+												<div class="invalid-feedback" id="ordersSeqFeedback"></div>
+											</div>
 											<div class="col-md-3">
 												<label for="memberName" class="form-label">이름</span></label>
 												<input type="text" class="form-control" name="ordererName" id="ordererName" th:value="${item.ordererName}"/>

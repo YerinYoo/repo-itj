@@ -88,7 +88,7 @@ public class OrderDetailController extends BaseController{
 		
 		orderDetailService.orderDetailUpdt(orderDetailDto);
 		
-		return "redirect:/orderDetailView";
+		return "redirect:/orderDetailXdmList";
 	}
 	
 	@RequestMapping(value="/orderDetailUlt")

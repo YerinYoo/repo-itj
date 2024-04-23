@@ -73,7 +73,7 @@ public class OrdersController extends BaseController {
 	@RequestMapping("/ordersUpdt")
 	public String memberUpdt(OrdersDto ordersDto) throws Exception{
 		ordersService.ordersUpdt(ordersDto);
-		return "redirect:/ordersView";
+		return "redirect:/ordersXdmList";
 	}
 	
 	@RequestMapping("/ordersUlt")

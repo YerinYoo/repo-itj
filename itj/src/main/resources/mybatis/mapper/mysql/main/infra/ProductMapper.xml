@@ -110,6 +110,7 @@
 	<update id="update">
 		update product
 		set
+			
 			productName = #{productName}
 			,productPrice = #{productPrice}
 			,productMemo = #{productMemo}
