@@ -37,7 +37,7 @@ public class ReceiptController {
 		
 		receiptService.updateDelete(receiptDto);
 	
-		return  "xdm/receipt/receiptXdmList";
+		return "redirect:/receiptXdmList";
 	
 	}
 	
@@ -47,7 +47,7 @@ public class ReceiptController {
 		
 		receiptService.delete(receiptDto);
 	
-		return  "xdm/receipt/receiptXdmList";
+		return "redirect:/receiptXdmList";
 	
 	}
 	
@@ -57,7 +57,7 @@ public class ReceiptController {
 		
 		receiptService.insert(receiptDto);
 	
-		return  "xdm/receipt/receiptXdmList";
+		return "redirect:/receiptXdmList";
 	
 	}
 	
@@ -68,7 +68,7 @@ public class ReceiptController {
 		
 		receiptService.update(receiptDto);
 	
-		return  "xdm/receipt/receiptXdmList";
+		return "redirect:/receiptXdmList";
 	
 	}
 	

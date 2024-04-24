@@ -168,12 +168,12 @@
 														</td>
 														<td class="col">
 															<!-- uelete 버튼 시작 -->
-															<button class="btn btn-danger btn-sm mb-1"
+															<a class="btn btn-danger btn-sm mb-1"
 																data-bs-toggle="modal"
 																th:data-bs-target="'#ueleteModal' + ${list['receiptSeq']}"
 																data-bs-target="#ueleteModal">
 																<i class="bi bi-trash"></i>
-															</button>
+															</a>
 															<!-- uelete Modal -->
 															<div class="modal fade" th:id="'ueleteModal' + ${list['receiptSeq']}"
 																id="ueleteModal" tabindex="-1"
@@ -187,21 +187,17 @@
 																				data-bs-dismiss="modal"
 																				aria-label="Close"></button>
 																		</div>
-																		<form action="/receiptUelete" method="post">
-																			<div class="modal-body">
-																				<input type="hidden" name="receiptSeq"
-																					th:value="${list.receiptSeq}">
-																				<span>정말 삭제하시겠습니까?</span>
-																			</div>
-																			<div class="modal-footer">
-																				<button type="button"
-																					class="btn btn-secondary"
-																					data-bs-dismiss="modal">Close</button>
-																				<button type="submit"
-																					class="btn btn-primary">
-																					삭제</button>
-																			</div>
-																		</form>
+																		<div class="modal-body">
+																			<input type="hidden" name="receiptSeq"
+																				th:value="${list.receiptSeq}">
+																			<span>정말 삭제하시겠습니까?</span>
+																		</div>
+																		<div class="modal-footer">
+																			<a type="button"
+																				class="btn btn-secondary"
+																				data-bs-dismiss="modal">Close</a>
+																			<a class="btn btn-danger" th:href="@{/receiptXdmUelete(receiptSeq=${list.receiptSeq})}">삭제</a>
+																		</div>
 																	</div>
 																</div>
 															</div>

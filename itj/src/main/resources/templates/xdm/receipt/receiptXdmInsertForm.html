@@ -42,10 +42,16 @@
 									<form name="formInsert" id="formInsert" class="row g-3 needs-validation"
 										method="post">
 										<div class="col-md-6">
-											<label for="purchaseOrderSeqF" class="form-label">Purchase No</label> <input
-												type="text" class="form-control" name="purchaseOrderSeqF" id="purchaseOrderSeqF"
-												placeholder="발주 번호를 입력하세요" />
-												<div class="invalid-feedback" id="purchaseOrderSeqFFeedback"></div>
+											<label for="purchaseSeqF" class="form-label">purchase No</label> 
+											<select class="form-select" id="purchaseOrderSeqF" name="purchaseOrderSeqF">
+												<option selected="" disabled="" value="">Choose...</option>
+												<option
+													th:each="po : ${@poService.selectListWithoutPaging()}"
+													th:value="${po.purchaseOrderSeq}"
+													th:text="${po.purchaseOrderSeq}">
+												</option>
+											</select>
+											<div class="invalid-feedback" id="purchaseOrderSeqFFeedback"></div>
 										</div>
 										<div class="col-md-6">
 											<label for="receiptInventory" class="form-label">Receipt Inventory</label> <input
@@ -60,15 +66,13 @@
 											<div class="invalid-feedback" id="receiptCountFeedback"></div>
 										</div>
 										<div class="col-md-6">
-											<label class="form-label" for="receiptStatusCd">Grade</label>
+											<label class="form-label" for="receiptStatusCd">Receipt Status</label>
 											<select class="form-select" name="receiptStatusCd" id="receiptStatusCd">
 												<option value="" selected>입고 상태를 입력하세요</option>
 												<option th:each="list : ${@codeService.selectListCachedCode(3)}" th:value="${list.codeSeq}" th:text="${list.codeName}"></option>
 											</select>
-											<div class="invalid-feedback" id="productMemoFeedback"></div>
+											<div class="invalid-feedback" id="receiptStatusCdFeedback"></div>
 										</div>
-										<input type="hidden" th:value="session.sessNameXdm"/>
-
 										<div class="d-flex justify-content-between col-12">
 											<a th:href="@{/receiptXdmList}" class="btn btn-primary" role="button">
 												뒤로가기 </a>
@@ -124,15 +128,15 @@
 		}
 
 		function validationUpdt() {
-			if(!checkNull ('purchaseOrderSeqF', 2, '데이터 값을 입력하세요')) return false;
+			if(!checkSelectNull('purchaseOrderSeqF', 2 ,'발주 번호를 선택하세요' )) return false;	
 			
 			if(!checkNull ('receiptInventory', 2, '데이터 값을 입력하세요')) return false;
-			// 값 관련 추가 필요
+			if(!checkOnlyNumber ('receiptInventory', 2,0,0,0,0, '숫자만 입력 가능합니다')) return false;
 			
 			if(!checkNull ('receiptCount', 2, '데이터 값을 입력하세요')) return false;
-			// 값 관련 추가 필요
+			if(!checkOnlyNumber ('receiptCount', 2,0,0,0,0, '숫자만 입력 가능합니다')) return false;
 			
-			if(!checkSelectNull('receiptStatusCd', 2, "목록을 선택하세요.")) return false;
+			if(!checkSelectNull('receiptStatusCd', 2, "입고 상태를 선택하세요")) return false;
 			
 		}
 

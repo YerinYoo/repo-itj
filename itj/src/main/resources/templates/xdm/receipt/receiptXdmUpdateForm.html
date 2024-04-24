@@ -72,9 +72,17 @@
 												</select>
 											</div>
 											<div class="col-md-6">
-												<label for="purchaseOrderSeqF" class="form-label">Purchase No</label> <input
-												type="text" class="form-control" name="purchaseOrderSeqF" id="purchaseOrderSeqF"
-												th:value="${item.purchaseOrderSeqF}"  />
+												<label for="purchaseOrderSeqF" class="form-label">purchase No</label> 
+												<select class="form-select" id="purchaseOrderSeqF" name="purchaseOrderSeqF">
+													<option selected="" disabled="" value="">Choose...</option>
+													<option
+														th:each="po : ${@poService.selectListWithoutPaging()}"
+														th:value="${po.purchaseOrderSeq}"
+														th:text="${po.purchaseOrderSeq}"
+														th:selected="${po.purchaseOrderSeq} == ${item?.purchaseOrderSeqF}">
+													</option>
+												</select>
+												<div class="invalid-feedback" id="purchaseOrderSeqFFeedback"></div>
 											</div>
 											<div class="col-md-6"></div>
 											<div class="col-md-6">
@@ -149,7 +157,11 @@
 		}
 
 		function validationUpdt() {
-			//밸리데이션 진행 필요
+			if(!checkNull ('receiptInventory', 2, '데이터 값을 입력하세요')) return false;
+			if(!checkOnlyNumber ('receiptInventory', 2,0,0,0,0, '숫자만 입력 가능합니다')) return false;
+			
+			if(!checkNull ('receiptCount', 2, '데이터 값을 입력하세요')) return false;
+			if(!checkOnlyNumber ('receiptCount', 2,0,0,0,0, '숫자만 입력 가능합니다')) return false;
 		}
 
 		nullToEmpty = function (value) {
