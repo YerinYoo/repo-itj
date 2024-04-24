@@ -117,8 +117,8 @@
 								<!-- 총합 및 나열 값-->
 								<div class="container row m-auto">
 									<div class="fw-bold border-bottom col-3 mt-3 ms-5"
-										style="text-align: center; font-size: large;">Total :
-										2222</div>
+										style="text-align: center; font-size: large;">Total : <span th:text="${vo.totalRows}"></span>
+									</div>
 
 									<div class="col-md-2 offset-md-6 mt-3">
 										<select class="form-select" aria-label="Default select example" id="rowNumToShow" name="rowNumToShow" th:onchange="javascript:goList(1)">
