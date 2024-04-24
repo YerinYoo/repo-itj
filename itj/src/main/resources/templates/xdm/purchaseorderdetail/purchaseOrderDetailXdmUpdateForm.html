@@ -60,21 +60,32 @@
 												type="text" class="form-control" name="purchaseOrderDetailDelNy" id="purchaseOrderDetailDelNy"
 												th:value="${item.purchaseOrderDetailDelNy}" readonly />
 											</div>
+
 											<div class="col-md-6">
-											<label for="purchaseOrderSeq" class="form-label">purchase No</label> <input
-												type="text" class="form-control" name="purchaseOrderSeq" id="purchaseOrderSeq"
-												th:value="${item.purchaseOrderSeq}"   />
+												<label for="purchaseSeqF" class="form-label">purchase No</label> 
+												<select class="form-select" id="purchaseSeqF" name="purchaseSeqF">
+													<option selected="" disabled="" value="">Choose...</option>
+													<option
+														th:each="po : ${@poService.selectListWithoutPaging()}"
+														th:value="${po.purchaseOrderSeq}"
+														th:text="${po.purchaseOrderSeq}"
+														th:selected="${po.purchaseOrderSeq} == ${item?.purchaseOrderSeq}">
+													</option>
+												</select>
+												<div class="invalid-feedback" id="productSeqFFeedback"></div>
 											</div>
-											<div class="col-md-6"></div>
 											<div class="col-md-6">
-												<label for="productSeq" class="form-label">Product No</label> <input
-													type="text" class="form-control" name="productSeq" id="productSeq"
-													th:value="${item.productSeq}" />
-											</div>
-											<div class="col-md-6">
-												<label for="productName" class="form-label">Product Name</label> <input
-													type="text" class="form-control" name="productName" id="productName"
-													th:value="${item.productName}" readonly />
+												<label for="productSeqF" class="form-label">Product Name</label> 
+												<select class="form-select" id="productSeqF" name="productSeqF">
+													<option selected="" disabled="" value="">Choose...</option>
+													<option
+														th:each="product : ${@productService.selectListWithoutPaging(vo)}"
+														th:value="${product.productSeq}"
+														th:text="${product.productName}"
+														th:selected="${product.productSeq} == ${item?.productSeq}">
+													</option>
+												</select>
+												<div class="invalid-feedback" id="productSeqFFeedback"></div>
 											</div>
 											<div class="col-md-6">
 											<label for="purchaseCount" class="form-label">Count</label> <input

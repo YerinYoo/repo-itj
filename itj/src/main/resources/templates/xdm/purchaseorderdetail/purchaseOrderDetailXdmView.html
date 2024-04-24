@@ -112,7 +112,7 @@
 										<!-- 테이블 아래 쪽 등록 버튼 -->
 
 										<div class="col-2">
-											<a class="btn btn-info btn-sm mb-1" href="#"
+											<a class="btn btn-info btn-sm mb-1" 
 												th:href="@{/purchaseOrderDetailXdmUpdateForm(purchaseOrderDetailSeq=${item.purchaseOrderDetailSeq})}">
 												<i class="bi bi-pencil"></i>
 											</a>
@@ -135,7 +135,7 @@
 															<button type="button" class="btn-close"
 																data-bs-dismiss="modal" aria-label="Close"></button>
 														</div>
-														<form action="/codeUelete" method="post">
+														<form action="/purchaseOrderDetailUelete" method="post">
 															<div class="modal-body">
 																<input type="hidden" name="purchaseOrderDetailSeq" th:value="${item.purchaseOrderDetailSeq}">
 																<span>정말 삭제하시겠습니까 ?</span>
@@ -168,7 +168,7 @@
 															<button type="button" class="btn-close"
 																data-bs-dismiss="modal" aria-label="Close"></button>
 														</div>
-														<form action="/codeDelete" method="post">
+														<form action="/purchaseOrderDetailXdmDelete" method="post">
 															<div class="modal-body">
 																<input type="hidden" name="purchaseOrderDetailSeq" th:value="${item.purchaseOrderDetailSeq}">
 																<span>정말 삭제하시겠습니까 ?</span>

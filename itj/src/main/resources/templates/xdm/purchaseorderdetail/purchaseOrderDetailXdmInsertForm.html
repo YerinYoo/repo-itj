@@ -43,16 +43,28 @@
 										method="post">
 										<input type="hidden" value="0" name="purchaseOrderDetailDelNy"/>
 										<div class="col-md-6">
-											<label for="purchaseOrderSeq" class="form-label">purchase No</label> <input
-												type="text" class="form-control" name="purchaseOrderSeq" id="purchaseOrderSeq"
-												placeholder="발주 번호를 입력하세요"  />
-											<div class="invalid-feedback" id="purchaseOrderSeqFeedback"></div>
+											<label for="purchaseSeqF" class="form-label">purchase No</label> 
+											<select class="form-select" id="purchaseSeqF" name="purchaseSeqF">
+												<option selected="" disabled="" value="">Choose...</option>
+												<option
+													th:each="po : ${@poService.selectListWithoutPaging()}"
+													th:value="${po.purchaseOrderSeq}"
+													th:text="${po.purchaseOrderSeq}">
+												</option>
+											</select>
+											<div class="invalid-feedback" id="purchaseSeqFFeedback"></div>
 										</div>
 										<div class="col-md-6">
-											<label for="productSeq" class="form-label">Product No</label> <input
-												type="text" class="form-control" name="productSeq" id="productSeq"
-												placeholder="상품 번호를 입력하세요"  />
-											<div class="invalid-feedback" id="productSeqFeedback"></div>
+											<label for="productSeqF" class="form-label">Product No</label> 
+											<select class="form-select" id="productSeqF" name="productSeqF">
+												<option selected="" disabled="" value="">Choose...</option>
+												<option
+													th:each="product : ${@productService.selectListWithoutPaging(vo)}"
+													th:value="${product.productSeq}"
+													th:text="${product.productName}">
+												</option>
+											</select>
+											<div class="invalid-feedback" id="productSeqFFeedback"></div>
 										</div>
 										<div class="col-md-6">
 											<label for="purchaseCount" class="form-label">Count</label> <input
@@ -67,7 +79,7 @@
 											<div class="invalid-feedback" id="purchaseDeliverNameFeedback"></div>
 										</div>
 										<div class="col-md-6">
-											<label class="form-label" for="purchaseStatusCd">Grade</label>
+											<label class="form-label" for="purchaseStatusCd">Purchase Status</label>
 											<select class="form-select" name="purchaseStatusCd" id="purchaseStatusCd">
 												<option value="" selected>출고 상태를 입력하세요</option>
 												<option th:each="list : ${@codeService.selectListCachedCode(4)}" th:value="${list.codeSeq}" th:text="${list.codeName}"></option>
@@ -133,19 +145,18 @@
 		}
 
 		function validationUpdt() {
+			if(!checkSelectNull('purchaseSeqF', 2 ,'발주 번호를 선택하세요' )) return false;	
+			if(!checkSelectNull('productSeqF', 2 ,'품목을 선택하세요' )) return false;	
+			
 			if(!checkNull ('purchaseCount', 2, '데이터 값을 입력하세요')) return false;
-			// 값 관련 추가 필요
+			if(!checkOnlyNumber ('purchaseCount', 2,0,0,0,0, '숫자만 입력 가능합니다')) return false;
 			
 			if(!checkNull ('purchaseDeliverName', 2, '데이터 값을 입력하세요')) return false;
-			if(!checkOnlyKoreanEnglish('purchaseOrderDetailName',2,0,'한글과 영어만 사용가능합니다.')) return false;
+			if(!checkOnlyKoreanEnglish('purchaseDeliverName',2,0,'한글과 영어만 사용가능합니다.')) return false;
 			
-			//purchaseStatusCd 셀렉 관련 추가 필요
+			if(!checkSelectNull('purchaseStatusCd', 2 ,'발주 상태를 선택하세요' )) return false;	
 			
-			if(!checkNull ('productSeqF', 2, '데이터 값을 입력하세요')) return false;
-			// 값 관련 추가 필요
 			
-			if(!checkNull ('purchaseSeqF', 2, '데이터 값을 입력하세요')) return false;
-			// 값 관련 추가 필요
 		}
 
 		nullToEmpty = function (value) {

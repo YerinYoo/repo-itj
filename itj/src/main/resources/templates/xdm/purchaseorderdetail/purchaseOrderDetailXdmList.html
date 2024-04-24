@@ -168,12 +168,12 @@
 														</td>
 														<td class="col">
 															<!-- uelete 버튼 시작 -->
-															<button class="btn btn-danger btn-sm mb-1"
+															<a class="btn btn-danger btn-sm mb-1"
 																data-bs-toggle="modal"
 																th:data-bs-target="'#ueleteModal' + ${list['purchaseOrderDetailSeq']}"
 																data-bs-target="#ueleteModal">
 																<i class="bi bi-trash"></i>
-															</button>
+															</a>
 															<!-- uelete Modal -->
 															<div class="modal fade" th:id="'ueleteModal' + ${list['purchaseOrderDetailSeq']}"
 																id="ueleteModal" tabindex="-1"
@@ -193,10 +193,10 @@
 																			<span>정말 삭제하시겠습니까?</span>
 																		</div>
 																		<div class="modal-footer">
-																			<button type="button"
+																			<a type="button"
 																				class="btn btn-secondary"
-																				data-bs-dismiss="modal">Close</button>
-																			<a class="btn btn-danger" th:href="@{//purchaseOrderDetailUelete}">삭제</a>
+																				data-bs-dismiss="modal">Close</a>
+																			<a class="btn btn-danger" th:href="@{/purchaseOrderDetailUelete(purchaseOrderDetailSeq=${list.purchaseOrderDetailSeq})}">삭제</a>
 																		</div>
 																	</div>
 																</div>

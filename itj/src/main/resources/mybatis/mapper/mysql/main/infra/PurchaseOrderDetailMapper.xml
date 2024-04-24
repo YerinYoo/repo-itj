@@ -100,7 +100,6 @@
 		left join purchaseorder c
 			on a.purchaseSeqF = c.purchaseOrderSeq 
 		where 1=1
-			and purchaseOrderDetailDelNy = 0
 		    and a.purchaseOrderDetailSeq = #{purchaseOrderDetailSeq}
 	</select>
 	
@@ -121,8 +120,8 @@
 			,#{purchaseStatusCd}
 			,now()
 			,now()
-			,#{productSeq}
-			,#{purchaseOrderSeq}
+			,#{productSeqF}
+			,#{purchaseSeqF}
 		)
 	</insert>
 	
@@ -132,9 +131,9 @@
 			purchaseCount = #{purchaseCount}
 			,purchaseDeliverName = #{purchaseDeliverName}
 			,purchaseStatusCd = #{purchaseStatusCd}
-			,productModDate = now()
-			,productSeqF = #{productSeq}
-			,purchaseSeq = #{purchaseOrderSeq}
+			,purchaseOrderDetailModDate = now()
+			,productSeqF = #{productSeqF}
+			,purchaseSeqF = #{purchaseSeqF}
 		where 1=1
 			and purchaseOrderDetailSeq = #{purchaseOrderDetailSeq}
 	</update>

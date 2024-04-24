@@ -37,7 +37,7 @@ public class PurchaseOrderDetailController {
 		
 		purchaseOrderDetailService.updateDelete(PurchaseOrderDetailDto);
 	
-		return  "xdm/purchaseorderdetail/purchaseOrderDetailXdmList";
+		return "redirect:/purchaseOrderDetailXdmList";
 	
 	}
 	
@@ -47,7 +47,7 @@ public class PurchaseOrderDetailController {
 		
 		purchaseOrderDetailService.delete(PurchaseOrderDetailDto);
 	
-		return  "xdm/purchaseorderdetail/purchaseOrderDetailXdmList";
+		return "redirect:/purchaseOrderDetailXdmList";
 	
 	}
 	
@@ -57,7 +57,7 @@ public class PurchaseOrderDetailController {
 		
 		purchaseOrderDetailService.insert(PurchaseOrderDetailDto);
 	
-		return  "xdm/purchaseorderdetail/purchaseOrderDetailXdmList";
+		return "redirect:/purchaseOrderDetailXdmList";
 	
 	}
 	
@@ -68,7 +68,7 @@ public class PurchaseOrderDetailController {
 		
 		purchaseOrderDetailService.update(PurchaseOrderDetailDto);
 	
-		return  "xdm/purchaseorderdetail/purchaseOrderDetailXdmList";
+		return "redirect:/purchaseOrderDetailXdmList";
 	
 	}
 	
