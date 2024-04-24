@@ -80,11 +80,15 @@
 		,codeMemo
 		,codeDelNy
 		,codeGroupSeqF
+		,codeRegDate
+		,codeModDate
 		)values(
 		#{codeName}
 		,#{codeMemo}
 		,0
 		,#{codeGroupSeqF}
+		,now()
+		,now()
 		)
 
 		<selectKey resultType="String" keyProperty="codeSeq"
