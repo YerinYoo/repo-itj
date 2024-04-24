@@ -81,7 +81,6 @@
 		from
 			product a
 		where 1=1
-			and a.productDelNy = 0
 		    and a.productSeq = #{productSeq}
 	</select>
 	

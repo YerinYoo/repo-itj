@@ -145,7 +145,11 @@
 		}
 
 		function validationUpdt() {
-			//밸리데이션 진행 필요
+			if(!checkNull ('purchaseCount', 2, '데이터 값을 입력하세요')) return false;
+			if(!checkOnlyNumber ('purchaseCount', 2,0,0,0,0, '숫자만 입력 가능합니다')) return false;
+			
+			if(!checkNull ('purchaseDeliverName', 2, '데이터 값을 입력하세요')) return false;
+			if(!checkOnlyKoreanEnglish('purchaseDeliverName',2,0,'한글과 영어만 사용가능합니다.')) return false;
 		}
 
 		nullToEmpty = function(value) {

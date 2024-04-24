@@ -140,10 +140,13 @@
 			if(!checkOnlyKoreanEnglish('productName',2,0,'한글과 영어만 사용가능합니다.')) return false;
 			
 			if(!checkNull ('productPrice', 2, '데이터 값을 입력하세요')) return false;
-			// 값 관련 추가 필요
+			if(!checkOnlyNumber ('productPrice', 2,0,0,0,0, '숫자만 입력 가능합니다')) return false;
+			
 			
 			if(!checkNull ('productStock', 2, '데이터 값을 입력하세요')) return false;
-			// 값 관련 추가 필요
+			if(!checkOnlyNumber ('productStock', 2,0,0,0,0, '숫자만 입력 가능합니다')) return false;
+			
+			if(!checkSelectNull('memberSeqF', 2 ,'거래처를 선택하세요' )) return false;	
 			
 		}
 
