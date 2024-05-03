@@ -135,6 +135,7 @@
 															value="" id="flexCheckDefault" /></th>
 													<!-- orderDetail table column -->
 													<th scope="col">orderDetailSeq</th>
+													<th scope="col">orderDetailDelNy</th>
 													<th scope="col">ordersCount</th>
 													<th scope="col">orderDeliverName</th>
 													<th scope="col">orderStatus</th>
@@ -159,10 +160,11 @@
 													<td class="col"><a href="#"
 															th:href="@{/orderDetailView(orderDetailSeq=${list.orderDetailSeq},orderDeliverName=${list.orderDeliverName})}"
 															th:text="${list.orderDetailSeq}">#001</a></td>
+													<td class="col" th:if="${list.orderDetailDelNy eq 0}">N</td>
+													<td class="col" th:unless="${list.orderDetailDelNy eq 0}">Y</td>
 													<td class="col" th:text="${list.ordersCount}">first1</td>
 													<td class="col" th:text="${list.orderDeliverName}">Last1</td>
 													<td class="col" th:if="${list.orderStatusCd!=null}" th:text="${@codeService.selectOneCachedCode(list.orderStatusCd)}"></td> 
-													
 													<!-- order table column 관련 -->
 													<td class="col" th:text="${list.ordererName}"></td>
 													
