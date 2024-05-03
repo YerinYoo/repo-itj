@@ -25,6 +25,12 @@ public interface PurchaseOrderDetailDao {
 	// 완전 삭제
 	public int delete(PurchaseOrderDetailDto dto);
 
+	// 완전 삭제 발주
+	public int deletePurchase(PurchaseOrderDetailDto dto);
+		
+	// 완전 삭제 상품
+	public int deleteProduct(PurchaseOrderDetailDto dto);	
+	
 	// 페이지네이션
 	public List<PurchaseOrderDetailDto> selectListWithPaging(PurchaseOrderDetailVo vo);
 	

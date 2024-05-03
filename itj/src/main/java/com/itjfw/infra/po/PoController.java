@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.itjfw.common.base.BaseController;
 import com.itjfw.common.util.UtilSearch;
 import com.itjfw.infra.code.CodeService;
-import com.itjfw.infra.codegroup.CodeGroupDto;
-import com.itjfw.infra.codegroup.CodeGroupService;
-import com.itjfw.infra.codegroup.CodeGroupVo;
+import com.itjfw.infra.purchaseorderdetail.PurchaseOrderDetailDto;
+import com.itjfw.infra.purchaseorderdetail.PurchaseOrderDetailService;
 
 @Controller
 public class PoController extends BaseController {
@@ -22,6 +21,9 @@ public class PoController extends BaseController {
 	CodeService codeService;
 	@Autowired
 	PoService poService;
+	@Autowired
+	PurchaseOrderDetailService purchaseOrderDetailService;
+	
 	
 	@RequestMapping(value = "/poXdmList")
 	public String poXdmList(@ModelAttribute("vo") PoVo vo, Model model) throws Exception {
@@ -79,9 +81,13 @@ public class PoController extends BaseController {
 	}
 
 	@RequestMapping(value = "/poDelete")
-	public String poDelete(PoDto dto, Model model) throws Exception {
-
+	public String poDelete(PoDto dto, PurchaseOrderDetailDto poddto, Model model) throws Exception {
+		
+		poddto.setPurchaseSeqF(dto.getPurchaseOrderSeq());
+		
+		purchaseOrderDetailService.deletePurchase(poddto);
 		poService.delete(dto);
+		
 		return "redirect:/poXdmList";
 	}
 

@@ -47,6 +47,16 @@ public class PurchaseOrderDetailService {
 		return purchaseOrderDetailDao.delete(dto);
 	}
 	
+	// 완전 삭제, 발주
+	public int deletePurchase(PurchaseOrderDetailDto dto) {
+		return purchaseOrderDetailDao.deletePurchase(dto);
+	}
+	
+	// 완전 삭제, 상품
+	public int deleteProduct(PurchaseOrderDetailDto dto) {
+		return purchaseOrderDetailDao.deleteProduct(dto);
+	}
+	
 	// 페이징 처리 리스트
 	public List<PurchaseOrderDetailDto> selectListWithPaging(PurchaseOrderDetailVo vo){
 		return purchaseOrderDetailDao.selectListWithPaging(vo);

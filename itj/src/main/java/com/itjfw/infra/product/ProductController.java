@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itjfw.common.base.BaseController;
 import com.itjfw.common.util.UtilSearch;
+import com.itjfw.infra.purchaseorderdetail.PurchaseOrderDetailDto;
+import com.itjfw.infra.purchaseorderdetail.PurchaseOrderDetailService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -16,6 +18,9 @@ public class ProductController extends BaseController{
 
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	PurchaseOrderDetailService purchaseOrderDetailService;
 	
 	// 리스트 페이지
 	@RequestMapping(value = "/productXdmList")
@@ -46,8 +51,11 @@ public class ProductController extends BaseController{
 	
 	// delete
 	@RequestMapping(value = "/productXdmDelete")
-	public String productXdmDelete(ProductDto productDto) throws Exception{
+	public String productXdmDelete(PurchaseOrderDetailDto poddto, ProductDto productDto) throws Exception{
 		
+		poddto.setProductSeqF(productDto.getProductSeq());
+		
+		purchaseOrderDetailService.deleteProduct(poddto);
 		productService.delete(productDto);
 	
 		return "redirect:/productXdmList";

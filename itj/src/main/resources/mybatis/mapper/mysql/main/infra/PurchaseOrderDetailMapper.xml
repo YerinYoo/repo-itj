@@ -154,6 +154,22 @@
   		and purchaseOrderDetailSeq = #{purchaseOrderDetailSeq}
   	
   	</delete>
+  	
+  	<delete id="deletePurchase">
+  	delete from purchaseorderdetail
+  	
+  	where 1=1
+  		and purchaseSeqF = #{purchaseSeqF}
+  	
+  	</delete>
+  	
+  	<delete id="deleteProduct">
+  	delete from purchaseorderdetail
+  	
+  	where 1=1
+  		and productSeqF = #{productSeqF}
+  	
+  	</delete>
 	
 	
 	

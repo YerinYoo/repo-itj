@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<svg width="291.718" height="80.674" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <g class="layer">
+  <title>Layer 1</title>
+  <g data-name="Group 79" id="Group_79">
+   <g data-name="Group 1" id="Group_1">
+    <g data-name="Group 1" id="Group_1-2">
+     <rect data-name="Rectangle 4" fill="#28256d" height="22.82" id="Rectangle_4" opacity="0.6" transform="rotate(45 32.269 16.135)" width="22.82" x="32.27" y="16.14"/>
+     <path d="m16.14,32.27l22.81,0l0,22.82l-19.89,0a2.93,2.93 0 0 1 -2.92,-2.93l0,-19.89z" data-name="Rectangle 11" fill="#28256d" id="Rectangle_11" opacity="0.8" transform="rotate(45 16.135 32.269)"/>
+     <rect data-name="Rectangle 7" fill="#28256d" height="22.82" id="Rectangle_7" opacity="0.6" transform="rotate(45 64.538 16.135)" width="22.82" x="64.54" y="16.14"/>
+     <rect data-name="Rectangle 9" fill="#28256d" height="22.82" id="Rectangle_9" opacity="0.8" transform="rotate(45 48.403 32.269)" width="22.82" x="48.4" y="32.27"/>
+     <path d="m64.54,48.4l22.82,0l0,19.9a2.93,2.93 0 0 1 -2.93,2.92l-19.89,0l0,-22.82z" data-name="Rectangle 13" fill="#28256d" id="Rectangle_13" transform="rotate(45 64.538 48.404)"/>
+     <path d="m32.27,48.4l22.82,0l0,19.9a2.93,2.93 0 0 1 -2.93,2.92l-19.89,0l0,-22.82z" data-name="Rectangle 14" fill="#28256d" id="Rectangle_14" transform="rotate(45 32.269 48.404)"/>
+     <path d="m96.81,48.4l22.81,0l0,19.9a2.93,2.93 0 0 1 -2.92,2.92l-19.89,0l0,-22.82z" data-name="Rectangle 15" fill="#28256d" id="Rectangle_15" transform="rotate(45 96.806 48.404)"/>
+     <rect data-name="Rectangle 10" fill="#28256d" height="22.82" id="Rectangle_10" opacity="0.8" transform="rotate(45 80.672 32.269)" width="22.82" x="80.67" y="32.27"/>
+     <path d="m112.94,32.27l19.89,0a2.93,2.93 0 0 1 2.93,2.93l0,19.89l-22.82,0l0,-22.82z" data-name="Rectangle 12" fill="#28256d" id="Rectangle_12" opacity="0.8" transform="rotate(45 112.94 32.269)"/>
+     <rect data-name="Rectangle 8" fill="#28256d" height="22.82" id="Rectangle_8" opacity="0.6" transform="rotate(45 96.806 16.135)" width="22.82" x="96.81" y="16.14"/>
+     <path d="m50.6,0l20.62,0l0,22.82l-22.82,0l0,-20.62a2.19,2.19 0 0 1 2.2,-2.2z" data-name="Rectangle 5" fill="#28256d" id="Rectangle_5" opacity="0.4" transform="rotate(45 48.403 -5.28941e-7)"/>
+     <path d="m82.87,0l20.62,0l0,22.82l-22.82,0l0,-20.62a2.19,2.19 0 0 1 2.2,-2.2z" data-name="Rectangle 6" fill="#28256d" id="Rectangle_6" opacity="0.4" transform="rotate(45 80.672 -8.81572e-7)"/>
+    </g>
+   </g>
+  </g>
+  <text fill="#28256d" font-family="Noto Sans JP" font-size="17" id="svg_1" stroke-width="0" text-anchor="start" transform="matrix(3.25152 0 0 2.75963 -315.701 -119.621)" x="138.74" xml:space="preserve" y="65.75">DPRO</text>
+ </g>
+</svg>
