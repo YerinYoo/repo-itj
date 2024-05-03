@@ -9,6 +9,8 @@ import com.itjfw.common.base.BaseController;
 import com.itjfw.common.util.UtilSearch;
 import com.itjfw.infra.member.MemberDto;
 import com.itjfw.infra.member.MemberService;
+import com.itjfw.infra.orderdetail.OrderDetailDto;
+import com.itjfw.infra.orderdetail.OrderDetailService;
 
 @Controller
 public class OrdersController extends BaseController {
@@ -17,6 +19,8 @@ public class OrdersController extends BaseController {
 	OrdersService ordersService;
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	OrderDetailService orderDetailService;
 	
 	//회원 목록
 	@RequestMapping(value = "/ordersXdmList")
@@ -83,8 +87,13 @@ public class OrdersController extends BaseController {
 	}
 	
 	@RequestMapping("/ordersDel")
-	public String memberDel(OrdersDto ordersDto) throws Exception {
+	public String memberDel(OrdersDto ordersDto, OrderDetailDto orderDetailDto) throws Exception {
+		
+		orderDetailDto.setOrdersSeqF(ordersDto.getOrdersSeq());
+		
+		orderDetailService.delWithOrdersSeq(orderDetailDto);
 		ordersService.ordersDel(ordersDto);
+		
 		return "redirect:/ordersXdmList";
 	}
 }

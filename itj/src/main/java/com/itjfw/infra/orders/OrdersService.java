@@ -39,6 +39,10 @@ public class OrdersService {
 		return ordersDao.ordersDel(ordersDto);
 	}
 	
+	public Integer ordDeleteWithMember(OrdersDto ordersDto) {
+		return ordersDao.ordDeleteWithMember(ordersDto);
+	}
+	
 	public List<OrdersDto> selectListWithoutPaging() {
 		return ordersDao.selectListWithoutPaging();
 	}

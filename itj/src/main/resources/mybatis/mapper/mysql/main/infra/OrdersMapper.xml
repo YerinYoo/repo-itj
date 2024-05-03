@@ -115,6 +115,12 @@ and
 	ordersSeq=#{ordersSeq}
 </delete>
 
+<!--<delete id="ordDeleteWithMember">-->
+<!--delete from orders-->
+<!--where 1=1-->
+<!--and memberSeqF = #{memberSeqF}-->
+<!--</delete>-->
+
 <!-- 주문 상세 페이지에서 주문 정보 불러오기 -->
 <select id="selectListWithoutPaging" resultMap="resultMapObj">
 select

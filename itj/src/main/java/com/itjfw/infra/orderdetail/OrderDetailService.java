@@ -38,4 +38,8 @@ public class OrderDetailService {
 	public Integer orderDetailDel (OrderDetailDto orderDetailDto) {
 		return orderDetailDao.orderDetailDel(orderDetailDto);
 	}
+
+	public Integer delWithOrdersSeq (OrderDetailDto orderDetailDto) {
+		return orderDetailDao.delWithOrdersSeq(orderDetailDto);
+	}
 }

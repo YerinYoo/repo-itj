@@ -23,6 +23,8 @@ public interface OrdersDao {
 	
 	public Integer ordersDel(OrdersDto ordersDto);
 	
+	public Integer ordDeleteWithMember(OrdersDto ordersDto);
+	
 	//주문 상세 페이지에서 주문 정보 불러오기
 	public List<OrdersDto> selectListWithoutPaging();
 }

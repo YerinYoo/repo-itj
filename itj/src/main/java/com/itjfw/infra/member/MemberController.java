@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.itjfw.common.base.BaseController;
 import com.itjfw.common.constants.Constants;
 import com.itjfw.common.util.UtilSearch;
+import com.itjfw.infra.orderdetail.OrderDetailDto;
+import com.itjfw.infra.orderdetail.OrderDetailService;
+import com.itjfw.infra.orders.OrdersDto;
+import com.itjfw.infra.orders.OrdersService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -21,6 +25,10 @@ public class MemberController extends BaseController {
 	
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	OrdersService ordersService;
+	@Autowired
+	OrderDetailService orderDetailService;
 	
 	//회원 목록
 	@RequestMapping(value = "/memberXdmList")
@@ -85,13 +93,21 @@ public class MemberController extends BaseController {
 	
 	@RequestMapping("/memberUlt")
 	public String memberUlt(MemberDto memberDto) throws Exception {
+		
 		memberService.memberUlt(memberDto);
 		return "redirect:/memberXdmList";
 	}
 	
 	@RequestMapping("/memberDel")
-	public String memberDe(MemberDto memberDto) throws Exception {
+	public String memberDe(MemberDto memberDto, OrdersDto ordersDto, OrderDetailDto orderDetailDto) throws Exception {
+		
+		ordersDto.setMemberSeqF(memberDto.getMemberSeq());
+		orderDetailDto.setMemberSeq(memberDto.getMemberSeq());
+		
+		ordersService.ordDeleteWithMember(ordersDto);
+		
 		memberService.memberDel(memberDto);
+		
 		return "redirect:/memberXdmList";
 	}
 	

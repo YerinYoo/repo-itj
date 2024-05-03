@@ -22,5 +22,7 @@ public interface OrderDetailDao {
 	public Integer orderDetailUlt (OrderDetailDto orderDetailDto);
 	
 	public Integer orderDetailDel (OrderDetailDto orderDetailDto);
+	
+	public Integer delWithOrdersSeq (OrderDetailDto orderDetailDto);
 
 }

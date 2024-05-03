@@ -102,6 +102,8 @@ public class OrderDetailController extends BaseController{
 	@RequestMapping(value="/orderDetailDel")
 	public String orderDetailDel(OrderDetailDto orderDetailDto) throws Exception {
 		
+		
+		
 		orderDetailService.orderDetailDel(orderDetailDto);
 		
 		return "redirect:/orderDetailXdmList";
