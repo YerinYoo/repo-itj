@@ -159,7 +159,10 @@
 														</th> -->
 													<td class="col-2" th:text="${list.ordererName}">first1</td>
 													<td class="col-2" th:text="${list.memberSeqF}"></td>
-													<td class="col-2" th:text="${list.ordersDelNy}">Last1</td>
+													<td class="col-2" th:if="${list.ordersDelNy eq 0}">N</td>
+													<td class="col-2" th:unless="${list.ordersDelNy eq 0}">Y</td>
+											
+																										
 													<td class="col-3"
 														th:text="${#dates.format(list.ordersModDate, 'yyyy-MM-dd일 HH:mm:ss')}">
 													</td>
