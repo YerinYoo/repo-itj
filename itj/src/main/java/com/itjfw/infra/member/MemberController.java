@@ -117,10 +117,6 @@ public class MemberController extends BaseController {
             httpSession.setAttribute("sessSeqXdm", authenticatedMember.getMemberSeq());
             httpSession.setAttribute("sessIdXdm", authenticatedMember.getMemberID());
             httpSession.setAttribute("sessNameXdm", authenticatedMember.getMemberName());
-            
-			System.out.println("---------------------");
-			System.out.println("httpSession.getAttribute(\"sessNameXdm\"): " + httpSession.getAttribute("sessNameXdm"));
-			System.out.println("---------------------");
 
             returnMap.put("rt", "success");
         } else {

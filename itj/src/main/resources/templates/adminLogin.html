@@ -20,13 +20,13 @@
 							<h4 class="fw-semibold mb-4">Login</h4>
 							<div class="mb-3">
 								<label class="form-label">ID</label>
-								<input type="text" class="form-control" name="memberID" id="memberID"/>
+								<input type="text" class="form-control" name="memberID" id="memberID" value="test1"/>
 								<div class="invalid-feedback" id="memberIDFeedback"></div>
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Password</label>
 								<div class="input-group">
-									<input type="password" class="form-control" name="memberPwd" id="memberPwd"/>
+									<input type="password" class="form-control" name="memberPwd" id="memberPwd" value="1"/>
 									<a href="#" class="input-group-text">
 										<i class="bi bi-eye"></i>
 									</a>
@@ -39,13 +39,6 @@
 									style="background-color: rgb(14, 77, 160)" id="btnLogin">
 									Login
 								</button>
-							</div>
-							
-							<div class="text-center pt-4">
-								<span>회원이 아니십니까?</span>
-								<a href="signup.html" th:href="@{/memberInsertForm}"
-									class="text-blue text-decoration-underline ms-2">
-									생성</a>
 							</div>
 						</div>
 					</div>
@@ -62,7 +55,6 @@
 			if (validationLogin() == false) return false;
 
 
-			alert('111-------------------');
 			$.ajax({
 				async: true
 				, cache: false
@@ -72,16 +64,13 @@
 				/* ,data : $("#formLogin").serialize() */
 				, data: { "memberID": $("#memberID").val(), "memberPwd": $("#memberPwd").val() }
 				, success: function (response) {
-					alert(response.rt);
 					if (response.rt == "success") {
-						alert('로그인 성공');
 						location.href = "/codeGroupXdmList";
 					} else {
-						alert(response.rt);
-						alert('로그인 안됨');
 						// document.getElementById("modalAlertTitle").innerText = "확 인";
 						// document.getElementById("modalAlertBody").innerText = "일치하는 회원이 존재 하지 않습니다!";
 						// $("#modalAlert").modal("show");
+						alert("일치하는 회원이 존재하지 않습니다")
 					}
 				}
 				, error: function (jqXHR, textStatus, errorThrown) {
@@ -92,11 +81,8 @@
 
 		}
 		function validationLogin() {
-				alert('예외처리시작L')
 				if (!checkNull('memberID', 2, '아이디를 입력해주세요')) return false;
-				alert('예외처리1')
 				if (!checkNull('memberPwd', 2, '비밀번호를 입력해주세요')) return false;
-				alert('예외처리2')
 
 			}
 	</script>

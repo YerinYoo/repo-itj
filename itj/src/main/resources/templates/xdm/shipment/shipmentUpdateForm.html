@@ -53,7 +53,7 @@
 											<input type="hidden" name="shipmentSeq" th:value="${item.shipmentSeq}" id="shipmentSeq">
 											<!-- 수정 폼 -->
 											<div class="col-md-3">
-												<label for="shipmentDeliverName" class="form-label">배달부 이름<span th:text="${item.shipmentDeliverName}"></span></label>
+												<label for="shipmentDeliverName" class="form-label">배달부 이름 :<span th:text="${item.shipmentDeliverName}"></span></label>
 												<input type="text" class="form-control" name="shipmentDeliverName" id="shipmentDeliverName" th:value="${item.shipmentDeliverName}" required />
 												<div class="invalid-feedback" id="shipmentDeliverNameFeedback"></div>
 											</div>
@@ -68,7 +68,7 @@
 											</div>
 
 											<div class="col-md-3">
-												<label for="shipmentCount" class="form-label">출고 수<span th:text="${item.shipmentDeliverName}"></span></label>
+												<label for="shipmentCount" class="form-label">출고 수<span th:text="${item.shipmentCount}"></span></label>
 												<input type="text" class="form-control" name="shipmentCount" id="shipmentCount" th:value="${item.shipmentCount}" required />
 												<div class="invalid-feedback" id="shipmentCountFeedback"></div>
 											</div>
