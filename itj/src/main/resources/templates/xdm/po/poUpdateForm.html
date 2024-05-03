@@ -51,10 +51,17 @@
 											
 											<input type="hidden" name="purchaseOrderSeq" th:value="${item.purchaseOrderSeq}" id="purchaseOrderSeq">
 											<!-- 수정 폼 -->
-											<div class="col-md-3">
-												<label for="memberSeqF" class="form-label">변경하려는 발주자 Seq</label>
-												<input type="text" class="form-control" name="memberSeqF" id="memberSeqF" th:value="${item.memberSeqF}" />
-												<div class="invalid-feedback" id="memberSeqFFeedback"></div>
+											<div class="col-md-4">
+											<label for="memberSeqF" class="form-label">발주자 선택</label> 
+											<select class="form-select" id="memberSeqF" name="memberSeqF">
+												<option selected="" disabled="" value="">Choose...</option>
+												<option
+													th:each="member : ${@memberService.selectManagerListWithoutPaging()}"
+													th:value="${member.memberSeq}"
+													th:text="${member.memberName}">
+												</option>
+											</select>
+											<div class="invalid-feedback" id="memberSeqFFeedback"></div>
 											</div>
 
 											<div class="col-md-3">

@@ -42,10 +42,14 @@
 		memberSeqF
 		,purchaseOrderMemo
 		,purchaseOrderDelNy
+		,purchaseOrderRegDate
+		,purchaseOrderModDate
 		)values(
 		#{memberSeqF}
 		,#{purchaseOrderMemo}
 		,0
+		,now()
+		,now()
 		);
 
 <!--  값이 들어가는 순간 해당 시퀀스 값을 반환하여 , 이후에 다시 데이터를 추가한 페이지를 보기위함 -->
