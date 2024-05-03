@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.itjfw.common.base.BaseController;
 import com.itjfw.common.util.UtilSearch;
 import com.itjfw.infra.code.CodeService;
+import com.itjfw.infra.product.ProductService;
 import com.itjfw.infra.purchaseorderdetail.PurchaseOrderDetailDto;
 import com.itjfw.infra.purchaseorderdetail.PurchaseOrderDetailService;
 
@@ -23,6 +24,8 @@ public class PoController extends BaseController {
 	PoService poService;
 	@Autowired
 	PurchaseOrderDetailService purchaseOrderDetailService;
+	@Autowired
+	ProductService productService;
 	
 	
 	@RequestMapping(value = "/poXdmList")
@@ -55,6 +58,7 @@ public class PoController extends BaseController {
 
 	@RequestMapping(value = "/poInsertForm")
 	public String poInsertForm(Model model) throws Exception {
+		model.addAttribute("productList", productService.selectListWithoutPaging());
 		model.addAttribute("poGroupList", poService.selectListWithoutPaging());
 		return poUrl + "poInsertForm";
 	}

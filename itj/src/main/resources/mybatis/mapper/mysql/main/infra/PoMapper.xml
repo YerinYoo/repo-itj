@@ -29,10 +29,17 @@
 		,a.purchaseOrderModDate
 		,a.purchaseOrderDelNy
 		,a.memberSeqF
+		,a.productCount
+		,a.purchaseOrderMemo
+		,a.productSeqF
 		,b.memberName as xMemberName
+		,c.productSeq
+		,c.productName
+		,c.productPrice
 		from
 		purchaseOrder a
 		LEFT JOIN member b on b.memberSeq = a.memberSeqF
+		LEFT JOIN product c on c.productSeq = a.productSeqF
 		where 1=1
 		and purchaseOrderSeq = #{purchaseOrderSeq}
 	</select>
@@ -41,12 +48,16 @@
 		insert into purchaseOrder(
 		memberSeqF
 		,purchaseOrderMemo
+		,productSeqF
+		,productCount
 		,purchaseOrderDelNy
 		,purchaseOrderRegDate
 		,purchaseOrderModDate
 		)values(
 		#{memberSeqF}
 		,#{purchaseOrderMemo}
+		,#{productSeqF}
+		,#{productCount}
 		,0
 		,now()
 		,now()

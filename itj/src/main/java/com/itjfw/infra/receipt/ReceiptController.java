@@ -1,18 +1,33 @@
 package com.itjfw.infra.receipt;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itjfw.common.util.UtilSearch;
+import com.itjfw.infra.po.PoDto;
+import com.itjfw.infra.po.PoService;
+import com.itjfw.infra.product.ProductService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ReceiptController {
 
 	@Autowired
 	ReceiptService receiptService;
+	
+	@Autowired
+	PoService poService;
+	
+	@Autowired
+	ProductService productService;
 	
 	// 리스트 페이지
 	@RequestMapping(value = "/receiptXdmList")
@@ -30,6 +45,27 @@ public class ReceiptController {
 		return  "xdm/receipt/receiptXdmList";
 	
 	}
+	
+	// 리스트 페이지 셀렉문 아작스
+		@ResponseBody
+		@RequestMapping(value = "purchaseorderSelectCheck")
+		public Map<String, Object> purchaseorderSelectCheck(ReceiptDto dto,PoDto pdto, Model model, HttpSession httpSession) throws Exception {
+			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			
+			pdto.setPurchaseOrderSeq(dto.getPurchaseOrderSeqF());
+			
+			if(pdto.getPurchaseOrderSeq() != null) {
+					        
+		        // returnMap에도 성공 여부와 함께 데이터를 담아 전달
+		        returnMap.put("rt", "success");
+		        returnMap.put("itemPO", poService.selectOne(pdto));
+				
+			} else {
+				returnMap.put("rt", "fail");
+			}
+			return returnMap;
+		}
 	
 	// uelete
 	@RequestMapping(value = "/receiptXdmUelete")

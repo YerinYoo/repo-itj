@@ -17,8 +17,38 @@ public class ReceiptVo extends BaseVo {
 	private String memberSeq;
 	private String memberName;
 	
+	private Integer productCount;
+	private String productSeqF;
+	
+	private String productSeq;
+	private String productName;
 	
 	
+	
+	public Integer getProductCount() {
+		return productCount;
+	}
+	public void setProductCount(Integer productCount) {
+		this.productCount = productCount;
+	}
+	public String getProductSeqF() {
+		return productSeqF;
+	}
+	public void setProductSeqF(String productSeqF) {
+		this.productSeqF = productSeqF;
+	}
+	public String getProductSeq() {
+		return productSeq;
+	}
+	public void setProductSeq(String productSeq) {
+		this.productSeq = productSeq;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
 	public String getMemberSeqF() {
 		return memberSeqF;
 	}

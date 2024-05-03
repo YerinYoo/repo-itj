@@ -42,7 +42,7 @@
 									<form name="formInsert" id="formInsert" class="row g-3 needs-validation"
 										method="post">
 
-										<div class="col-md-4">
+										<div class="col-md-6">
 											<label for="memberSeqF" class="form-label">발주자 선택</label> 
 											<select class="form-select" id="memberSeqF" name="memberSeqF">
 												<option selected="" disabled="" value="">Choose...</option>
@@ -56,11 +56,31 @@
 											
 										</div>
 
-										<div class="col-md-3">
+										<div class="col-md-6">
 											<label for="purchaseOrderMemo" class="form-label">Memo</span></label> <input
 												type="text" class="form-control" name="purchaseOrderMemo" id="purchaseOrderMemo"
 												placeholder="Memo 넣어주십시오"  />
 											<div class="invalid-feedback" id="purchaseOrderMemoFeedback"></div>
+										</div>
+
+										<div th:if="${!#lists.isEmpty(productList)}" class="col-6">
+											<div class="single-form">
+												<label class="form-label" for="productSeqF">상품 선택</label> <select class="form-select" name="productSeqF"
+													id="productSeqF">
+													<option value="" selected>상품을 선택하세요</option>
+													<option th:each="productList : ${productList}"
+														th:value="${productList.productSeq}"
+														th:text="${productList.productName}"></option>
+												</select>
+												<div class="invalid-feedback" id="productSeqFFeedback"></div>
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<label for="productCount" class="form-label">수량</span></label> <input
+												type="text" class="form-control" name="productCount" id="productCount"
+												placeholder="수량을 넣어주십시요"  />
+											<div class="invalid-feedback" id="productCountFeedback"></div>
 										</div>
 										
 										<div class="d-flex justify-content-between col-12">

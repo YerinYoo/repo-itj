@@ -16,6 +16,11 @@ public class ProductService {
 	public List<ProductDto> selectListWithoutPaging(ProductVo vo) {
 		return productDao.selectListWithoutPaging(vo);
 	}
+	//다른 페이지 product 참조시 사용 할 리스트
+	public List<ProductDto> selectListWithoutPaging() {
+		return productDao.selectListWithoutPaging();
+	}
+	
 	
 	// 셀렉 리스트 카운트
 	public int selectOneCount(ProductVo vo) throws Exception{

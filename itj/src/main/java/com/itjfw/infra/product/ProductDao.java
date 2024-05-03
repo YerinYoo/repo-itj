@@ -10,6 +10,10 @@ public interface ProductDao {
 	// 셀렉 리스트 카운트
 	public int selectOneCount(ProductVo vo);
 	
+	//다른 페이지 product 참조시 사용 할 리스트
+	public List<ProductDto> selectListWithoutPaging();
+	
+	
 	// 셀렉원
 	public ProductDto selectOne(ProductDto dto);
 	

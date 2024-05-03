@@ -53,6 +53,8 @@
 											</select>
 											<div class="invalid-feedback" id="purchaseOrderSeqFFeedback"></div>
 										</div>
+<!-- 										발주 번호 셀렉문 내용 -->
+										<div class=" " id="purchaseOrderInfo"></div>
 										<div class="col-md-6">
 											<label for="receiptInventory" class="form-label">Receipt Inventory</label> <input
 												type="text" class="form-control" name="receiptInventory" id="receiptInventory"
@@ -147,6 +149,74 @@
 				return true;
 			}
 
+		}
+		
+		// 셀렉문 어드레스 데이터 뿌려주기 아작스
+		function selectTitle() {
+			$
+					.ajax({
+						async : true,
+						cache : false,
+						type : "post"
+						/* ,dataType:"json" */
+						,
+						url : "/purchaseorderSelectCheck"
+						/* ,data : $("#formLogin").serialize() */
+						,
+						data : {
+							"purchaseOrderSeqF" : $("#purchaseOrderSeqF").val()
+						}
+						// , "autoLogin" : $("#autoLogin").is(":checked")
+
+						,
+						success : function(response) {
+							if (response.rt == "success") {
+								var itemPO = response.itemPO;
+								$("#purchaseOrderInfo")
+										.html(
+														
+														'<div class="row">'
+														+ '	<div class="col-md-6">'
+														+ '		<label for="purchaseOrderMemo" class="form-label">PurchaseOrder Memo</label>'
+														+ '		<input type="text" class="form-control"  name="purchaseOrderMemo" id="purchaseOrderMemo" value="' +  itemPO.purchaseOrderMemo+ '" required readonly/>'
+														+ '	</div>'
+														+ '	<div class="col-md-6">'
+														+ '		<label for="xMemberName" class="form-label">Company Name</label>'
+														+ '		<input type="text" class="form-control"  name="xMemberName" id="xMemberName" value="' +  itemPO.xMemberName+ '" required readonly/>'
+														+ '	</div>'
+														+ '</div>'
+														+ '<div class="row">'
+														+ '	<div class="col-md-3">'
+														+ '		<label for="productSeqF" class="form-label">Product Seq</label>'
+														+ '		<input type="text" class="form-control"  name="productSeqF" id="productSeqF" value="' +  itemPO.productSeqF+ '" required readonly/>'
+														+ '	</div>'
+														+ '	<div class="col-md-3">'
+														+ '		<label for="productName" class="form-label">Product Name</label>'
+														+ '		<input type="text" class="form-control"  name="productName" id="productName" value="' +   itemPO.productName + '" required readonly/>'
+														+ '	</div>'
+														+ '	<div class="col-md-3">'
+														+ '		<label for="productPrice" class="form-label">Product Price</label>'
+														+ '		<input type="text" class="form-control"  name="productPrice" id="productPrice" value="' +  itemPO.productPrice + '" required readonly/>'
+														+ '	</div>'
+														+ '	<div class="col-md-3">'
+														+ '		<label for="productCount" class="form-label">Product Count</label>'
+														+ '		<input type="text" class="form-control" name="productCount" id="productCount" value="' + itemPO.productCount + '" required readonly/>'
+														+ '	</div>'
+														+ '</div>'
+														);
+							} else {
+								alert("목록이 존재하지 않습니다");
+							}
+						},
+						error : function(jqXHR, textStatus, errorThrown) {
+							alert("ajaxUpdate " + jqXHR.textStatus + " : "
+									+ jqXHR.errorThrown);
+						}
+					});
+		}
+
+		document.getElementById("purchaseOrderSeqF").onchange = function() {
+			selectTitle();
 		}
 
 	</script>

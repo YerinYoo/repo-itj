@@ -13,6 +13,8 @@
 				on a.purchaseOrderSeqF = b.purchaseOrderSeq
 			left join member c
 				on b.memberSeqF = c.memberSeq 
+			left join product d
+				on d.productSeq = b.productSeqF
 			where 1=1
 			<if test="voDelNy != null and !voDelNy.equals('')">AND a.receiptDelNy = #{voDelNy}</if>
 				  
@@ -41,8 +43,12 @@
 			,a.purchaseOrderSeqF
 			,b.purchaseOrderSeq
 			,b.memberSeqF
+			,b.productCount
+			,b.productSeqF
 			,c.memberSeq
 			,c.memberName
+			,d.productSeq
+			,d.productName
 		<include refid="selectCommonProduct" />
 		ORDER BY a.receiptSeq desc
 		limit 99999999999
@@ -62,13 +68,19 @@
 			,a.purchaseOrderSeqF
 			,b.purchaseOrderSeq
 			,b.memberSeqF
+			,b.productCount
+			,b.productSeqF
 			,c.memberSeq
 			,c.memberName
+			,d.productSeq
+			,d.productName
 		FROM receipt a
 			left join purchaseorder b
 				on a.purchaseOrderSeqF = b.purchaseOrderSeq
 			left join member c
 				on b.memberSeqF = c.memberSeq 
+			left join product d
+				on d.productSeq = b.productSeqF
 			where 1=1
 				and a.receiptDelNy = 0
 	</select>

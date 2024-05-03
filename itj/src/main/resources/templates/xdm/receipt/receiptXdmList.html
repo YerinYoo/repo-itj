@@ -136,7 +136,8 @@
 														<th scope="col">Count</th>
 														<th scope="col">StatusCd</th>
 														<th scope="col">Purchase No</th>
-														<th></th>
+														<th scope="col">Product Name</th>
+														<th scope="col">Product Count</th>
 														<th scope="col">Company Name</th>
 														<th scope="col">Company Inventory</th>
 														<th scope="col">modDate</th>
@@ -157,7 +158,8 @@
 														<td th:if="${list.receiptStatusCd != null}" th:text="${@codeService.selectOneCachedCode(list.receiptStatusCd)}" class="col"></td>
 														<td th:unless="${list.receiptStatusCd != null}" class="col"></td>
 														<td class="col" th:text="${list.purchaseOrderSeqF}"></td>
-														<td></td>
+														<td class="col" th:text="${list.productName}"></td>
+														<td class="col" th:text="${list.productCount}"></td>
 														<td class="col" th:text="${list.memberName}"></td>
 														<td class="col" th:text="${list.receiptInventory}"></td>
 														<td class="col"
