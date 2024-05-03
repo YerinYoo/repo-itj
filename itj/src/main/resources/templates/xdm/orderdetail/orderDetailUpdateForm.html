@@ -48,7 +48,7 @@
 									<div class="card-body">
 										<form class="row g-3 needs-validation" 
 											name="formUpdate" id="formUpdate"
-											action="/ordersUpdt" method="post">
+											action="/orderDetailUpdt" method="post">
 										
 											<!-- 수정 폼 -->
 											<h5 for="name" class="form-label">변경하려는 아이템 Seq : <span th:text="${item.orderDetailSeq}"></span></h5>
@@ -105,7 +105,7 @@
 											</div>
 											
 											<div class="col-md-4">
-												<label for="orderDeliverName" class="form-label">주문 수량</span></label>
+												<label for="orderDeliverName" class="form-label">주문 배달원</span></label>
 												<input type="text" class="form-control" name="orderDeliverName" id="orderDeliverName" th:value="${item.orderDeliverName}"/>
 												<div class="invalid-feedback" id="orderDeliverNameFeedback"></div>
 											</div>
@@ -121,7 +121,9 @@
 												<div class="invalid-feedback" id="orderStatusCdFeedback"></div>
 											</div>
 																						
-											</div>										
+											</div>		
+											<input type="hidden" name="orderDetailSeq" id="orderDetailSeq" th:value="${item.orderDetailSeq}">
+																			
 											<div class="d-flex justify-content-between col-12">
 												<a href="#" th:href="@{/orderDetailXdmList}" class="btn btn-primary" role="button">
 													뒤로가기
@@ -166,7 +168,7 @@
 	
 	let form = document.querySelector("form[name=formUpdate]");
 	let seq = document.querySelector("input[name=seq]");
-	let goUrlXdmUpdtForm = "/ordersUpdt";
+	let goUrlXdmUpdtForm = "/orderDetailUpdt";
 	let goUrlXdmView = "/orderDetailXdmView";
 		// 등록버튼
 		document.getElementById("btnUpdate").onclick = function () {

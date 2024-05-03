@@ -48,13 +48,13 @@
 									<div class="card-body">
 										<form class="row g-3 needs-validation" 
 											name="formUpdate" id="formUpdate"
-											method="post">
+											action="/memberUpdt" method="post">
 											
 											<!-- 수정 폼 -->
 											<h5 for="name" class="form-label">변경하려는 아이템 Seq : <span th:text="${item.memberSeq}"></span></h5>
 											
 											<div class="col-md-3">
-												<label for="memberName" class="form-label">회원 등록 번호 </span></label>
+												<label for="memberSeq" class="form-label">회원 등록 번호 </span></label>
 												<input type="text" class="form-control" name="memberSeq" id="memberSeq" th:value="${item.memberSeq}" disabled/>
 												<div class="invalid-feedback" id="memberNameFeedback"></div>
 											</div>
@@ -123,6 +123,7 @@
 
 												<button class="btn btn-primary" id="btnUpdate">
 													수정
+													<input type="hidden" name="memberSeq" id="memberSeq" th:value="${item.memberSeq}">
 												</button>
 											</div>
 										</form>
@@ -181,6 +182,12 @@
 
 		function validationUpdt() {
 			if (!checkOnlyKoreanEnglish('memberName',2,0,'한국어랑 영어만 가능합니다.')) return false;
+			if (!checkOnlyKoreanEnglishNumber('memberID',2,0,'한국어랑 영어만 가능합니다.')) return false;
+			if (!checkNull('memberPwd',2,0,'비밀번호를 입력하세요.')) return false;
+			if (!checkOnlyKoreanEnglishNumber('memberAddr',2,0,'한국어랑 영어만 가능합니다.')) return false;
+			if (!checkSelectNull('memberDelNy',2,0,'회원 삭제 여부를 선택하세요.')) return false;
+			if (!checkSelectNull('memberTypeCd',2,0,'회원의 구분 타입을 선택하세요.')) return false;
+			if (!checkSelectNull('memberGenderCd',2,0,'회원의 성별을 선택하세요.')) return false;
 		}
 
 // 		nullToEmpty = function (value) {

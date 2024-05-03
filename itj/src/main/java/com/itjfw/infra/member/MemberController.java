@@ -80,6 +80,7 @@ public class MemberController extends BaseController {
 
 		memberService.memberUpdt(memberDto);
 		return "redirect:/memberXdmList";
+		
 	}
 	
 	@RequestMapping("/memberUlt")
