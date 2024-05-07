@@ -114,12 +114,12 @@ public class MemberController extends BaseController {
 //index 페이지
 	@RequestMapping(value="/index")
 	public String index () throws Exception {
-		return "/index";
+		return "index";
 	}
 //로그인 페이지 
 	@RequestMapping(value="/XdmLogin")
 	public String adminLogin(MemberDto memberDto) throws Exception {
-        return "/adminLogin"; //경로 다시 확인해야 함.
+        return "adminLogin"; //경로 다시 확인해야 함.
     }
 	
 //로그인 처리 
