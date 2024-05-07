@@ -76,6 +76,7 @@
 		SET
 		memberSeqF = #{memberSeqF}
 		,purchaseOrderModDate = now()
+		,productSeqF = #{productSeqF}
 		where
 		1=1
 		and purchaseOrderSeq = #{purchaseOrderSeq}
