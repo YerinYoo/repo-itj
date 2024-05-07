@@ -51,7 +51,8 @@ public class PoController extends BaseController {
 
 	@RequestMapping(value = "/poUpdateForm")
 	public String poUpdateForm(Model model, PoDto dto) throws Exception {
-
+		model.addAttribute("productList", productService.selectListWithoutPaging());
+		model.addAttribute("poGroupList", poService.selectListWithoutPaging());
 		model.addAttribute("item", poService.selectOne(dto));
 		return poUrl + "poUpdateForm";
 	}
