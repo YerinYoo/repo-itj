@@ -110,7 +110,12 @@ public class MemberController extends BaseController {
 		
 		return "redirect:/memberXdmList";
 	}
-	
+
+//index 페이지
+	@RequestMapping(value="/index")
+	public String index () throws Exception {
+		return "/index";
+	}
 //로그인 페이지 
 	@RequestMapping(value="/XdmLogin")
 	public String adminLogin(MemberDto memberDto) throws Exception {
