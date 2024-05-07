@@ -6,7 +6,7 @@
     <resultMap id="resultMapObj" type="com.itjfw.infra.po.PoDto"></resultMap>
 	
 	<sql id="selectCommonPo">
-		FROM purchaseorder a
+		FROM purchaseOrder a
 		LEFT JOIN member b on b.memberSeq = a.memberSeqF
 		WHERE 1=1
 			<if test="voDelNy != null and !voDelNy.equals('')">AND a.purchaseorderDelNy = #{voDelNy}</if>

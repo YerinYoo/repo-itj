@@ -44,7 +44,7 @@
 			,b.productName
 			,c.purchaseOrderSeq
 		<include refid="selectCommonProduct" />
-		ORDER BY a.purchaseOrderDetailSeq desc
+		ORDER BY a.purchaseorderdetail desc
 		limit 99999999999
 		<include refid="base.selectListLowerForMysql" />
 	</select>
