@@ -9,7 +9,7 @@
 <!-- 	select 공통 구문 -->
 		<sql id ="selectCommonProduct">
 			FROM receipt a
-			left join purchaseorder b
+			left join purchaseOrder b
 				on a.purchaseOrderSeqF = b.purchaseOrderSeq
 			left join member c
 				on b.memberSeqF = c.memberSeq 
@@ -75,7 +75,7 @@
 			,d.productSeq
 			,d.productName
 		FROM receipt a
-			left join purchaseorder b
+			left join purchaseOrder b
 				on a.purchaseOrderSeqF = b.purchaseOrderSeq
 			left join member c
 				on b.memberSeqF = c.memberSeq 
@@ -108,7 +108,7 @@
 			,c.memberName		
 		from
 			receipt a
-		left join purchaseorder b
+		left join purchaseOrder b
 				on a.purchaseOrderSeqF = b.purchaseOrderSeq
 		left join member c
 			on b.memberSeqF = c.memberSeq 
