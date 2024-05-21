@@ -11,6 +11,17 @@ public class ShipmentDto {
 	private Date shipmentRegDate;
 	private Date shipmentModDate;
 	private String ordersSeqF;
+	
+	private String[] checkboxSeqArray  = null;
+
+	
+	public String[] getCheckboxSeqArray() {
+		return checkboxSeqArray;
+	}
+
+	public void setCheckboxSeqArray(String[] checkboxSeqArray) {
+		this.checkboxSeqArray = checkboxSeqArray;
+	}
 
 	public String getShipmentSeq() {
 		return shipmentSeq;

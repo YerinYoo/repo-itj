@@ -17,6 +17,15 @@ public class PurchaseOrderDetailDto {
 	private String productName;
 	private String purchaseOrderSeq;
 	
+	private String[] checkboxSeqArray  = null;
+	
+	
+	public String[] getCheckboxSeqArray() {
+		return checkboxSeqArray;
+	}
+	public void setCheckboxSeqArray(String[] checkboxSeqArray) {
+		this.checkboxSeqArray = checkboxSeqArray;
+	}
 	public String getPurchaseOrderDetailSeq() {
 		return purchaseOrderDetailSeq;
 	}

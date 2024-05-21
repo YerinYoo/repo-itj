@@ -77,6 +77,18 @@ public class PoController extends BaseController {
 		poService.update(dto);
 		return "redirect:/poXdmList";
 	}
+	
+	// multiuelete
+	@RequestMapping(value = "/poMultiUele")
+	public String productMultiUele(PoDto dto) throws Exception{
+		String[] checkboxSeqArray = dto.getCheckboxSeqArray();
+		for(String checkboxSeq : checkboxSeqArray) {
+			dto.setPurchaseOrderSeq(checkboxSeq);
+			poService.uelete(dto);
+		}
+		
+		return "redirect:/poXdmList";
+	}
 
 	@RequestMapping(value = "/poUelete")
 	public String poUelete(PoDto dto, Model model) throws Exception {

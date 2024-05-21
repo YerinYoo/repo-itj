@@ -49,6 +49,18 @@ public class ProductController extends BaseController{
 	
 	}
 	
+	// multiuelete
+	@RequestMapping(value = "/productMultiUele")
+	public String productMultiUele(ProductDto dto) throws Exception{
+		String[] checkboxSeqArray = dto.getCheckboxSeqArray();
+		for(String checkboxSeq : checkboxSeqArray) {
+			dto.setProductSeq(checkboxSeq);
+			productService.updateDelete(dto);
+		}
+		
+		return "redirect:/productXdmList";
+	}
+	
 	// delete
 	@RequestMapping(value = "/productXdmDelete")
 	public String productXdmDelete(PurchaseOrderDetailDto poddto, ProductDto productDto) throws Exception{

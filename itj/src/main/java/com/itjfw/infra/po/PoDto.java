@@ -19,7 +19,17 @@ public class PoDto {
 	private String productName;
 	private Double productPrice;
 	
+	private String[] checkboxSeqArray  = null;
 	
+	
+
+	public String[] getCheckboxSeqArray() {
+		return checkboxSeqArray;
+	}
+
+	public void setCheckboxSeqArray(String[] checkboxSeqArray) {
+		this.checkboxSeqArray = checkboxSeqArray;
+	}
 
 	public String getProductSeq() {
 		return productSeq;

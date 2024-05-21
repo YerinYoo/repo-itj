@@ -66,6 +66,18 @@ public class ReceiptController {
 			}
 			return returnMap;
 		}
+		
+	// multiuelete
+	@RequestMapping(value = "/receiptMultiUele")
+	public String receiptMultiUele(ReceiptDto dto) throws Exception{
+		String[] checkboxSeqArray = dto.getCheckboxSeqArray();
+		for(String checkboxSeq : checkboxSeqArray) {
+			dto.setReceiptSeq(checkboxSeq);
+			receiptService.updateDelete(dto);
+		}
+		
+		return "redirect:/receiptXdmList";
+	}
 	
 	// uelete
 	@RequestMapping(value = "/receiptXdmUelete")

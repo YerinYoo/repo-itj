@@ -31,6 +31,18 @@ public class PurchaseOrderDetailController {
 	
 	}
 	
+	// multiuelete
+	@RequestMapping(value = "/purchaseOrderDetailMultiUele")
+	public String purchaseOrderDetailMultiUele(PurchaseOrderDetailDto dto) throws Exception{
+		String[] checkboxSeqArray = dto.getCheckboxSeqArray();
+		for(String checkboxSeq : checkboxSeqArray) {
+			dto.setPurchaseOrderDetailSeq(checkboxSeq);
+			purchaseOrderDetailService.updateDelete(dto);
+		}
+		
+		return "redirect:/purchaseOrderDetailXdmList";
+	}
+	
 	// uelete
 	@RequestMapping(value = "/purchaseOrderDetailUelete")
 	public String purchaseOrderDetailUelete(PurchaseOrderDetailDto PurchaseOrderDetailDto) throws Exception{

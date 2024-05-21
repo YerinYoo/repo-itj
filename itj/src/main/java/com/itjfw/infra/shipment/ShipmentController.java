@@ -72,6 +72,18 @@ public class ShipmentController extends BaseController {
 		shipmentService.uelete(dto);
 		return "redirect:/shipmentXdmList";
 	}
+	
+	// multiuelete
+	@RequestMapping(value = "/shipmentMultiUele")
+	public String productMultiUele(ShipmentDto dto) throws Exception{
+		String[] checkboxSeqArray = dto.getCheckboxSeqArray();
+		for(String checkboxSeq : checkboxSeqArray) {
+			dto.setShipmentSeq(checkboxSeq);
+			shipmentService.uelete(dto);
+		}
+		
+		return "redirect:/shipmentXdmList";
+	}
 
 	@RequestMapping(value = "/shipmentDelete")
 	public String shipmentDelete(ShipmentDto dto, Model model) throws Exception {

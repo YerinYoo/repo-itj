@@ -13,6 +13,17 @@ public class ProductDto {
 	private Date productRegDate;
 	private Date productModDate;
 	private String memberSeqF;
+	
+	private String[] checkboxSeqArray  = null;
+	
+	
+	
+	public String[] getCheckboxSeqArray() {
+		return checkboxSeqArray;
+	}
+	public void setCheckboxSeqArray(String[] checkboxSeqArray) {
+		this.checkboxSeqArray = checkboxSeqArray;
+	}
 	public String getProductSeq() {
 		return productSeq;
 	}
