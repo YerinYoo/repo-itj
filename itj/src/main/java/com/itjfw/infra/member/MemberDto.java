@@ -14,6 +14,8 @@ public class MemberDto {
 	private Integer memberDelNy;
 	private Date memberRegDate;
 	private Date memberModDate;
+	//다중 삭제 배열 구문 
+	private String[] checkboxSeqArray  = null;
 	
 	//member DTO getter, setter
 	public String getMemberSeq() {
@@ -77,6 +79,12 @@ public class MemberDto {
 		this.memberModDate = memberModDate;
 	}
 	
+	public String[] getCheckboxSeqArray() {
+		return checkboxSeqArray;
+	}
+	public void setCheckboxSeqArray(String[] checkboxSeqArray) {
+		this.checkboxSeqArray = checkboxSeqArray;
+	}
 	//member DTO toString()
 	@Override
 	public String toString() {

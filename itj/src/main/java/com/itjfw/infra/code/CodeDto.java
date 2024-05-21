@@ -14,6 +14,8 @@ public class CodeDto {
 
 	private String codeGroupSeqF;
 	private String xcodeGroupName;
+	
+	private String[] checkboxSeqArray  = null;
 
 //	캐시사용을 위한 list 생성
 	public static List<CodeDto> cachedCodeArrayList = new ArrayList<CodeDto>();
@@ -83,6 +85,14 @@ public class CodeDto {
 
 	public void setXcodeGroupName(String xcodeGroupName) {
 		this.xcodeGroupName = xcodeGroupName;
+	}
+
+	public String[] getCheckboxSeqArray() {
+		return checkboxSeqArray;
+	}
+
+	public void setCheckboxSeqArray(String[] checkboxSeqArray) {
+		this.checkboxSeqArray = checkboxSeqArray;
 	}
 
 }

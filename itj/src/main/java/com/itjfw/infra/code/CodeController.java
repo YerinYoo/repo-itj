@@ -86,6 +86,16 @@ public class CodeController extends BaseController {
 		return "redirect:/codeXdmList";
 	}
 
+	@RequestMapping(value = "/codeMultiUele")
+	public String codeMultiUele(CodeDto dto) throws Exception{
+		String[] checkboxSeqArray = dto.getCheckboxSeqArray();
+		for(String checkboxSeq : checkboxSeqArray) {
+			dto.setCodeSeq(checkboxSeq);
+			codeService.uelete(dto);
+		}
+		
+		return "redirect:/codeXdmList";
+	}
 	@RequestMapping(value = "/codeDelete")
 	public String codeDelete(CodeDto dto, Model model) throws Exception {
 

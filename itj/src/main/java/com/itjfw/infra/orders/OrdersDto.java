@@ -10,7 +10,7 @@ public class OrdersDto {
 	private Date ordersRegDate;
 	private Date ordersModDate;
 	private String memberSeqF;
-	
+	private String[] checkboxSeqArray  = null;
 	//orders DTO getter, setter
 	public String getOrdersSeq() {
 		return ordersSeq;
@@ -48,7 +48,12 @@ public class OrdersDto {
 	public void setMemberSeqF(String memberSeqF) {
 		this.memberSeqF = memberSeqF;
 	}
-	
+	public String[] getCheckboxSeqArray() {
+		return checkboxSeqArray;
+	}
+	public void setCheckboxSeqArray(String[] checkboxSeqArray) {
+		this.checkboxSeqArray = checkboxSeqArray;
+	}
 	//orders toString()
 	@Override
 	public String toString() {

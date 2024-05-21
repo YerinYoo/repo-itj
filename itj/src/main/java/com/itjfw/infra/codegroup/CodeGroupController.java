@@ -70,6 +70,17 @@ public class CodeGroupController extends BaseController {
 		codeGroupService.uelete(dto);
 		return "redirect:/codeGroupXdmList";
 	}
+	
+	@RequestMapping(value = "/codeGroupMultiUele")
+	public String codeGroupMultiUele(CodeGroupDto dto) throws Exception{
+		String[] checkboxSeqArray = dto.getCheckboxSeqArray();
+		for(String checkboxSeq : checkboxSeqArray) {
+			dto.setCodeGroupSeq(checkboxSeq);
+			codeGroupService.uelete(dto);
+		}
+		
+		return "redirect:/codeGroupXdmList";
+	}
 
 	@RequestMapping(value = "/codeGroupDelete")
 	public String codeGroupDelete(CodeGroupDto dto, Model model) throws Exception {

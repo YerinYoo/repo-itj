@@ -86,6 +86,17 @@ public class OrdersController extends BaseController {
 		return "redirect:/ordersXdmList";
 	}
 	
+	@RequestMapping(value = "/ordersMultiUele")
+	public String codeMultiUele(OrdersDto dto) throws Exception{
+		String[] checkboxSeqArray = dto.getCheckboxSeqArray();
+		for(String checkboxSeq : checkboxSeqArray) {
+			dto.setOrdersSeq(checkboxSeq);
+			ordersService.ordersUlt(dto);
+		}
+		
+		return "redirect:/codeXdmList";
+	}
+	
 	@RequestMapping("/ordersDel")
 	public String memberDel(OrdersDto ordersDto, OrderDetailDto orderDetailDto) throws Exception {
 		

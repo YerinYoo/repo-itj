@@ -11,6 +11,8 @@ public class CodeGroupDto {
 	private Date codeGroupModDate;
 
 	private Integer xcount;
+	
+	private String[] checkboxSeqArray  = null;
 
 	public String getCodeGroupSeq() {
 		return codeGroupSeq;
@@ -68,4 +70,13 @@ public class CodeGroupDto {
 		this.xcount = xcount;
 	}
 
+	public String[] getCheckboxSeqArray() {
+		return checkboxSeqArray;
+	}
+
+	public void setCheckboxSeqArray(String[] checkboxSeqArray) {
+		this.checkboxSeqArray = checkboxSeqArray;
+	}
+
+	
 }

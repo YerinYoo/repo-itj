@@ -98,6 +98,17 @@ public class MemberController extends BaseController {
 		return "redirect:/memberXdmList";
 	}
 	
+	@RequestMapping(value = "/memberMultiUelete")
+	public String memberMultiUelete(MemberDto memberDto) throws Exception{
+		String[] checkboxSeqArray = memberDto.getCheckboxSeqArray();
+		for(String checkboxSeq : checkboxSeqArray) {
+			memberDto.setMemberSeq(checkboxSeq);
+			memberService.memberUlt(memberDto);
+		}
+		
+		return "redirect:/memberXdmList";
+	}
+	
 	@RequestMapping("/memberDel")
 	public String memberDe(MemberDto memberDto, OrdersDto ordersDto, OrderDetailDto orderDetailDto) throws Exception {
 		
