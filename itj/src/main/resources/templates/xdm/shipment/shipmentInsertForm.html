@@ -138,12 +138,11 @@
 		function validationInst() {
 			if(validationUpdt() == false) {
 				return false;
-				alert("insert");	
 			}
 		} 
 			
 		function validationUpdt() {
-			if(!checkOnlyKoreanEnglishNumber('shipmentName', 2 ,0,'코드그룹 이름은 한글,영어,숫자만 가능합니다.' )) return false;
+			if(!checkOnlyKoreanEnglishNumber('shipmentDeliverName', 2 ,0,'코드그룹 이름은 한글,영어,숫자만 가능합니다.' )) return false;
 		}
 		</script>
 		
