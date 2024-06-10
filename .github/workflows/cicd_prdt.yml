@@ -11,7 +11,7 @@ on: [workflow_dispatch]
 env:
   PROJECT_NAME: itj
   AWS_REGION: ap-northeast-2
-  S3_BUCKET: jw-cicd
+  S3_BUCKET: itj-cicd
 #  S3_FOLDER: adsrun-v2-prdt
   CODE_DEPLOY_APPLICATION_NAME: dpro-team
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: dpro-team-prdt
